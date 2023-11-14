@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="_htmresc/mini-st.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h2 id="ux_device_hid-application-description"><b>Ux_Device_HID
+application description</b></h2>
+<p>This application provides an example of Azure RTOS USBX stack usage
+on STM32MP135F-DK board, it shows how to develop USB Device Human
+Interface “HID” mouse based application.</p>
+<p>The application is designed to emulate an USB HID mouse device, the
+code provides all required device descriptors framework and associated
+Class descriptor report to build a compliant USB HID mouse device.</p>
+<p>At the beginning ThreadX call the entry function
+tx_application_define(), at this stage, all USBx resources are
+initialized, the HID Class driver is registered and the application
+creates 2 threads with the same priorities :</p>
+<ul>
+<li>usbx_app_thread_entry (Prio : 20; PreemptionPrio : 20) used to
+initialize USB OTG HAL PCD driver and start the device.</li>
+<li>usbx_hid_thread_entry (Prio : 20; PreemptionPrio : 20) used to send
+HID reports to move automatically the PC host machine cursor.</li>
+</ul>
+<p>To customize the HID application by sending the mouse position step
+by step every 10ms. For each 10ms, the application calls the
+GetPointerData() API to update the mouse position (x, y) and send the
+report buffer through the ux_device_class_hid_event_set() API.</p>
+<h4 id="expected-success-behavior"><b>Expected success behavior</b></h4>
+<p>When plugged to PC host, the STM32MP135F-DK must be properly
+enumerated as an USB HID mouse device. During the enumeration phase,
+device provides host with the requested descriptors (Device,
+configuration, string). Those descriptors are used by host driver to
+identify the device capabilities. Once the STM32MP135F-DK USB device
+successfully completed the enumeration phase, the device sends a HID
+report after a USER1 button press. Each report sent should move the
+mouse cursor by one step on host side.</p>
+<p>In this application : - One EXTI line (EXTI14) is configured to
+generate an interrupt on each falling edge. - When falling edge is
+detected by pressing USER1 push-button, the User_Button_State variable
+should be updated.</p>
+<h4 id="error-behaviors"><b>Error behaviors</b></h4>
+<p>Host PC shows that USB device does not operate as designed (Mouse
+enumeration failed, the mouse pointer doesn’t move).</p>
+<h4 id="assumptions-if-any"><b>Assumptions if any</b></h4>
+<p>User is familiar with USB 2.0 “Universal Serial BUS” Specification
+and HID class Specification.</p>
+<h4 id="known-limitations"><b>Known limitations</b></h4>
+<h3 id="notes"><b>Notes</b></h3>
+<ul>
+<li>The DDR memory need to be initialized with DDR_Init project.</li>
+</ul>
+<p>On STM32MP135F-DK: - EXTI14 is connected to USER1 push-button.</p>
+<h4 id="threadx-usage-hints"><b>ThreadX usage hints</b></h4>
+<ul>
+<li>ThreadX uses the Systick as time base, thus it is mandatory that the
+HAL uses a separate time base through the TIM IPs.</li>
+<li>ThreadX is configured with 100 ticks/sec by default, this should be
+taken into account when using delays or timeouts at application. It is
+always possible to reconfigure it in the “tx_user.h”, the
+“TX_TIMER_TICKS_PER_SECOND” define,but this should be reflected in
+“tx_initialize_low_level.S” file too.</li>
+<li>ThreadX is disabling all interrupts during kernel start-up to avoid
+any unexpected behavior, therefore all system related calls (HAL, BSP)
+should be done either at the beginning of the application or inside the
+thread entry functions.</li>
+<li>ThreadX offers the “tx_application_define()” function, that is
+automatically called by the tx_kernel_enter() API. It is highly
+recommended to use it to create all applications ThreadX related
+resources (threads, semaphores, memory pools…) but it should not in any
+way contain a system API call (HAL or BSP).</li>
+</ul>
+<h4 id="usbx-usage-hints"><b>USBX usage hints</b></h4>
+<h3 id="keywords"><b>Keywords</b></h3>
+<p>RTOS, ThreadX, USBXDevice, USB_OTG, High Speed, HID, Mouse,</p>
+<h3 id="hardware-and-software-environment"><b>Hardware and Software
+environment</b></h3>
+<ul>
+<li>This example runs on STM32MP135xx devices.</li>
+<li>This example has been tested with STMicroelectronics STM32MP135F-DK
+boards and can be easily tailored to any other supported device and
+development board.</li>
+<li>Connect the STM32MP135F-DK board CN7 to the PC through “MICRO-USB”
+to “Standard A” cable.</li>
+</ul>
+<h3 id="how-to-use-it"><b>How to use it ?</b></h3>
+<p>In order to make the program work, you must do the following :</p>
+<ul>
+<li>Open your preferred toolchain</li>
+<li>Rebuild and run DDR_Init example to initialize the DDR memory</li>
+<li>Rebuild all files of Ux_Device_HID application and load your image
+into target memory</li>
+<li>Run the application</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Release Notes for STM32MP13xx CMSIS</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<div class="row">
+<div class="col-sm-12 col-lg-4">
+<center>
+<h1 id="release-notes-for-stm32mp13xx-cmsis">Release Notes for
+<mark> STM32MP13xx CMSIS </mark></h1>
+<p>Copyright © 2023 STMicroelectronics<br />
+</p>
+<a href="https://www.st.com" class="logo"><img
+src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
+</center>
+<h1 id="purpose">Purpose</h1>
+<p>This driver provides the <strong>CMSIS device for the
+STM32MP13xx</strong> products:</p>
+<ul>
+<li><strong>STM32MP131xx</strong> devices</li>
+<li><strong>STM32MP133xx</strong> devices</li>
+<li><strong>STM32MP135xx</strong> devices</li>
+</ul>
+<p>This driver is composed of the descriptions of the registers under
+“Include” directory. Various template file are provided to easily build
+an application. They can be adapted to fit applications
+requirements:</p>
+<ul>
+<li>Templates/system_stm32mp13xx.c contains the initialization code
+referred as SystemInit.</li>
+<li>Startup files are provided as example for STM32CubeIDE©.</li>
+<li>Linker files are provided as example for STM32CubeIDE©.</li>
+</ul>
+</div>
+<section id="update-history" class="col-sm-12 col-lg-8">
+<h1><strong>Update History</strong></h1>
+<div class="collapse">
+<input type="checkbox" id="collapse-section0" checked aria-hidden="true">
+<label for="collapse-section0" checked aria-hidden="true"><strong>V1.0.0
+/ 01-Nov-2023</strong></label>
+<div>
+<h2 id="main-changes">Main Changes</h2>
+<p>This release is the <strong>Mass Market DV of Bit and registers
+definition</strong> for STM32MP13xx</p>
+<h2 id="contents">Contents</h2>
+<ul>
+<li>Support added for the MMU and CACHE initialization</li>
+<li>System, Startup, ThreadX initialization and linker script files for
+AzureRTOS MW updated to support thumb mode</li>
+<li>Support added for part numbers</li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>IAR support is not implemented</li>
+</ul>
+<h2 id="dependencies">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section7" aria-hidden="true">
+<label for="collapse-section7" aria-hidden="true"><strong>V0.7.0 /
+27-June-2023</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<p>This release is the <strong>5th ALPHA DV of Bit and registers
+definition</strong> for STM32MP13xx</p>
+<h2 id="contents-1">Contents</h2>
+<ul>
+<li>FMC NAND defines updated for the HAL NAND sequencer</li>
+<li>Fixes for the MMU initialization</li>
+<li>Update bit definition in header files for ETZPC</li>
+<li>System, startup, ThreadX initialization and linker script files for
+AzureRTOS MW updated to support thumb mode</li>
+</ul>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<ul>
+<li>IAR Templates not yet available</li>
+</ul>
+<h2 id="dependencies-1">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section6"  aria-hidden="true">
+<label for="collapse-section6" aria-hidden="true"><strong>V0.6.0 /
+16-December-2022</strong></label>
+<div>
+<h2 id="main-changes-2">Main Changes</h2>
+<p>This release is the <strong>4th ALPHA DV of Bit and registers
+definition</strong> for STM32MP13xx</p>
+<h2 id="contents-2">Contents</h2>
+<ul>
+<li>Update bit definition in header files:
+<ul>
+<li>TIM, SPDIFRX, ETH</li>
+<li>Update RTC_TAMP_NB to match with External Tamper</li>
+<li>Rename TZPC to ETZPC</li>
+</ul></li>
+<li>System files for AzureRTOS MW
+<ul>
+<li>Timer should be started later in azurertos application init</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-2">Known Limitations</h2>
+<ul>
+<li>IAR Templates not yet available</li>
+</ul>
+<h2 id="dependencies-2">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section5" aria-hidden="true">
+<label for="collapse-section5" aria-hidden="true"><strong>V0.5.0 /
+29-June-2022</strong></label>
+<div>
+<h2 id="main-changes-3">Main Changes</h2>
+<p>This release is the <strong>2nd ALPHA DV of Bit and registers
+definition</strong> for STM32MP13xx</p>
+<h2 id="contents-3">Contents</h2>
+<ul>
+<li>Update bit definition in header files:
+<ul>
+<li>for PWR, ETH, LPTIM</li>
+<li>add internal TAMPER 12 and 13 definitions</li>
+<li>update USART structure with uint32_t only</li>
+<li>Fix typo for SYSCFG_HSLVEN4R_HSLVEN_SDMMC1</li>
+</ul></li>
+<li>Implement startup and system files for AzureRTOS MW</li>
+<li>Fix some MISRAC2012 rules</li>
+</ul>
+<h2 id="known-limitations-3">Known Limitations</h2>
+<ul>
+<li>IAR Templates not yet available</li>
+</ul>
+<h2 id="dependencies-3">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section4" aria-hidden="true">
+<label for="collapse-section4" aria-hidden="true"><strong>V0.4.0 /
+04-March-2022</strong></label>
+<div>
+<h2 id="main-changes-4">Main Changes</h2>
+<p>This release is the <strong>2nd ALPHA DV of Bit and registers
+definition</strong> for STM32MP13xx</p>
+<h2 id="contents-4">Contents</h2>
+<ul>
+<li>Update bit definition in header files:
+<ul>
+<li>DMAMUX: Fix SYNC_ID definition</li>
+</ul></li>
+<li>MMU : rename file and update the license</li>
+<li>Linker : Clean linker and add stm32mp13xx_a7_ddr.ld</li>
+</ul>
+<h2 id="known-limitations-4">Known Limitations</h2>
+<p>None</p>
+<h2 id="dependencies-4">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section3" aria-hidden="true">
+<label for="collapse-section3" aria-hidden="true"><strong>V0.3.0 /
+03-December-2021</strong></label>
+<div>
+<h2 id="main-changes-5">Main Changes</h2>
+<p>This release is the <strong>ALPHA DV of Bit and registers
+definition</strong> for STM32MP13xx</p>
+<h2 id="contents-5">Contents</h2>
+<ul>
+<li>MMU : Clean mmu configuration file</li>
+<li>SAES : Update SAES CR and SR registers</li>
+<li>RCC : Remove deprecated register MP_AHB4ENSETR</li>
+<li>TIMER : Update macros according to IP specifications</li>
+<li>USB : update register definitions for USB OTG and USBPHYC</li>
+<li>RTC : RTC_CFGR register is renamed RTC_OR ( to be aligned with
+specifications)</li>
+<li>[MISRAC2012-Rule-10.6] Use ‘UL’ postfix for _Msk definitions and
+memory/peripheral base addresses</li>
+</ul>
+<h2 id="known-limitations-5">Known Limitations</h2>
+<p>None</p>
+<h2 id="dependencies-5">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" aria-hidden="true">
+<label for="collapse-section2" aria-hidden="true"><strong>V0.2.0 /
+09-June-2021</strong></label>
+<div>
+<h2 id="main-changes-6">Main Changes</h2>
+<p>This release is the <strong>PRE-ALPHA DV of Bit and registers
+definition</strong> aligned with the STM32MP13 reference manual</p>
+<h2 id="contents-6">Contents</h2>
+<ul>
+<li>Update bit definition in header files:
+<ul>
+<li>PWR : add bit register PWR_CR1_MPU_RAM_LOWSPEED</li>
+<li>SYSCFG : clean useless Flag</li>
+</ul></li>
+<li>Linker script : update size and offset for template file</li>
+<li>Update the licenses declaration</li>
+</ul>
+<h2 id="known-limitations-6">Known Limitations</h2>
+<p>None</p>
+<h2 id="dependencies-6">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1" aria-hidden="true">
+<label for="collapse-section1" aria-hidden="true"><strong>V0.1.0 /
+20-April-2021</strong></label>
+<div>
+<h2 id="main-changes-7">Main Changes</h2>
+<p>This release is the <strong>Bring Up DV of Bit and registers
+definition</strong> aligned with the STM32MP13 reference manual</p>
+<h2 id="contents-7">Contents</h2>
+<ul>
+<li>Support of stm32mp13xx:
+<ul>
+<li>Add “stm32mp13xx.h”file</li>
+<li>Add part numbers list to stm32mp13xx.h header file:
+<ul>
+<li>STM32MP131Axx, STM32MP131Cxx, STM32MP131Dxx, STM32MP131Fxx</li>
+<li>STM32MP133Axx, STM32MP133Cxx, STM32MP133Dxx, STM32MP133Fxx</li>
+<li>STM32MP135Axx, STM32MP135Cxx, STM32MP135Dxx, STM32MP135Fxx</li>
+</ul></li>
+<li>Add startup file “startup_stm32mp135c_ca7.c” for STM32CubeIDE
+toolchain</li>
+<li>Add STM32CubeIDE linker file for all devices for legacy and for
+TrustZone based application</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-7">Known Limitations</h2>
+<p>None</p>
+<h2 id="dependencies-7">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+</section>
+</div>
+<footer class="sticky">
+For complete documentation on STM32 Microcontrollers </mark> , visit:
+<span style="font-color: blue;"><a
+href="http://www.st.com/stm32">www.st.com/stm32</a></span>
+</footer>
+</body>
+</html>

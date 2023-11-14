@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html><head><title>Projects Overview</title>
+
+<style>
+.descriptionColumn { min-width:550px;}
+em{color:red;font-weight: bold;}
+importantLink {font-size:10pt; font-family: "Verdana","sans-serif" color:black;}
+article{border: 1px solid #828282;margin: 20px 0px 20px 9px;}
+body{font-family: Verdana;font-size: 10pt; color: black;margin-left: 40px;}
+.picture{text-align: center}
+.copyright{text-align: center}
+h1{text-align: center;font-size: 20pt; font-family: Verdana; color: rgb(51, 102, 255);}
+</style></head>
+<body>
+<h1>STM32CubeMP13 Firmware Examples for STM32MP13xx Series</h1>
+<p class="copyright">Copyright 2023 STMicroelectronics</p>
+<div class="picture"> <img alt="" id="_x0000_i1025" src="../_htmresc/st_logo_2020.png" style="border: 0px solid ; width: 104px; height: 77px;"> </div>
+<p>The STM32CubeMP13 Firmware package comes with a rich set of
+examples running on STMicroelectronics boards, organized by board and
+provided with preconfigured projects for the main supported toolchains.</p>
+<div class="picture"> <img alt="" src="../_htmresc/STM32Cube.bmp"> </div>
+<p>The examples are classified depending on the STM32Cube level
+they apply to, and are named as follows:</p>
+<ul>
+<li id="Examples"><b>Examples</b> uses only
+the HAL and BSP drivers (Middleware not used), having as objective to
+demonstrate the product/peripherals features and usage. The examples
+are organized per peripheral (a folder for each peripheral, ex. TIM)
+and offers different complexity level from basic usage of a given
+peripheral (ex. PWM generation using timer) till integration of several
+peripherals. Board resources usage is reduced to the strict minimum.</li>
+<li id="Applications"><b>Applications</b>
+intends to demonstrate the product performance and how to use the
+different Middleware stacks available. The Applications are organized
+per Middleware (a folder for each Middleware, ex. USB Host) or product
+feature that need high level firmware bricks (ex. Audio). Integration
+Applications that use several Middleware stacks are provided as well.</li>
+<li>A Template project is provided to allow user to quickly
+build any firmware application on a given board.</li>
+<li>External loader project is provided to allow user to load
+user applications from external memories e.g. SD Card and SNOR on a given board.</li>
+</ul>
+<p>The examples are located under
+STM32Cube_FW_MP13_VX.Y.Z\Projects\, and all of them have the same
+structure:</p>
+<ul>
+<li>\Inc folder that contains all header files.</li>
+<li>\Src folder for the sources code.</li>
+<li>\STM32CubeIDE folders contain the preconfigured project for
+each toolchain.</li>
+<li>A readme describing the example behavior and the
+environment required to run the example.</li>
+</ul>
+<p>To run the example, you have to do the following:</p>
+<ul>
+<li>Open the example using your preferred toolchain.</li>
+<li>Rebuild all files and load the image into target memory.</li>
+<li>Run the example by following the readme instructions.</li>
+<li> <i><u>Note</u>: refer to section
+"Development Toolchains and Compilers" and "Supported Devices and EVAL,
+Nucleo and Discovery boards" of the Firmware package release notes to
+know about the SW/HW environment used for the Firmware development and
+validation. The correct operation of the provided examples is not
+guaranteed on some environments, for example when using different
+compiler or board versions.</i> </li>
+</ul>
+<p>The provided examples can be tailored to run on any compatible
+hardware; user simply need to update the BSP drivers for his board, if
+it has the same hardware functions (LED, LCD display,
+pushbuttons...etc.). The BSP is based on a modular architecture that
+allows it to be ported easily to any hardware by just implementing the
+low level routines.</p>
+<p style="font-weight: bold;"> Execution information :</p><ul><li><span style="text-decoration: underline;">Engineering boot mode</span>:</li><ul><li>All the examples could be run on SYSRAM memory, except LTDC_Display_2Layers
+(the binary size of this example is larger than SYSRAM Size) =&gt; For
+this example, DDR_Init should be run before.</li><li>For the same reason, all the AzureRTOS applications should be run after DDR_Init example.</li></ul><li><span style="text-decoration: underline;">SDCard boot mode</span> (Possible on <span style="font-weight: bold;">STM32MP135F_DK </span>board):</li><ul><li>The
+applications or examples (CubeExample) could be executed from SDCard.
+For the instance, the FSBLA_Sdmmc and the CubeExample should be copied
+manually in the SD Card.&nbsp;</li><ul><li>At the boot, the bootrom will copy the FSBLA_SDMMC in SYSRAM and execute it,</li><li>FSBLA_Sdmmc:</li><ul><li>will initialize the clocks, the SDMMC and the DDR,</li></ul><ul><li>will read from SDMMC1 the CubeExample image length and load CubeExample into DDR.</li><li>will jump into DDR to execute this CubeExample</li></ul></ul></ul><li><span style="text-decoration: underline;">NOR boot mode </span>(not
+possible on STM32MP135F_DK board because no XSPI_NOR available, but
+feature has been validated with internal ST Board customized - <span style="font-weight: bold;">STM32MP13XX_CUSTOM_HW</span>)</li><ul><li>The
+applications or examples (CubeExample) could be executed from NOR.
+For the instance, the FSBLA_SNOR and the CubeExample could be copied with the&nbsp;debug tool "XSPI_NOR_Programmer".&nbsp;</li><ul><li>At the boot, the bootrom will copy the FSBLA_SNOR in SYSRAM and execute it,</li><li>FSBLA_SNOR:</li><ul><li>will initialize the clocks, the XSPI-NOR and the DDR,</li></ul><ul><li>will read from XSPI-NOR the CubeExample image length and load CubeExample into DDR.</li><li>will jump into DDR to execute this CubeExample</li></ul></ul></ul></ul>
+<div>The table below contains the list of examples provided
+within STM32Cube_FW_MP13 Firmware package.</div>
+<p id="STM32MP13xxImportantLink"> </p>
+<div>Reference materials available on <a href="http://www.st.com/stm32cubefw" target="_blank">www.st.com/stm32cubefw</a></div>
+<ul>
+<li><a href="http://intranet.lme.st.com:8000/php-bin/ug_mcdmpu/index.php/Main_Page" target="_blank">Wiki</a>: Wiki STM32 Main Page.</li>
+</ul>
+<table style="background-color: rgb(240, 240, 255);" border="1">
+<tbody>
+<tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
+<td><b>Level</b></td>
+<td><b>Module Name</b></td>
+<td><b>Project Name</b></td>
+<td class="descriptionColumn"><b>Description</b></td>
+<td>STM32MP135C-DK</td><td>STM32MP13XX_<br>CUSTOM_HW</td>
+</tr>
+<tr align="center">
+<td style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" rowspan="2">
+<p id="BSP_BasicTemplates_900MHz">BSP_BasicTemplates_900MHz</p>
+</td>
+<td rowspan="1" align="left">
+<p id="-">-</p>
+</td>
+<td align="left">
+<p id="-">-</p>
+</td>
+<td align="left">This project provides a reference
+template that can be used to build any firmware application.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
+<td colspan="3"><b>Total number of
+bsp_basictemplates_900mhz: 1</b></td>
+<td>1</td><td></td>
+</tr>
+
+<tr align="center">
+<td style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" rowspan="2">
+<p id="BSP_BasicTemplates">BSP_BasicTemplates</p>
+</td>
+<td rowspan="1" align="left">
+<p id="-">-</p>
+</td>
+<td align="left">
+<p id="-">-</p>
+</td>
+<td align="left">This project provides a reference
+template that can be used to build any firmware application.
+</td>
+<td><font color="green" size="5">X</font></td><td style="background-color: rgb(240, 240, 255);"><font color="green" size="5">X</font></td>
+</tr>
+<tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
+<td colspan="3"><b>Total number of
+bsp_basictemplates: 2</b></td>
+<td>1</td><td>1</td>
+</tr>
+<tr align="center">
+<td style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" rowspan="44">
+<p id="Examples">Examples</p>
+</td>
+<td rowspan="3" align="left">
+<p id="ADC">ADC</p>
+</td>
+<td align="left">
+<p id="ADC_SingleConversion_TriggerTimer_DMA">ADC_MultiChannelSingleConversion</p>
+</td>
+<td align="left">How to use an ADC peripheral to
+convert several channels. ADC conversions are performed successively in
+a scan sequence.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr>
+<td>
+<p id="ADC_SingleConversion_TriggerTimer_DMA">ADC_SingleConversion_TriggerTimer_DMA</p>
+</td>
+<td>Use ADC to convert a single channel
+at each trig from timer, conversion data are transferred by DMA into an
+array, indefinitely (circular mode).</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td align="left">
+<p id="ADC_SingleConversion_TriggerTimer_DMA_Secure">ADC_SingleConversion_TriggerTimer_DMA_Secure</p>
+</td>
+<td align="left">Use ADC to convert a single channel
+at each trig from timer, conversion data are transferred by secure DMA
+into an array, indefinitely (circular mode).
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td rowspan="1" align="left">
+<p id="CRC">CRC</p>
+</td>
+<td align="left">
+<p id="CRC_UserDefinedPolynomial">CRC_UserDefinedPolynomial</p>
+</td>
+<td align="left">How to configure the CRC using the
+HAL API. The CRC (cyclic
+redundancy check) calculation unit computes the 8-bit CRC code for a
+given
+buffer of 32-bit data words, based on a user-defined generating
+polynomial.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td rowspan="4" align="left">
+<p id="CRYP/SAES">CRYP/SAES</p>
+</td>
+<td align="left">
+<p id="CRYP_SAES_WrapKey">CRYP_SAES_WrapKey</p>
+</td>
+<td align="left">Use the Secure AES co-processor
+(SAES) peripheral to wrap application keys
+using hardware secret key DHUK then use it to encrypt in polling mode.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr>
+<td>CRYP_SAES_MDMA_ECB_CBC</td>
+<td>How to use the SecureAES co-processor (SAES) peripheral
+to encrypt and decrypt data<br>
+using AES ECB and CBC Algorithms with MDMA</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td align="left">
+<p id="CRYP_AES_MDMA">CRYP_AES_MDMA</p>
+</td>
+<td align="left">This example provides a short
+description of how to
+use the CRYPTO peripheral to encrypt and decrypt data using AES-128
+Algorithm with ECB chaining mode.<br>
+For this example, MDMA is used to
+transfer data from memory to the CRYPTO processor IN FIFO and also to
+transfer data from CRYPTO processor OUT FIFO to memory.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td align="left">
+<p id="CRYP_TDESModes">CRYP_TDESModes</p>
+</td>
+<td align="left">How to use the CRYPTO peripheral to
+encrypt/decrypt data(Plaintext/Ciphertext) using TDES ECB and CBC
+algorithm.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td rowspan="2" align="left">
+<p id="DCMIPP">DCMIPP</p>
+</td>
+<td align="left">
+<p id="DCMIPP_CaptureMode_A7">DCMIPP_CaptureMode_A7</p>
+</td>
+<td align="left">The goal of this example is to explain 
+how to capture frames continuously.
+</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td align="left">
+<p id="DCMIPP_SnapshotMode_A7">DCMIPP_SnapshotMode_A7</p>
+</td>
+<td align="left">The goal of this example is to 
+explain how to capture single frame.
+</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td ></td>
+</tr>
+<tr align="center">
+<td rowspan="1" align="left">
+<p id="DDR">DDR</p>
+</td>
+<td align="left">
+<p id="DDR_Init">DDR_Init</p>
+</td>
+<td align="left">This example provides a reference
+to initialize the DDR on STM32MP13XX-DK (DDR3).
+</td>
+<td><font color="green" size="5">X</font></td><td style="background-color: rgb(240, 240, 255);"><font color="green" size="5">X</font></td>
+</tr>
+<tr align="center">
+<td rowspan="2" align="left">
+<p id="DMA">DMA</p>
+</td>
+<td align="left">
+<p id="DMA_FIFOMode">DMA_FIFOMode</p>
+</td>
+<td align="left">This example provides a description
+of how to use a DMA to transfer
+a word data buffer from Flash memory to embedded SYSRAM configured
+non-secure
+with FIFO mode enabled through the HAL API.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td align="left">
+<p id="DMA_FIFOMode_Secure">DMA_FIFOMode_Secure</p>
+</td>
+<td align="left">This example provides a description
+of how to use a DMA to transfer
+a word data buffer from Flash memory to embedded SYSRAM configured
+secure
+with FIFO mode enabled through the HAL API.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td rowspan="1" align="left">
+<p id="DTS">DTS</p>
+</td>
+<td align="left">
+<p id="DTS_GetTemperature">DTS_GetTemperature</p>
+</td>
+<td align="left">How to configure and use the DTS to
+get the temperature of the die.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr><td>ETZPC</td><td>ETZPC_NonSecure_Access</td><td>This example describes non-secure accesses of memory using DMA.</td><td style="text-align: center; background-color: rgb(240, 240, 255);"><font color="green" size="5">X</font></td><td></td></tr><tr align="center">
+<td rowspan="1" align="left">
+<p id="FDCAN">FDCAN</p>
+</td>
+<td align="left">
+<p id="FDCAN_Loopback">FDCAN_Loopback</p>
+</td>
+<td align="left">How to configure the FDCAN to
+operate in loopback mode.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td rowspan="1" align="left">
+<p id="GPIO">GPIO</p>
+</td>
+<td align="left">
+<p id="GPIO_EXTI">GPIO_EXTI</p>
+</td>
+<td align="left">How to configure external interrupt
+lines.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td rowspan="1" align="left">
+<p id="HASH">HASH</p>
+</td>
+<td align="left">
+<p id="HASH_SHA3384SHA3512_MDMA">HASH_SHA3384SHA3512_MDMA</p>
+</td>
+<td align="left">This example provides a short
+description of how to use the HASH peripheral to
+hash data using SHA3-384 and SHA3-512 Algorithms.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td rowspan="1" align="left">
+<p id="I2C">I2C</p>
+</td>
+<td align="left">
+<p id="I2C_TwoBoards_ComIT">I2C_TwoBoards_ComIT</p>
+</td>
+<td align="left">How to handle I2C data buffer
+transmission/reception between two boards,
+using an interrupt.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td rowspan="1" align="left">
+<p id="IWDG">IWDG</p>
+</td>
+<td align="left">
+<p id="IWDG_WindowMode">IWDG_WindowMode</p>
+</td>
+<td align="left">How to periodically update the IWDG
+reload counter and simulate a software fault that generates an MCU IWDG
+reset after a preset laps of time.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td rowspan="1" align="left">
+<p id="LPTIM">LPTIM</p>
+</td>
+<td align="left">
+<p id="LPTIM_PulseCounter">LPTIM_PulseCounter</p>
+</td>
+<td align="left">This example describes how to
+configure and use LPTIM to count pulses through
+the LPTIM HAL API.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td rowspan="1" align="left">
+<p id="LTDC">LTDC</p>
+</td>
+<td align="left">
+<p id="LTDC_Display_2Layers">LTDC_Display_2Layers</p>
+</td>
+<td align="left"> How to configure the LTDC
+peripheral to display two layers at the same time.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr><td colspan="1" rowspan="2">MDMA</td><td>MDMA_Mem2MemTransfer</td><td>This
+example provides a description of how to use a MDMA (configured
+non-secure) to transfer a data buffer from SYSRAM to SRAM3 through the
+HAL API.</td><td style="text-align: center; background-color: rgb(240, 240, 255);"><font color="green" size="5">X</font></td><td></td></tr><tr><td>MDMA_Mem2MemTransfer_Secure</td><td>This
+example provides a description of how to use a MDMA (configured secure)
+to transfer a data buffer from SYSRAM to SRAM3 through the HAL API.</td><td style="text-align: center; background-color: rgb(240, 240, 255);"><font color="green" size="5">X</font></td><td></td></tr><tr><td colspan="1" rowspan="2">PKA</td><td>PKA_ECCDoubleBaseLadder</td><td>How to use the PKA to run ECC Double Base Ladder operation</td><td style="text-align: center; background-color: rgb(240, 240, 255);"><font color="green" size="5">X</font></td><td></td></tr><tr><td>PKA_ECDSA_Sign</td><td>How to compute a signed message regarding the Elliptic curve digital signature algorithm (ECDSA).</td><td style="text-align: center; background-color: rgb(240, 240, 255);"><font color="green" size="5">X</font></td><td></td></tr><tr align="center">
+<td rowspan="3" align="left">
+<p id="PWR">PWR</p>
+</td>
+<td align="left">
+<p id="PWR_STANDBY">PWR_STANDBY</p>
+</td>
+<td align="left"> This example show how to enter the
+Standby mode and wake up from this mode by using an external reset or
+the WKUP pin.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td align="left">
+<p id="PWR_STANDBY_RTC">PWR_STANDBY_RTC</p>
+</td>
+<td align="left"> How to enter the Standby mode and
+wake-up from this mode by using an external reset or the RTC wakeup
+timer.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td align="left">
+<p id="PWR_STOP_RTC">PWR_STOP_RTC</p>
+</td>
+<td align="left">How to enter the Stop mode and wake
+up from this mode by using the RTC wakeup timer event connected to an
+interrupt.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td rowspan="1" align="left">
+<p id="RNG">RNG</p>
+</td>
+<td align="left">
+<p id="RNG_MultiRNG">RNG_MultiRNG</p>
+</td>
+<td align="left">Configuration of the RNG using the
+HAL API. This example uses the RNG to generate 32-bit long random
+numbers.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td rowspan="3" align="left">
+<p id="RTC">RTC</p>
+</td>
+<td align="left">
+<p id="RTC_Alarm">RTC_Alarm</p>
+</td>
+<td align="left">How to configure and generate an
+RTC alarm using the RTC HAL API.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td align="left">
+<p id="RTC_Tamper">RTC_Tamper</p>
+</td>
+<td align="left">How to configure RTC to write/read
+data to/from RTC Backup registers and to demonstrate
+the tamper detection feature.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td align="left">
+<p id="RTC_TimeStamp">RTC_TimeStamp</p>
+</td>
+<td align="left">Configuration of the RTC HAL API to
+demonstrate the timestamp feature.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td rowspan="1" align="left">
+<p id="SD">SD</p>
+</td>
+<td align="left">
+<p id="SD_ReadWrite_DMALinkedList">SD_ReadWrite_DMALinkedList</p>
+</td>
+<td align="left">This example performs some write
+and read transfers to SD Card with SDMMC IP internal
+DMA mode based on Linked list feature.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td rowspan="4" align="left">
+<p id="SPI">SPI</p>
+</td>
+<td align="left">
+<p id="SPI_FullDuplex_ComDMA_Master">SPI_FullDuplex_ComDMA_Master</p>
+</td>
+<td align="left">Data buffer transmission/reception
+between two boards via SPI using Interrupt mode.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td align="left">
+<p id="SPI_FullDuplex_ComDMA_Slave">SPI_FullDuplex_ComDMA_Slave</p>
+</td>
+<td align="left">Data buffer transmission/reception
+between two boards via SPI using Interrupt mode.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td align="left">
+<p id="SPI_FullDuplex_ComIT_Master">SPI_FullDuplex_ComIT_Master</p>
+</td>
+<td align="left">Data buffer transmission/reception
+between two boards via SPI using Interrupt mode.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td align="left">
+<p id="SPI_FullDuplex_ComIT_Slave">SPI_FullDuplex_ComIT_Slave</p>
+</td>
+<td align="left">Data buffer transmission/reception
+between two boards via SPI using Interrupt mode.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td rowspan="1" align="left">
+<p id="TIM">TIM</p>
+</td>
+<td align="left">
+<p id="TIM_DMABurst">TIM_DMABurst</p>
+</td>
+<td align="left">This example shows how to update
+the TIMER TIM4_CH1 period and the duty cycle
+using the TIMER DMA burst feature.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td rowspan="3" align="left">
+<p id="UART">UART</p>
+</td>
+<td align="left">
+<p id="UART_Receive_Transmit_Console">UART_Receive_Transmit_Console</p>
+</td>
+<td align="left">UART transmission (printf/getchar)
+via console with user interaction.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td align="left">
+<p id="UART_TwoBoards_ComDMA">UART_TwoBoards_ComDMA</p>
+</td>
+<td align="left">UART transmission
+(transmit/receive) in DMA mode
+between two boards.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td align="left">
+<p id="UART_TwoBoards_ComIT">UART_TwoBoards_ComIT</p>
+</td>
+<td align="left">UART transmission
+(transmit/receive) in Interrupt mode
+between two boards.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr align="center">
+<td align="left">
+<p id = "USART">USART</p>
+</td>
+<td align="left">
+<p id = "USART_SlaveMode_DMA">USART_SlaveMode_DMA</p>
+</td>
+<td align="left">This example describes an USART-SPI communication 
+(transmit/receive) with DMA between two<br>boards where the USART 
+is configured as a slave.</td><td style="background-color: rgb(240, 240, 255); text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
+<td colspan="3"><b>Total number of examples: 44</b></td>
+<td>43</td><td>1</td>
+</tr>
+
+<tr>
+<td style="background-color: rgb(57, 169, 220); text-align: center; color: white;" colspan="1" rowspan="28">
+<p style="background-color: rgb(57, 169, 220);" id="Applications">Applications</p>
+</td>
+<td colspan="1" rowspan="6">FileX</td>
+<td>Fx_MultiAccess</td>
+<td align="left">This
+application provides an example of Azure RTOS FileX stack usage on
+STM32MP135F-DK board, it demonstrates the FileX&#8217;s concurrent file
+access capabilities. The application is designed to execute file
+operations on the SD card device, the code provides all required
+software code for handling SD card I/O operations.</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr>
+<td>Fx_Nand_Write_Read_File</td>
+<td>This application provides an
+example of Azure RTOS FileX and LevelX stacks usage on
+STM32MP13XX_CUSTOM_HW board(doesn't run on STM32MP135F_DK board).<br>&nbsp;It
+demonstrates how to create a Fat File system on the NAND flash using
+FileX alongside LevelX (without ECC). The application is designed to execute file
+operations on the Micron MT29F8G08ABACAH4<br>NAND flash device, the code provides all required software code for properly managing it.</td><td>
+</td><td style="text-align: center;"><font color="green" size="5">X</font></td>
+</tr>
+
+<tr>
+<td>Fx_Nand_Write_Read_File_Sequencer</td>
+<td>This application provides an example of Azure RTOS FileX and LevelX stacks usage on custom
+board STM32MP13XX_VALID1 (doesn't run on STM32MP135F-DK board unless a custom board is added).<br>&nbsp;
+It used the hardware NAND sequencer instead of direct CPU accesses.
+It demonstrates how to create a Fat File system
+on the NAND flash using FileX alongside LevelX. The application is designed to execute file operations on the Micron MT29F8G08ABACAH4
+NAND flash device, the code provides all required software code for properly managing it.
+</td><td>
+</td><td style="text-align: center;"><font color="green" size="5">X</font></td>
+</tr>
+
+<tr>
+<td>Fx_SRAM_File_Edit_Standalone</td>
+<td>This application provides an example of FileX stack usage on
+STM32MP135F-DK board, running in standalone mode (without ThreadX). It
+demonstrates how to create a Fat File system on the internal SRAM
+memory using FileX API.<br>The application is designed to execute file
+operations on the SRAM-Disk device, it provides all required software
+code for properly managing it.</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr>
+<tr>
+<td>Fx_uSD_File_Edit</td>
+<td>This application provides an example of Azure RTOS FileX stack
+usage on STM32MP135F-DK board, it shows how to develop a basic SD card
+file operations application. The application is designed to handle SD
+card insertion/removal events, and depending on that state, it startsand stops file operations from and into the SD card. </td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td style="background-color: rgb(240, 240, 255); text-align: center;"><font color="green" size="5">X</font></td>
+</tr>
+<tr><td colspan="1" rowspan="2">FSBLA</td><td>FSBLA_Sdmmc</td><td>&nbsp;This application describes how to load and execute a cubeExample binary from SDCARD into DDR on STM32MP135F-DK (DDR3). </td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr><td>FSBLA_SNOR</td><td>This
+application describes how to load a cubeExample binary from XSPI-NOR
+into DDR, and execute it on STM32MP13XX_CUSTOM_HW Board.</td><td></td><td style="text-align: center; background-color: rgb(240, 240, 255);"><font color="green" size="5">X</font></td></tr>
+
+<tr>
+<td>Debug PROGRAMMER</td>
+<td>XSPI_NOR_Programmer</td>
+<td>This application shows how to load a signed binary to an XSPI-NOR (MX25L51245G).</td>
+<td></td><td style="background-color: rgb(240, 240, 255); text-align: center;"><font color="green" size="5">X</font></td>
+</tr>
+
+<tr>
+<td>Low_power_LPLV_Stop2</td>
+<td>Low_power_LPLV_Stop2</td>
+<td>This application shows a LPLV-Stop2 entry with DDR in self refresh to keep its content.</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td>
+</tr>
+
+<tr>
+<td>Low_power_Standby</td>
+<td>Low_power_Standby</td>
+<td>This application shows a Standby entry with DDR in self refresh to keep its content.</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td>
+</tr>
+
+<tr>
+<td colspan="1" rowspan="7">NetXDuo</td>
+<td>Nx_Iperf</td>
+<td>This application provides an example of Azure RTOS NetXDuo stack 
+usage .<br>It shows performance when using different modes : TCP_server, UDP_server, 
+TCP_client and UDP_client.</td>
+<td style="text-align: center; background-color: rgb(240, 240, 255);"><font color="green" size="5">X</font></td>
+<td></td>
+</tr>
+<tr>
+<td>Nx_MQTT_Client</td>
+<td>This application provides an example of Azure RTOS NetX/NetXDuo stack usage.<br>It
+shows how to exchange data between client and server using MQTT protocol in an 
+encrypted mode supporting TLS v1.2.</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td>
+<td></td>
+</tr>
+<tr><td>Nx_TCP_Echo_Client</td><td>This application provides an example of Azure RTOS NetX/NetXDuo stack usage.<br>It shows how to develop a NetX TCP client to communicate with a remote sever using the NetX TCP socket API.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr><td>Nx_TCP_Echo_Server</td><td>This application provides an example of Azure RTOS NetX/NetXDuo stack usage.<br>It shows how to develop a NetX TCP server to communicate with a remote client using the NetX TCP socket API.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr><td>Nx_UDP_Echo_Client</td><td>This application provides an example of Azure RTOS NetX/NetXDuo stack usage . <br>It shows how to develop a NetX udp client to communicate with a remote sever using the NetX UDP socket API.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr><td>Nx_UDP_Echo_Server</td><td>This application provides an example of Azure RTOS NetX/NetXDuo stack usage .<br>It shows how to develop a NetX UDP server to communicate with a remote client using the NetX UDP socket API.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr><td>Nx_WebServer</td><td>This
+application provides an example of Azure RTOS NetX Duo stack usage on
+STM32MP135F-DK board, it shows how to develop Web HTTP server based
+application.<br>The application is designed to load files and dyncamic
+web pages stored in SD card using a Web HTTP server, the code provides
+all required features to build a compliant Web HTTP Server.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr>
+
+<tr>
+<td colspan="1" rowspan="4">ThreadX</td>
+<td>Tx_MPU</td>
+<td>This application provides an example of **Azure RTOS ThreadX** stack usage, 
+it shows how to develop an application using the **ThreadX Module** feature.
+It demonstrates how to load, start and unload modules.
+In addition, it shows how to use ThreadX memory protection with modules using the Cortex-A7 **MMU**.
+This example has originally been designed for microcontrollers with an MPU (Memory 
+Protection Unit) instead of a more advanced MMU (Memory Protection Unit).
+So the term MPU and MMU are used interchangeably.</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td>
+<td></td>
+</tr>  
+<tr>
+<td>Tx_Thread_Creation</td><td>This
+application provides an example of Azure RTOS ThreadX stack usage, it
+shows how to develop an application using the ThreadX thread management
+APIs.<br>It demonstrates how to create and destroy multiple threads
+using Azure RTOS ThreadX APIs. In addition, it shows how to use
+preemption threshold between threads and change priorities on-fly.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr>
+<td>Tx_Thread_MsgQueue</td>
+<td>This
+application provides an example of Azure RTOS ThreadX stack usage, it
+shows how to develop an application using the ThreadX message queue
+APIs.<br>It demonstrates how to send and receive messages between
+threads using ThreadX message queue APIs. In addition, it shows how to
+use the event chaining feature.</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td>
+<td></td>
+</tr>
+
+<tr><td>Tx_Thread_Sync</td><td>This
+application provides an example of Azure RTOS ThreadX stack usage, it
+shows how to develop an application using the ThreadX synchronization
+APIs.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr align="center">
+<td rowspan="1" align="left">
+<p id="USB_Device">USB_Device</p>
+</td>
+<td align="left">
+<p id="CDC_Standalone">CDC_Standalone</p>
+</td>
+<td align="left">This application describes how to
+use USB device application based on the Device
+Communication Class (CDC) following the PSTN sub-protocol on the
+STM32MP13xx devices.
+</td>
+<td><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr><td colspan="1" rowspan="4">USBX</td><td>Ux_Device_CDC_ACM</td><td>This
+application provides an example of Azure RTOS USBX stack usage on
+STM32MP135F-DK board, it shows how to develop USB Device communication
+Class "CDC_ACM" based application.<br>The application is designed to
+emulate an USB-to-UART bridge following the Virtual COM Port (VCP)
+implementation, the code provides all required device descriptors
+framework and associated Class descriptor report to build a compliant
+USB CDC_ACM device.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr>
+<tr><td>Ux_Device_HID</td><td>This application provides an example of Azure RTOS USBX stack usage on STM32MP135F-DK board,<br>
+it shows how to develop USB Device Human Interface "HID" mouse based application.<br>The
+application is designed to emulate an USB HID mouse device, the code
+provides all required device descriptors framework and associated Class
+descriptor report to build a compliant USB HID mouse device.</td><td style="text-align: center;">
+<font color="green" size="5">X</font></td><td></td></tr><tr><td>Ux_Host_HID_CDC_ACM</td>
+<td>This application provides an example of Azure RTOS USBX stack usage on STM32MP135C-DK.<br>
+It shows how to develop a composite "USB HID CDC_ACM Host" that is able to enumerate and communicate with:
+<br>&nbsp; - Composite USB HID CDC_ACM device<br>&nbsp; - Simple HID/CDC_ACM device,</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr><td>Ux_Host_MSC</td><td>This
+application provides an example of Azure RTOS USBX stack usage. It
+shows how to develop USB Host Mass Storage "MSC" able to enumerate and
+communicates with a removable usb flash disk.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
+<td colspan="3"><b>Total number of
+applications: 27</b></td>
+<td>22</td><td>5</td>
+</tr>
+
+<tr>
+<td style="background-color: rgb(57, 169, 220); text-align: center; color: white;" colspan="1" rowspan="3">
+<p style="background-color: rgb(57, 169, 220);" id="External_Loader">External_Loader</p>
+</td>
+<td colspan="1" rowspan="2">-</td>
+<td>SD_Ext_Loader</td>
+<td align="left">This application provides an example of loading a prebuild and signed user application on
+STM32MP135F-DK board from SD Card. User has to build its production application, sign it and replace its name in tsv file and finally
+use this tsv to load app using cube programmer tool. cube programmer will connect to board via uart, then it will first copy fsbl-openbl 
+to sysram, fsbl-openbl in turn call fsbl-extfl which will initialize sd card and ddr and copy FSBLA_Sdmmc1_A7_Signed.bin and user app to 
+SD Card and execute from ddr. next time when device boot in sd boot mode, it will load user application automatically</td>
+<td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td><td></td>
+</tr>
+<tr>
+<td>SNOR_Ext_Loader</td>
+<td>This application provides an example of loading a prebuild and signed user application on
+STM32MP13XX_CUSTOM_HW board from XSPI NOR. User has to build its production application, sign it and replace its name in tsv file and finally
+use this tsv to load app using cube programmer tool. cube programmer will connect to board via uart, then it will first copy fsbl-openbl 
+to sysram, fsbl-openbl in turn call fsbl-extfl which will initialize XSPI NOR and ddr and copy FSBLA_SNOR_A7_Signed.bin and user app to 
+XSPI NOR and execute from ddr. next time when device boot in NOR boot mode, it will load user application automatically.</td><td>
+</td><td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td>
+</tr>
+
+
+<tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
+<td colspan="3"><b>Total number of
+External Loader applications: 2</b></td>
+<td>1</td><td>1</td>
+</tr>
+
+
+<tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
+<td colspan="4"><b>Total number of projects: 76</b></td>
+<td>68</td><td>8</td>
+</tr>
+</tbody>
+</table>
+</body></html>

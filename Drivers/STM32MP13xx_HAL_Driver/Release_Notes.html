@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Release Notes for STM32MP13xx HAL drivers</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<div class="row">
+<div class="col-sm-12 col-lg-4">
+<center>
+<h1 id="release-notes-for-stm32mp13xx-hal-drivers">Release Notes for
+<mark>STM32MP13xx HAL drivers</mark></h1>
+<p>Copyright ©  2023 STMicroelectronics<br />
+</p>
+<a href="https://www.st.com" class="logo"><img
+src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
+</center>
+<h1 id="purpose">Purpose</h1>
+<p>The STM32Cube HAL , an STM32 abstraction layer embedded software,
+ensure maximized portability across STM32 portfolio.</p>
+<p>The portable APIs layer provides a generic, multi instanced and
+simple set of APIs to interact with the upper layer (application,
+libraries and stacks). It is composed of native and extended APIs set.
+It is directly built around a generic architecture and allows the
+build-upon layers, like the middleware layer, to implement its functions
+without knowing in-depth the used STM32 device. This improves the
+library code reusability and guarantees an easy portability on other
+devices and STM32 families.</p>
+</div>
+<section id="update-history" class="col-sm-12 col-lg-8">
+<h1>Update History</h1>
+<div class="collapse">
+<input type="checkbox" id="collapse-section0" checked aria-hidden="true">
+<label for="collapse-section0" checked aria-hidden="true"><strong>V1.0.0
+/ 01-Nov-2023</strong></label>
+<div>
+<h2 id="main-changes">Main Changes</h2>
+<p>This release is the <strong>Mass Market DV of HAL drivers</strong>
+for STM32MP13xx devices.</p>
+<h2 id="contents">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements
+implementation</li>
+<li><strong>Major update</strong> of drivers for STM32MP13xx devices:
+<ul>
+<li><strong>Implement HAL Drivers</strong>:
+<ul>
+<li>XSPI
+<ul>
+<li>QSPI driver replaced with XSPI</li>
+<li>API’s renamed for alignment</li>
+</ul></li>
+<li>DELAYBLOCK
+<ul>
+<li>Aligned with XSPI API’s</li>
+</ul></li>
+<li>DCMIPP</li>
+</ul></li>
+<li><strong>Align HAL Drivers with STM32 Families</strong>
+<ul>
+<li>ADC, BSEC, CRC, CRYP, DDR, DELAYBLOCK, DFSDM, DMA, DTS, ETH, EXTI,
+FDCAN, GPIO, HASH, I2C, IWDG, LPTIM, LTDC, MDMA, PKA, PWR, RCC, RNG,
+RTC, SAI, SDMMC, SMARTCARD, SPDIFRX, SPI, TIM, UART, USART, USB</li>
+</ul></li>
+<li><strong>MISRAC2012</strong> MISRA2012 fixes done</li>
+</ul></li>
+<li>List of HAL drivers implemented :
+<ul>
+<li>ADC, BSEC, CRC, CRYP (including SAES), DCMIPP, DDR, DFSDM, DMA, DTS,
+ETH, ETZPC, EXTI, FDCAN, FMC_NAND, GPIO, HASH, I2C, I2S, IWDG, LPTIM,
+LTDC, MCE, MDMA, PKA, PWR, XSPI (QSPI replaced with XSPI), RCC, RNG, RTC
+(including TAMP), SAI, SDMMC (including EMMC) , SMARTCARD, SPDIFRX, SPI,
+TIM, UART, USART, USB</li>
+</ul></li>
+<li>List of LL drivers implemented :
+<ul>
+<li>ADC, DMA/DMAMUX, EXTI, ETZPC, GPIO, I2C, LPTIM, MDMA, PWR, RCC &amp;
+BUS, RTC, SPI, TIM, USART</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section7" aria-hidden="true">
+<label for="collapse-section7" aria-hidden="true"><strong>V0.7.0 /
+27-June-2023</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<p>This release is the <strong>5th ALPHA DV of HAL drivers</strong> for
+STM32MP13xx devices.</p>
+<h2 id="contents-1">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements
+implementation</li>
+<li><strong>Major update</strong> of drivers for STM32MP13xx devices:
+<ul>
+<li><strong>Implement HAL Drivers</strong>:
+<ul>
+<li>FMC
+<ul>
+<li>NAND : Supported Sequencer and DMA Mode</li>
+<li>PSRAM: Support added</li>
+</ul></li>
+<li>DCMIPP</li>
+<li>I2S</li>
+<li>ETZPC</li>
+</ul></li>
+<li><strong>Align HAL Drivers with STM32 Families</strong>
+<ul>
+<li>ADC, CRC, CRYP, DELAYBLOCK, DTS, GPIO, HASH, I2C, LPTIM, PKA, SDMMC,
+SPDIFRX, SPI, TIM, UART, USART, USB</li>
+</ul></li>
+<li><strong>MISRAC2012</strong> fix for BSEC, DCMIPP, DDR, EXTI, RCC
+drivers</li>
+</ul></li>
+<li>List of HAL drivers implemented :
+<ul>
+<li>ADC, BSEC, CRC, CRYP ( including SAES), DCMIPP, DDR, DFSDM, DMA,
+DTS, ETH, ETZPC, EXTI, FDCAN, FMC_NAND, GPIO, HASH, I2C, I2S, IWDG,
+LPTIM, LTDC, MCE, MDMA, PKA, PWR, QSPI, RCC, RNG, RTC (including TAMP),
+SAI, SDMMC (including EMMC) , SMARTCARD, SPDIFRX, SPI, TIM, UART, USART,
+USB</li>
+</ul></li>
+<li>List of LL drivers implemented :
+<ul>
+<li>ADC, DMA/DMAMUX, EXTI, ETZPC, GPIO, I2C, LPTIM, MDMA, PWR, RCC &amp;
+BUS, RTC, SPI, TIM, USART</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section6" aria-hidden="true">
+<label for="collapse-section6" checked aria-hidden="true"><strong>V0.6.0
+/ 16-December-2022</strong></label>
+<div>
+<h2 id="main-changes-2">Main Changes</h2>
+<p>This release is the <strong>4th ALPHA DV of HAL drivers</strong> for
+STM32MP13xx devices.</p>
+<h2 id="contents-2">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements
+implementation</li>
+<li><strong>Major update</strong> of drivers for STM32MP13xx devices:
+<ul>
+<li><strong>Major Improvement</strong>:
+<ul>
+<li>ETH : Rebase with STM32 Families + Optimize settings for
+performance</li>
+<li>LTDC</li>
+<li>RCC : Rename TZPC into ETZPC ( alignment with Reference Manual)</li>
+</ul></li>
+<li><strong>Implement HAL Drivers</strong>:
+<ul>
+<li>FMC NAND : basic functionality + algorithm for ECC (BCH4, BCH8 and
+haming) &gt; see limitations</li>
+</ul></li>
+<li><strong>Implement LL Drivers</strong>:
+<ul>
+<li>ETZPC, LPTIM, TIM</li>
+</ul></li>
+<li><strong>Align HAL Drivers with STM32 Families</strong>
+<ul>
+<li>CRC, DELAYBLOCK, DTS, HASH, LPTIM, SDMMC, SPDIFRX, SPI, TIM, UART,
+USART, USB</li>
+</ul></li>
+<li><strong>MISRAC2012</strong> fix for some drivers</li>
+</ul></li>
+<li>List of HAL drivers implemented :
+<ul>
+<li>ADC, BSEC, CRC, CRYP ( including SAES), DDR, DFSDM, DMA, DTS, ETH,
+EXTI, FDCAN, FMC_NAND, GPIO, HASH, I2C, IWDG, LPTIM, LTDC, MCE, MDMA,
+PKA, PWR, QSPI, RCC, RNG, RTC (including TAMP), SAI, SDMMC (including
+EMMC) , SMARTCARD, SPDIFRX, SPI, TIM, UART, USART, USB</li>
+</ul></li>
+<li>List of LL drivers implemented :
+<ul>
+<li>ADC, DMA/DMAMUX, EXTI, ETZPC, GPIO, I2C, LPTIM, MDMA, PWR, RCC &amp;
+BUS, RTC, SPI, TIM, USART</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-2">Known Limitations</h2>
+<ul>
+<li>FMC_NAND : only ECC BCH4 has been validated ( BCH8 and Haming code
+is present , but not yet tested)</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section5" aria-hidden="true">
+<label for="collapse-section5" aria-hidden="true"><strong>V0.5.0 /
+29-June-2022</strong></label>
+<div>
+<h2 id="main-changes-3">Main Changes</h2>
+<p>This release is the <strong>3rd ALPHA DV of HAL drivers</strong> for
+STM32MP13xx devices.</p>
+<h2 id="contents-3">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements
+implementation</li>
+<li><strong>Major update</strong> of drivers for STM32MP13xx devices:
+<ul>
+<li><strong>Align HAL Drivers with STM32 Families</strong>
+<ul>
+<li>ADC, I2C, SMARTCARD, SPI, UART, USART, USB</li>
+</ul></li>
+<li><strong>MISRAC2012</strong> fix for some drivers</li>
+<li><strong>Implement HAL Drivers</strong>: DFSDM, ETH, SAI,
+SPDIFRX</li>
+<li><strong>Implement LL Drivers</strong>: ADC, EXTI, I2C, MDMA, PWR,
+RTC</li>
+</ul></li>
+<li>List of HAL drivers implemented :
+<ul>
+<li>ADC, BSEC, CRC, CRYP ( including SAES), DDR, DFSDM, DMA, DTS, ETH,
+EXTI, FDCAN, GPIO, HASH, I2C, IWDG, LPTIM, LTDC, MCE, MDMA, PKA, PWR,
+QSPI, RCC, RNG, RTC (including TAMP), SAI, SDMMC (including EMMC) ,
+SMARTCARD, SPDIFRX, SPI, TIM, UART, USART, USB</li>
+</ul></li>
+<li>List of LL drivers implemented :
+<ul>
+<li>ADC, DMA/DMAMUX, EXTI, GPIO, I2C, MDMA, PWR, RCC &amp; BUS, RTC,
+SPI, USART</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-3">Known Limitations</h2>
+<ul>
+<li>ETH driver maturation to improve</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section4" aria-hidden="true">
+<label for="collapse-section4" aria-hidden="true"><strong>V0.4.0 /
+04-March-2022</strong></label>
+<div>
+<h2 id="main-changes-4">Main Changes</h2>
+<p>This release is the <strong>2nd ALPHA DV of HAL drivers</strong> for
+STM32MP13xx devices.</p>
+<h2 id="contents-4">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements
+implementation</li>
+<li><strong>Major update</strong> of drivers for STM32MP13xx devices:
+<ul>
+<li><strong>CRYP driver</strong> (including CRYP/SAES)
+<ul>
+<li>Driver maturation</li>
+<li>Fix SAES MDMA issues</li>
+<li>SAES : add BYTE size support for header message (used for
+CCM/GCM)</li>
+</ul></li>
+<li><strong>VREFBUF</strong>:
+<ul>
+<li>Lowest voltage changed from 1.5 V (Cut1.0) to 1.65 V (Cut1.1)</li>
+<li>Reorder VREFBUF values</li>
+</ul></li>
+<li><strong>DDR</strong> - API Change
+<ul>
+<li>Driver maturation</li>
+</ul></li>
+<li><strong>RCC</strong> - No API Change
+<ul>
+<li>remove LSE clock source for RNG1 (cut1.1)</li>
+<li>Fix __HAL_RCC_MRD_CONFIG macro</li>
+<li>Use RSTSSETR instead of RSTSCLRR to read reset status flags</li>
+</ul></li>
+<li><strong>Align HAL Drivers with STM32 Families</strong> - No API
+Change
+<ul>
+<li>DMA, EXTI, GPIO, IWDG, LPTIM, QSPI, SDMMC, TIM, UART, USART</li>
+</ul></li>
+<li><strong>Implement LL Drivers</strong>:
+<ul>
+<li>DMA/DMAMUX, GPIO, RCC &amp; BUS, USART</li>
+</ul></li>
+</ul></li>
+<li>List of HAL drivers implemented :
+<ul>
+<li>ADC, BSEC, CRC, CRYP ( including SAES), DDR, DMA, DTS, EXTI, FDCAN,
+GPIO, HASH, I2C, IWDG, LPTIM, LTDC, MCE, MDMA, PKA, PWR, QSPI, RCC, RNG,
+RTC (including TAMP), SDMMC, SMARTCARD, SPI, TIM, UART, USART, USB</li>
+</ul></li>
+<li>List of LL drivers implemented :
+<ul>
+<li>DMA/DMAMUX, GPIO, RCC &amp; BUS, USART</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-4">Known Limitations</h2>
+<ul>
+<li>No</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section3" aria-hidden="true">
+<label for="collapse-section3" aria-hidden="true"><strong>V0.3.0 /
+03-December-2021</strong></label>
+<div>
+<h2 id="main-changes-5">Main Changes</h2>
+<p>This release is the <strong>ALPHA DV of HAL drivers</strong> for
+STM32MP13xx devices.</p>
+<h2 id="contents-5">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements
+implementation</li>
+<li><strong>Major update</strong> of drivers for STM32MP13xx devices:
+<ul>
+<li><strong>CRYP and SAES HAL factorized</strong> in the common CRYP
+driver.</li>
+<li><strong>HASH</strong> remove comments related to “MD5 feature” as
+not supported on STM32MP13xx family.</li>
+<li><strong>RTC</strong> Fix doxygen documentation generation.</li>
+<li><strong>Implement HAL driver</strong> for STM32MP13xx:
+<ul>
+<li>BSEC, DTS, FDCAN, LTDC, PWR, QSPI, SDMMC, USB</li>
+</ul></li>
+<li><strong>Align HAL Drivers with STM32 Families</strong>:
+<ul>
+<li>CRC, I2C, LPTIM, SPI, TIM</li>
+</ul></li>
+<li>All HAL Drivers
+<ul>
+<li>Update the way to declare licenses in Cube</li>
+</ul></li>
+</ul></li>
+<li>List of HAL drivers implemented :
+<ul>
+<li>ADC, BSEC, CRC, CRYP ( including SAES), DDR, DMA, DTS, EXTI, FDCAN,
+GPIO, HASH, I2C, IWDG, LPTIM, LTDC, MCE, MDMA, PKA, PWR, QSPI, RCC, RNG,
+RTC (including TAMP), SDMMC, SMARTCARD, SPI, TIM, UART, USART, USB</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-5">Known Limitations</h2>
+<ul>
+<li><strong>CRYP/SAES ported in same driver</strong> but
+<ul>
+<li>Some SAES features still under maturation</li>
+<li>Transfer with MDMA not fully functional</li>
+</ul></li>
+<li><strong>LL drivers</strong> implemented : only ADC ( as required for
+HAL ADC driver)</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" aria-hidden="true">
+<label for="collapse-section2" aria-hidden="true"><strong>V0.2.0 /
+09-June-2021</strong></label>
+<div>
+<h2 id="main-changes-6">Main Changes</h2>
+<p>This release is the <strong>PRE-ALPHA DV of HAL drivers</strong> for
+STM32MP13xx devices.</p>
+<h2 id="contents-6">Contents</h2>
+<ul>
+<li><strong>HAL DDR</strong> driver
+<ul>
+<li>Fix regression in save command</li>
+<li>Treat PHY calibration skip flag in static configuration</li>
+</ul></li>
+<li><strong>HAL SYSCFG / DBG</strong> driver
+<ul>
+<li>Rework IOCompensation function</li>
+<li>Replace SET_BIT in some condition</li>
+<li>Add DBG LP mode enable/disable function in stm32mp13xx_hal.h</li>
+<li>Clean code for stm32mp13</li>
+</ul></li>
+<li><strong>HAL I2C</strong> driver
+<ul>
+<li>Fix HAL_I2CEx_DisableFastModePlus function</li>
+</ul></li>
+<li><strong>HAL LPTIM</strong> driver
+<ul>
+<li>Alignment with other STM32 families (No API Change)</li>
+</ul></li>
+<li><strong>HAL RNG</strong> driver -Fix HAL_GetTick() timeout
+vulnerability</li>
+<li><strong>HAL UART</strong> driver -Fix state reset in case of error
+returned after DMA reception start</li>
+</ul>
+<h2 id="known-limitations-6">Known Limitations</h2>
+<ul>
+<li><strong>Only SAES</strong> algo in CRYP driver ( CRYP or AES algo
+will be delivered later)</li>
+<li><strong>LL drivers</strong> implemented : only ADC ( as required for
+HAL ADC driver)</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1" aria-hidden="true">
+<label for="collapse-section1" aria-hidden="true"><strong>V0.1.0 /
+20-April-2021</strong></label>
+<div>
+<h2 id="main-changes-7">Main Changes</h2>
+<p>This release is the <strong>Bring Up DV of HAL drivers</strong> for
+STM32MP13xx devices.</p>
+<h2 id="contents-7">Contents</h2>
+<ul>
+<li><strong>HAL drivers</strong> implemented :
+<ul>
+<li>ADC, CRC, CRYP ( but only SAES), DDR, DMA, EXTI, GPIO, HASH, I2C,
+IWDG, LPTIM, MCE, MDMA, PKA, RNG, RCC, RTC, SMARTCARD, SPI, TIM, UART,
+USART</li>
+</ul></li>
+<li><strong>LL drivers</strong> implemented :
+<ul>
+<li>only ADC ( as required for HAL ADC driver)</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-7">Known Limitations</h2>
+<ul>
+<li>Only SAES algo in CRYP driver ( CRYP or AES algo will be delivered
+later)</li>
+</ul>
+</div>
+</div>
+</section>
+</div>
+<footer class="sticky">
+<p>For complete documentation on STM32 Microcontrollers </mark> , visit:
+<span style="font-color: blue;"><a
+href="http://www.st.com/stm32">www.st.com/stm32</a></span></p>
+This release note uses up to date web standards and, for this reason,
+should not be opened with Internet Explorer but preferably with popular
+browsers such as Google Chrome, Mozilla Firefox, Opera or Microsoft
+Edge.
+</footer>
+</body>
+</html>
