@@ -27364,9 +27364,9 @@ typedef struct
 #define TAMP_SECCFGR_BKPWSEC_5              (0x20UL << TAMP_SECCFGR_BKPWSEC_Pos)  /*!< 0x00200000 */
 #define TAMP_SECCFGR_BKPWSEC_6              (0x40UL << TAMP_SECCFGR_BKPWSEC_Pos)  /*!< 0x00400000 */
 #define TAMP_SECCFGR_BKPWSEC_7              (0x80UL << TAMP_SECCFGR_BKPWSEC_Pos)  /*!< 0x00800000 */
-#define TAMP_SECCFGR_SMKLOCK_Pos            (30U)
-#define TAMP_SECCFGR_SMKLOCK_Msk            (0x1UL << TAMP_SECCFGR_SMKLOCK_Pos)   /*!< 0x40000000 */
-#define TAMP_SECCFGR_SMKLOCK                TAMP_SECCFGR_SMKLOCK_Msk
+#define TAMP_SECCFGR_BHKLOCK_Pos            (30U)
+#define TAMP_SECCFGR_BHKLOCK_Msk            (0x1UL << TAMP_SECCFGR_BHKLOCK_Pos)   /*!< 0x40000000 */
+#define TAMP_SECCFGR_BHKLOCK                TAMP_SECCFGR_BHKLOCK_Msk
 #define TAMP_SECCFGR_TAMPSEC_Pos            (31U)
 #define TAMP_SECCFGR_TAMPSEC_Msk            (0x1UL << TAMP_SECCFGR_TAMPSEC_Pos)   /*!< 0x80000000 */
 #define TAMP_SECCFGR_TAMPSEC                TAMP_SECCFGR_TAMPSEC_Msk

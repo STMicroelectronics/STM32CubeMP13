@@ -176,6 +176,9 @@ typedef struct
   uint32_t tampSecureFull;              /*!< Specifies If the TAMP is fully secured or not execpt monotonic counters and BackUp registers.
                                              This parameter can be a value of @ref RTCEx_TAMP_Secure_Full */
 
+  uint32_t bootHwKeyLock;               /*!< Specifies how the backup registers from TAMP_BKP0R to TAMP_BKP7R cannot be accessed
+                                             This parameter can be a value of @ref RTCEx_TAMP_BHK_Lock */
+
   uint32_t backupRegisterStartZone2;    /*!< Specifies the backup register start zone 2
                                              Zone 1 : read secure write secure.
                                              Zone 2 : read non-secure  write secure.
@@ -688,8 +691,8 @@ typedef struct
 /** @defgroup RTCEx_RTC_Secure_Full  RTCEx Secure Definition
   * @{
   */
-#define RTC_SECURE_FULL_YES                  0U                 /*!< RTC full secure */
-#define RTC_SECURE_FULL_NO                   RTC_SECCFGR_SEC    /*!< RTC is not full secure, features can be non-secure. */
+#define RTC_SECURE_FULL_YES                  RTC_SECCFGR_SEC                 /*!< RTC full secure */
+#define RTC_SECURE_FULL_NO                   0U                              /*!< RTC is not full secure, features can be non-secure. */
 /**
   * @}
   */
@@ -828,8 +831,17 @@ RTC_ALRMABINR -> SS[31:0]. */
 /** @defgroup RTCEx_TAMP_Secure_Full  RTCEx TAMP Secure
   * @{
   */
-#define TAMP_SECURE_FULL_YES                 0U                   /*!< TAMPER full secure */
-#define TAMP_SECURE_FULL_NO                  TAMP_SECCFGR_TAMPSEC /*!< TAMPER is not secure */
+#define TAMP_SECURE_FULL_YES                TAMP_SECCFGR_TAMPSEC /*!< TAMPER is full secure */
+#define TAMP_SECURE_FULL_NO                 0U                   /*!< TAMPER is not secure */
+/**
+  * @}
+  */
+
+/** @defgroup RTCEx_TAMP_BHK_Lock RTCEx TAMP Boot Hardware Key Lock
+  * @{
+  */
+#define TAMP_BHK_LOCK_YES                   TAMP_SECCFGR_BHKLOCK /*!< Boot Hardware Key Lock Enable */
+#define TAMP_BHK_LOCK_NO                    0U                   /*!< Boot Hardware Key Lock Not-Enable */
 /**
   * @}
   */
@@ -1831,6 +1843,16 @@ HAL_StatusTypeDef HAL_RTCEx_PrivilegeModeGet(RTC_HandleTypeDef *hrtc, RTC_Privil
 
 #define IS_RTC_ALARMSUBSECONDBIN_AUTOCLR(SEL) (((SEL) == RTC_ALARMSUBSECONDBIN_AUTOCLR_NO) || \
                                                ((SEL) == RTC_ALARMSUBSECONDBIN_AUTOCLR_YES))
+
+#define IS_TAMP_BHK_LOCK(__STATE__)     (((__STATE__) == TAMP_BHK_LOCK_YES) || \
+                                         ((__STATE__) == TAMP_BHK_LOCK_NO))
+
+#define IS_TAMP_MONOTONIC_CNT_SECURE(__STATE__) (((__STATE__) == TAMP_MONOTONIC_CNT1_YES) || \
+												 ((__STATE__) == TAMP_MONOTONIC_CNT2_YES) || \
+												 ((__STATE__) == TAMP_MONOTONIC_CNT2_NO)  || \
+        							   	   	   	 ((__STATE__) == TAMP_MONOTONIC_CNT1_NO))
+ 
+#define IS_RTC_SECURE_FEATURES(__FEATURES__) (((__FEATURES__) & ~RTC_SECURE_FEATURE_ALL) == 0U)
 
 /**
   * @}

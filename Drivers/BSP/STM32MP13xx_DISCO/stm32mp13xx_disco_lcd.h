@@ -22,20 +22,26 @@
 #define __STM32MP13xx_DISCO_LCD_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
 /* Include LCD component Driver */
 /* LCD RK043FN48H-CT672B 4,3" 480x272 pixels */
 #include "rk043fn48h.h"
-
 #include "stm32mp13xx_disco.h"
-#include "fonts.h"
+#include "../Components/Common/lcd.h"
 
 /** @addtogroup BSP
   * @{
   */
+typedef struct
+{
+  unsigned char blue;
+  unsigned char green;
+  unsigned char red;
+  unsigned char alpha;
+} Pixel_t;
 
 /** @addtogroup STM32MP13XX_DISCO
   * @{
@@ -52,24 +58,7 @@ typedef struct
 {
   uint32_t TextColor;
   uint32_t BackColor;
-  sFONT    *pFont;
-}LCD_DrawPropTypeDef;
-
-typedef struct
-{
-  int16_t X;
-  int16_t Y;
-}Point, * pPoint;
-
-/**
-  * @brief  Line mode structures definition
-  */
-typedef enum
-{
-  CENTER_MODE             = 0x01U,    /* Center mode */
-  RIGHT_MODE              = 0x02U,    /* Right mode  */
-  LEFT_MODE               = 0x03U     /* Left mode   */
-}Text_AlignModeTypdef;
+} LCD_DrawPropTypeDef;
 
 /**
   * @}
@@ -77,22 +66,26 @@ typedef enum
 
 /** @defgroup STM32MP13XX_DISCO_LCD_Exported_Constants STM32MP13XX_DISCO_LCD Exported Constants
   * @{
-  */ 
+  */
 #define MAX_LAYER_NUMBER       ((uint32_t)2U)
 
 #define LCD_LayerCfgTypeDef    LTDC_LayerCfgTypeDef
 
-#define LTDC_ACTIVE_LAYER	     ((uint32_t)1) /* Layer 1 */
-/** 
-  * @brief  LCD status structure definition  
-  */     
+#define LTDC_ACTIVE_LAYER      ((uint32_t)1) /* Layer 1 */
+
+#define LCD_INSTANCES_NBR          1U
+
+#define MAX_PIXEL_SIZE             (480 * 272)
+/**
+  * @brief  LCD status structure definition
+  */
 #define LCD_OK                 ((uint8_t)0x00U)
 #define LCD_ERROR              ((uint8_t)0x01U)
 #define LCD_TIMEOUT            ((uint8_t)0x02U)
 
-/** 
-  * @brief  LCD color  
-  */ 
+/**
+  * @brief  LCD color
+  */
 #define LCD_COLOR_BLUE          ((uint32_t)0xFF0000FFU)
 #define LCD_COLOR_GREEN         ((uint32_t)0xFF00FF00U)
 #define LCD_COLOR_RED           ((uint32_t)0xFFFF0000U)
@@ -119,11 +112,6 @@ typedef enum
 #define LCD_COLOR_BROWN         ((uint32_t)0xFFA52A2AU)
 #define LCD_COLOR_ORANGE        ((uint32_t)0xFFFFA500U)
 #define LCD_COLOR_TRANSPARENT   ((uint32_t)0xFF000000U)
-
-/**
-  * @brief LCD default font
-  */
-#define LCD_DEFAULT_FONT        Font24
 
 /**
   * @brief  LCD Reload Types
@@ -198,53 +186,65 @@ typedef enum
   * @{
   */
 /* Initialization APIs */
-uint8_t  BSP_LCD_Init(void);
-uint8_t  BSP_LCD_DeInit(void);
+int32_t  BSP_LCD_Init(uint32_t Instance);
+int32_t  BSP_LCD_DeInit(uint32_t Instance);
 
 /* LCD specific APIs: Layer control & LCD HW reset */
-uint8_t     BSP_LCD_LayerDefaultInit(uint16_t LayerIndex, uint32_t FrameBuffer);
-uint8_t     BSP_LCD_LayerRgb565Init(uint16_t LayerIndex, uint32_t FB_Address);
-uint8_t     BSP_LCD_SetTransparency(uint32_t LayerIndex, uint8_t Transparency);
-uint8_t     BSP_LCD_SetTransparency_NoReload(uint32_t LayerIndex, uint8_t Transparency);
-uint8_t     BSP_LCD_SetLayerAddress(uint32_t LayerIndex, uint32_t Address);
-uint8_t     BSP_LCD_SetLayerAddress_NoReload(uint32_t LayerIndex, uint32_t Address);
-uint8_t     BSP_LCD_SetColorKeying(uint32_t LayerIndex, uint32_t RGBValue);
-uint8_t     BSP_LCD_SetColorKeying_NoReload(uint32_t LayerIndex, uint32_t RGBValue);
-uint8_t     BSP_LCD_ResetColorKeying(uint32_t LayerIndex);
-uint8_t     BSP_LCD_ResetColorKeying_NoReload(uint32_t LayerIndex);
-uint8_t     BSP_LCD_SetLayerWindow(uint16_t LayerIndex, uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Height);
-uint8_t     BSP_LCD_SetLayerWindow_NoReload(uint16_t LayerIndex, uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Height);
-void     BSP_LCD_SelectLayer(uint32_t LayerIndex);
-void     BSP_LCD_SetLayerVisible(uint32_t LayerIndex, FunctionalState State);
-void     BSP_LCD_SetLayerVisible_NoReload(uint32_t LayerIndex, FunctionalState State);
-uint8_t     BSP_LCD_Reload(uint32_t ReloadType);
+int32_t     BSP_LCD_LayerDefaultInit(uint32_t Instance, uint16_t LayerIndex, uint32_t FrameBuffer);
+int32_t     BSP_LCD_LayerRgb565Init(uint32_t Instance, uint16_t LayerIndex, uint32_t FB_Address);
+int32_t     BSP_LCD_SetTransparency(uint32_t Instance, uint32_t LayerIndex, uint8_t Transparency);
+int32_t     BSP_LCD_SetTransparency_NoReload(uint32_t Instance, uint32_t LayerIndex, uint8_t Transparency);
+int32_t     BSP_LCD_SetLayerAddress(uint32_t Instance, uint32_t LayerIndex, uint32_t Address);
+int32_t     BSP_LCD_SetLayerAddress_NoReload(uint32_t Instance, uint32_t LayerIndex, uint32_t Address);
+int32_t     BSP_LCD_SetColorKeying(uint32_t Instance, uint32_t LayerIndex, uint32_t RGBValue);
+int32_t     BSP_LCD_SetColorKeying_NoReload(uint32_t Instance, uint32_t LayerIndex, uint32_t RGBValue);
+int32_t     BSP_LCD_ResetColorKeying(uint32_t Instance, uint32_t LayerIndex);
+int32_t     BSP_LCD_ResetColorKeying_NoReload(uint32_t Instance, uint32_t LayerIndex);
+int32_t     BSP_LCD_SetLayerWindow(uint32_t Instance, uint16_t LayerIndex, uint16_t Xpos, uint16_t Ypos,
+                                   uint16_t Width, uint16_t Height);
+int32_t     BSP_LCD_SetLayerWindow_NoReload(uint32_t Instance, uint16_t LayerIndex, uint16_t Xpos, uint16_t Ypos,
+                                            uint16_t Width, uint16_t Height);
+int32_t     BSP_LCD_SelectLayer(uint32_t Instance, uint32_t LayerIndex);
+int32_t     BSP_LCD_GetPixelFormat(uint32_t Instance, uint32_t *PixelFormat);
+int32_t     BSP_LCD_GetLTDCPixelFormat(uint32_t Instance, uint32_t PixelFormat, uint32_t *LTDCPixelFormat);
+int32_t     BSP_LCD_GetLCDPixelFormat(uint32_t Instance, uint32_t PixelFormat, uint32_t *LCDPixelFormat);
+int32_t     BSP_LCD_SetLayerVisible(uint32_t Instance, uint32_t LayerIndex, FunctionalState State);
+int32_t     BSP_LCD_SetLayerVisible_NoReload(uint32_t Instance, uint32_t LayerIndex, FunctionalState State);
+int32_t     BSP_LCD_Reload(uint32_t Instance, uint32_t ReloadType);
 
 /* LCD generic APIs: Display control */
-void     BSP_LCD_DisplayOff(void);
-void     BSP_LCD_DisplayOn(void);
-uint32_t BSP_LCD_GetXSize(void);
-uint32_t BSP_LCD_GetYSize(void);
-void     BSP_LCD_SetXSize(uint32_t imageWidthPixels);
-void     BSP_LCD_SetYSize(uint32_t imageHeightPixels);
+int32_t     BSP_LCD_DisplayOff(uint32_t Instance);
+int32_t     BSP_LCD_DisplayOn(uint32_t Instance);
+int32_t     BSP_LCD_GetXSize(uint32_t Instance, uint32_t *XSize);
+int32_t     BSP_LCD_GetYSize(uint32_t Instance, uint32_t *YSize);
+int32_t     BSP_LCD_SetXSize(uint32_t Instance, uint32_t imageWidthPixels);
+int32_t     BSP_LCD_SetYSize(uint32_t Instance, uint32_t imageHeightPixels);
 
 /* LCD generic APIs: Draw operations. This list of APIs is required for
    lcd gfx utilities */
-void     BSP_LCD_SetTextColor(uint32_t Color);
-uint32_t BSP_LCD_GetTextColor(void);
-void     BSP_LCD_SetBackColor(uint32_t Color);
-uint32_t BSP_LCD_GetBackColor(void);
-void     BSP_LCD_SetFont(sFONT *fonts);
-sFONT    *BSP_LCD_GetFont(void);
+int32_t    BSP_LCD_SetTextColor(uint32_t Instance, uint32_t Color);
+int32_t    BSP_LCD_GetTextColor(uint32_t Instance);
+int32_t    BSP_LCD_SetBackColor(uint32_t Instance, uint32_t Color);
+int32_t    BSP_LCD_GetBackColor(uint32_t Instance);
 
 
 extern LTDC_HandleTypeDef  hLtdcHandler;
+extern const LCD_UTILS_Drv_t LCD_Driver;
 
 /* These functions can be modified in case the current settings
    need to be changed for specific application needs */
 void     BSP_LCD_MspInit(LTDC_HandleTypeDef *hltdc, void *Params);
 void     BSP_LCD_MspDeInit(LTDC_HandleTypeDef *hltdc, void *Params);
 void     BSP_LCD_ClockConfig(LTDC_HandleTypeDef *hltdc, void *Params);
-
+int32_t BSP_LCD_ReadPixel(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint32_t *Color);
+int32_t BSP_LCD_WritePixel(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint32_t RGB_Code);
+int32_t BSP_LCD_FillRGBRect(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint8_t *pData, uint32_t Width,
+                            uint32_t Height);
+int32_t BSP_LCD_DrawHLine(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint32_t Length, uint32_t Color);
+int32_t BSP_LCD_DrawVLine(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint32_t Length, uint32_t Color);
+int32_t BSP_LCD_FillRect(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint32_t Width, uint32_t Height,
+                         uint32_t Color);
+int32_t BSP_LCD_DrawBitmap(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint8_t *pBmp);
 /**
   * @}
   */

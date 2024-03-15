@@ -44,7 +44,7 @@ extern ETH_DMADescTypeDef  DMARxDscrTab[ETH_RX_DESC_CNT]; /* Ethernet Rx DMA Des
 extern ETH_DMADescTypeDef  DMATxDscrTab[ETH_TX_DESC_CNT]; /* Ethernet Tx DMA Descriptors */
 
 
-ETH_TxPacketConfig_t TxPacketCfg;
+ETH_TxPacketConfigTypeDef TxPacketCfg;
 ETH_MACFilterConfigTypeDef FilterConfig;
 
 /****** DRIVER SPECIFIC ****** Start of part/vendor specific data area.  Include hardware-specific data here!  */
@@ -88,52 +88,6 @@ static VOID         _nx_driver_hardware_packet_received(VOID);
 static UINT         _nx_driver_hardware_capability_set(NX_IP_DRIVER *driver_req_ptr);
 #endif /* NX_ENABLE_INTERFACE_CAPABILITY */
 
-/**************************************************************************/
-/* Cache maintenance. */
-/**************************************************************************/
-#if defined(__TARGET_PROFILE_M)
-
-#if defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
-#define invalidate_cache_by_addr(__ptr__, __size__)                  SCB_InvalidateDCache_by_Addr((void *)(__ptr__), (int32_t)(__size__))
-#define clean_cache_by_addr(__ptr__, __size__)                       SCB_CleanDCache_by_Addr((uint32_t *)(__ptr__), (int32_t)(__size__))
-#else
-#define invalidate_cache_by_addr(__ptr__, __size__)
-#define clean_cache_by_addr(__ptr__, __size__)
-#endif
-
-#elif defined(CACHE_USE)
-
-static void invalidate_cache_by_addr_(uint32_t start, uint32_t size)
-{
-  uint32_t current = start & ~31U;
-  uint32_t end = (start + size + 31U) & ~31U;
-  while (current < end)
-  {
-    L1C_CleanInvalidateDCacheMVA((void*)current); /* We clean also because buffers are not 32-byte aligned and read is done after this anyway. */
-    current += 32U;
-  }
-}
-
-static void clean_cache_by_addr_(uint32_t start, uint32_t size)
-{
-  uint32_t current = start & ~31U;
-  uint32_t end = (start + size + 31U) & ~31U;
-  while (current < end)
-  {
-    L1C_CleanDCacheMVA((void*)current);
-    current += 32U;
-  }
-}
-
-#define invalidate_cache_by_addr(__ptr__, __size__) invalidate_cache_by_addr_((uint32_t)(__ptr__), (uint32_t)(__size__))
-#define clean_cache_by_addr(__ptr__, __size__) clean_cache_by_addr_((uint32_t)(__ptr__), (uint32_t)(__size__))
-
-#else
-
-#define invalidate_cache_by_addr(__ptr__, __size__)
-#define clean_cache_by_addr(__ptr__, __size__)
-
-#endif
 
 /**************************************************************************/
 /*                                                                        */
@@ -306,8 +260,6 @@ VOID  nx_stm32_eth_driver(NX_IP_DRIVER *driver_req_ptr)
     /* Return the unhandled command status.  */
     driver_req_ptr -> nx_ip_driver_status =  NX_UNHANDLED_COMMAND;
 
-    /* Default to successful return.  */
-    driver_req_ptr -> nx_ip_driver_status =  NX_DRIVER_ERROR;
   }
 }
 
@@ -1540,7 +1492,7 @@ static UINT  _nx_driver_hardware_initialize(NX_IP_DRIVER *driver_req_ptr)
   FilterConfig.ControlPacketsFilter = 0x00;
 
   /* Set Tx packet config common parameters */
-  memset(&TxPacketCfg, 0, sizeof(ETH_TxPacketConfig_t));
+  memset(&TxPacketCfg, 0, sizeof(ETH_TxPacketConfigTypeDef));
   TxPacketCfg.Attributes = ETH_TX_PACKETS_FEATURES_CSUM ;
   TxPacketCfg.CRCPadCtrl = ETH_CRC_PAD_DISABLE;
 
@@ -1653,6 +1605,7 @@ static UINT  _nx_driver_hardware_disable(NX_IP_DRIVER *driver_req_ptr)
   /* Return success!  */
   return(NX_SUCCESS);
 }
+
 
 /**************************************************************************/
 /*                                                                        */

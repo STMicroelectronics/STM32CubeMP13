@@ -1,0 +1,30 @@
+
+Thu Feb 01 16:31:39 2024
+Input file  : Fx_emmc_File_Edit_A7.bin
+Output file : Fx_emmc_File_Edit_A7_Signed.bin
+| Magic number            | @0x00   0 | sz   4 | 53 54 4D 32  
+| Image Signature         | @0x04   4 | sz  64 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... 
+| Image Checksum          | @0x44  68 | sz   4 | FB 20 BC 00  
+| Header version          | @0x48  72 | sz   4 | 00 00 02 00  
+| Image Length            | @0x4c  76 | sz   4 | 30 B4 01 00  
+| Image Entry  Point      | @0x50  80 | sz   4 | 00 00 FE 2F  
+| Reserved1               | @0x54  84 | sz   4 | 00 00 00 00  
+| Load address            | @0x58  88 | sz   4 | 00 00 00 00  
+| Reserved2               | @0x5c  92 | sz   4 | 00 00 00 00  
+| Version Number          | @0x60  96 | sz   4 | 00 00 00 00  
+| Extension flags         | @0x64 100 | sz   4 | 00 00 00 80  
+| Post headers length     | @0x68 104 | sz   4 | 80 01 00 00  
+| Binary type             | @0x6c 108 | sz   4 | 10 00 00 00  
+| PAD                     | @0x70 112 | sz  16 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  
+| Extension header type   | @0x80 128 | sz   4 | 53 54 FF FF  
+| Extension header length | @0x84 132 | sz   4 | 80 01 00 00  
+| Extension PAD           | @0x88 136 | sz 376 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... 
+Image Type  : ST Microelectronics STM32 V2.0
+Image Size  : 111664 bytes
+Image Load  : 0x00000000
+Entry Point : 0x2FFE0000
+Checksum    : 0x00BC20FB
+Ext flag    : 0x80000000
+Binary Type : 0x00000010
+Version     : 0x00000000
+Fx_emmc_File_Edit_A7_Signed.bin generated

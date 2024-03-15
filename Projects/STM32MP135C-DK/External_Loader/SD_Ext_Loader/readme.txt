@@ -23,8 +23,7 @@
 SD External Loader Firmware utility is used to manage external SDCard
   - This utility provides embedded SW applications to program and manage
     external SDCard on DISCOVERY Board.
-  - This package includes only binaries and supports ONLY UART protocol without more 
-    complex software on DISCOVERY board. USB DFU protocol is not supported.
+  - This package includes only binaries and supports both UART & USB DFU protocol.
   -	SD External Loader Firmware utility source code should be requested from STMicroelectronics and easily
     adapted and improved based on your own needs.
   - OTP Programming is not supported in this package.

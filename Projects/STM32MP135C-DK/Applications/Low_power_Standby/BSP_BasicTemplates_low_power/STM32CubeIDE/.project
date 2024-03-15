@@ -32,9 +32,14 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>syscalls.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/STM32CubeIDE/syscalls.c</locationURI>
+		</link>
+		<link>
 			<name>Doc/readme.txt</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/readme.txt</locationURI>
+			<location>C:/Git/mp13_master/Firmware/Projects/STM32MP135C-DK/Applications/Low_power_Standby/readme.txt</location>
 		</link>
 		<link>
 			<name>Application/User/main.c</name>
@@ -130,11 +135,6 @@
 			<name>Example/STM32CubeIDE/startup_stm32mp135c_ca7.c</name>
 			<type>1</type>
 			<locationURI>PARENT-6-PROJECT_LOC/Drivers/CMSIS/Device/ST/STM32MP13xx/Source/Templates/gcc/startup_stm32mp135c_ca7.c</locationURI>
-		</link>
-		<link>
-			<name>syscalls.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/STM32CubeIDE/syscalls.c</locationURI>
 		</link>
 		<link>
 			<name>Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco.c</name>

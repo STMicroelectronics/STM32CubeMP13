@@ -41,12 +41,13 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+UART_HandleTypeDef huart4;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-void UART_Config(void);
+static void MX_UART4_Init(void);
+
 /* USER CODE BEGIN PFP */
 #if defined ( __GNUC__) && !defined(__clang__)
 #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
@@ -90,7 +91,7 @@ int main(void)
 #endif
 
   /* Initialize UART */
-  UART_Config();
+  MX_UART4_Init();
 
   /* Initialize the IO expander */
   BSP_IOEXPANDER_Init(0, IOEXPANDER_IO_MODE);
@@ -246,23 +247,76 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 /* USER CODE END 4 */
 
-void UART_Config(void)
+/**
+  * @brief UART4 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_UART4_Init(void)
 {
-  /* UARTx configured as follow:
-        - BaudRate = 115200 baud
-        - Word Length = 8 Bits
-        - One Stop Bit
-        - No parity
-        - Hardware flow control disabled (RTS and CTS signals)
-        - Receive and transmit enabled
-   */
-  COM_InitTypeDef COM_Init;
-  COM_Init.BaudRate   = 115200;
-  COM_Init.Parity     = UART_PARITY_NONE;
-  COM_Init.StopBits   = UART_STOPBITS_1;
-  COM_Init.WordLength = UART_WORDLENGTH_8B;
-  COM_Init.HwFlowCtl  = UART_HWCONTROL_NONE;
-  BSP_COM_Init(COM1, &COM_Init);
+
+  /* USER CODE BEGIN UART4_Init 0 */
+
+  /* USER CODE END UART4_Init 0 */
+
+  /* USER CODE BEGIN UART4_Init 1 */
+
+  /* USER CODE END UART4_Init 1 */
+
+  huart4.Instance = UART4;
+  huart4.Init.BaudRate = 115200;
+  huart4.Init.WordLength = UART_WORDLENGTH_8B;
+  huart4.Init.StopBits = UART_STOPBITS_1;
+  huart4.Init.Parity = UART_PARITY_NONE;
+  huart4.Init.Mode = UART_MODE_TX_RX;
+  huart4.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart4.Init.OverSampling = UART_OVERSAMPLING_8;
+  huart4.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart4.Init.ClockPrescaler = UART_PRESCALER_DIV1;
+  huart4.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+
+  if (HAL_UART_Init(&huart4) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetTxFifoThreshold(&huart4, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetRxFifoThreshold(&huart4, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_DisableFifoMode(&huart4) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /* USER CODE BEGIN UART4_Init 2 */
+
+  /* USER CODE END UART4_Init 2 */
+}
+
+/**
+  * @brief  Retargets the C library printf function to the USART.
+  * @param  None
+  * @retval None
+  */
+
+int __write(int file, char *buf, int size)
+{
+  (void)file;
+  (void)size;
+  HAL_UART_Transmit(&huart4, (uint8_t *)buf, 1, 0xFFFF);
+  return 1;
+}
+
+PUTCHAR_PROTOTYPE
+{
+  /* Place your implementation of fputc here */
+  /* e.g. write a character to the UART4 and Loop until the end of transmission */
+  __write(1, (char *)&ch, 1);
+  return ch;
 }
 
 /**

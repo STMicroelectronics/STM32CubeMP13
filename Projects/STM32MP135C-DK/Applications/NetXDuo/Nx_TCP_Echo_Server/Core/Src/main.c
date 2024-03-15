@@ -43,7 +43,7 @@
 ETH_DMADescTypeDef  __attribute__((section (".TxDecripSection"))) DMATxDscrTab[ETH_TX_DESC_CNT] ;
 ETH_DMADescTypeDef  __attribute__((section (".RxDecripSection"))) DMARxDscrTab[ETH_RX_DESC_CNT] ;
 
-ETH_TxPacketConfig_t TxConfig;
+ETH_TxPacketConfigTypeDef TxConfig;
 ETH_HandleTypeDef heth;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -272,7 +272,7 @@ void MX_ETH_Init(void)
     Error_Handler();
   }
 
-  memset(&TxConfig, 0 , sizeof(ETH_TxPacketConfig_t));
+  memset(&TxConfig, 0 , sizeof(ETH_TxPacketConfigTypeDef));
   TxConfig.Attributes = ETH_TX_PACKETS_FEATURES_CSUM | ETH_TX_PACKETS_FEATURES_CRCPAD;
   TxConfig.ChecksumCtrl = ETH_CHECKSUM_IPHDR_PAYLOAD_INSERT_PHDR_CALC;
   TxConfig.CRCPadCtrl = ETH_CRC_PAD_INSERT;

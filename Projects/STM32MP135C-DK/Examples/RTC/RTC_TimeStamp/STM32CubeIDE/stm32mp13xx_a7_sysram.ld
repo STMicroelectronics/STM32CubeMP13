@@ -69,6 +69,13 @@ SVC_STACK = ABT_STACK - __ABT_STACK_SIZE;
 UND_STACK = SVC_STACK - __SVC_STACK_SIZE;
 SYS_STACK = UND_STACK - __UND_STACK_SIZE;
 
+PHDRS
+{
+	text 	PT_LOAD FLAGS(5);
+	data	PT_LOAD FLAGS(6);
+	bss 	PT_LOAD FLAGS(6);
+}
+
 SECTIONS
 {
     . = __MEM_START__;
@@ -104,7 +111,7 @@ SECTIONS
          */
         . = NEXT(4096);
         __RO_END__ = .;
-    } >RAM
+    } >RAM :text
 
 
     .ARM.extab   : {

@@ -271,68 +271,71 @@ void SecurePhysicalTimer_IRQHandler(void)
 
   HAL_IncTick();
 }
-
 /**
   * @brief  Generic IRQ Handler (Software IRQs, PPIs & IRQs)
   * @param  None
   * @retval None
   */
 #if defined ( __GNUC__ )
+#pragma GCC push_options
+#pragma GCC target("general-regs-only")
 void __attribute__ ((interrupt ("IRQ")))IRQ_Handler(void) {
 #elif defined ( __ICCARM__ )
-__irq __arm void IRQ_Handler(void) {
+	__irq __arm void IRQ_Handler(void) {
 #endif
-  uint32_t ItId;
-  IRQHandler_t handler;
+	  uint32_t ItId;
+	  IRQHandler_t handler;
 
-  while (1U)
-  {
-    /* Get highest pending Interrupt Id from GIC driver*/
-    ItId = (uint32_t)IRQ_GetActiveIRQ();
+	  while (1U)
+	  {
+	    /* Get highest pending Interrupt Id from GIC driver*/
+	    ItId = (uint32_t)IRQ_GetActiveIRQ();
 
-    if (ItId <= GIC_HIGHEST_INTERRUPT_VALUE) /* Highest value of GIC Valid Interrupt */
-    {
-      /* Check validity of IRQ */
-      if (ItId >= (uint32_t)MAX_IRQ_n)
-      {
-        SystemInit_IRQ_ErrorHandler();
-      }
-      else
-      {
-        /* Find appropriate IRQ Handler (Require registration before!) */
-        handler = IRQ_GetHandler((IRQn_ID_t)ItId);
+	    if (ItId <= GIC_HIGHEST_INTERRUPT_VALUE) /* Highest value of GIC Valid Interrupt */
+	    {
+	      /* Check validity of IRQ */
+	      if (ItId >= (uint32_t)MAX_IRQ_n)
+	      {
+	        SystemInit_IRQ_ErrorHandler();
+	      }
+	      else
+	      {
+	        /* Find appropriate IRQ Handler (Require registration before!) */
+	        handler = IRQ_GetHandler((IRQn_ID_t)ItId);
 
-        if (handler!=NULL)
-        {
-          /* Call IRQ Handler */
-          handler();
-        }
-        else
-        {
-          /* Un register Handler , error ! */
-          SystemInit_IRQ_ErrorHandler();
-        }
-      }
+	        if (handler!=NULL)
+	        {
+	          /* Call IRQ Handler */
+	          handler();
+	        }
+	        else
+	        {
+	          /* Un register Handler , error ! */
+	          SystemInit_IRQ_ErrorHandler();
+	        }
+	      }
 
-      /* End Acknowledge interrupt */
-      IRQ_EndOfInterrupt((IRQn_ID_t)ItId);
-    }
-    else
-    {
-      /* Normal case: whenever there is no more pending IRQ , IAR returns ACKNOWLEDGE special IRQ value */
-      if (ItId == GIC_ACKNOWLEDGE_RESPONSE)
-      {
-        break;
-      }
-      /* Spurious IRQ Value (1022)  ... */
-      else
-      {
-        SystemInit_IRQ_ErrorHandler();
-      }
-    }
-  }
-}
-
+	      /* End Acknowledge interrupt */
+	      IRQ_EndOfInterrupt((IRQn_ID_t)ItId);
+	    }
+	    else
+	    {
+	      /* Normal case: whenever there is no more pending IRQ , IAR returns ACKNOWLEDGE special IRQ value */
+	      if (ItId == GIC_ACKNOWLEDGE_RESPONSE)
+	      {
+	        break;
+	      }
+	      /* Spurious IRQ Value (1022)  ... */
+	      else
+	      {
+	        SystemInit_IRQ_ErrorHandler();
+	      }
+	    }
+	  }
+	}
+#ifdef __GNUC__
+#pragma GCC pop_options
+#endif
 /**
   * @brief  Ensure all bss part of code is initialized with zeros
   * @param  None

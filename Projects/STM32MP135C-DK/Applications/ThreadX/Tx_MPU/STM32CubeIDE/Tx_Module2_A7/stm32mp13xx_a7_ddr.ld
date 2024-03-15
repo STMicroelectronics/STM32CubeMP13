@@ -6,6 +6,13 @@ MEMORY {
   DDR_BASE (rwx)      : ORIGIN = 0xC0000000, LENGTH = 512M
 }
 
+PHDRS
+{
+	text PT_LOAD FLAGS(5);  /* READ and EXECUTE */
+	data PT_LOAD FLAGS(6);  /* READ and WRITE */
+	bss PT_LOAD FLAGS(6);   /* READ and WRITE */
+}
+
 SECTIONS
 {
   __file_start__ = 0x00000000;
@@ -23,7 +30,7 @@ SECTIONS
     __preamble_start__ = .;
     *preamble*
     __preamble_end__ = .;
-  }
+  } :text
 
   /**********************/
   /* Executable section. */

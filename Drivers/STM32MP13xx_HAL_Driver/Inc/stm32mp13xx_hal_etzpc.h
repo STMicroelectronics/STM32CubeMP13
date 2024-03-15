@@ -27,6 +27,12 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32mp13xx_ll_etzpc.h"
 
+#ifdef  USE_FULL_ASSERT
+#include "stm32_assert.h"
+#else
+#define assert_param(expr) ((void)0U)
+#endif /* USE_FULL_ASSERT */
+
 /** @addtogroup STM32MP13xx_HAL_Driver
   * @{
   */
@@ -43,7 +49,7 @@ extern "C" {
   * @{
   */
 
-#define ETZPC_CHECK_PROTECTION(p) assert( \
+#define ETZPC_CHECK_PROTECTION(p) assert_param( \
                                           p == LL_ETZPC_PERIPH_PROTECTION_READ_WRITE_SECURE || \
                                           p == LL_ETZPC_PERIPH_PROTECTION_READ_NONSECURE_WRITE_SECURE || \
                                           p == LL_ETZPC_PERIPH_PROTECTION_READ_WRITE_NONSECURE)
@@ -84,7 +90,7 @@ extern "C" {
   */
 __STATIC_INLINE void HAL_ETZPC_SetSecureSysRamSize(ETZPC_TypeDef *ETZPCx, uint32_t size)
 {
-  assert(size <= 0x3FFU);
+  assert_param(size <= 0x3FFU);
   LL_ETZPC_SetSecureSysRamSize(ETZPCx, size);
 }
 

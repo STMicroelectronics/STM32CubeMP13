@@ -40,6 +40,14 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+#if defined ( __ICCARM__ )
+#pragma section = "SRAM1_READ_WRITE_SECURE"
+#pragma section = "SRAM2_READ_UNSECURE_WRITE_SECURE"
+#pragma section = "SRAM3_READ_WRITE_UNSECURE"
+#pragma section = "SYSRAM_UNSECURE"
+#pragma section = "SYSRAM_SECURE"
+#endif
+
 DMA_HandleTypeDef hdma;
 static __IO bool transferCompleted; /* Set to true if the transfer is done */
 static __IO bool transferErrorDetected; /* Set to true if the transfer is an error occurred during the transfer */
@@ -65,6 +73,19 @@ static void testTransfer(char *src, bool srcSecure, char *dst, bool dstSecure);
   */
 int main(void)
 {
+#if defined ( __ICCARM__ )
+char *sram1_rw_secure = __section_begin("SRAM1_READ_WRITE_SECURE");
+char *sram2_rw_unsecure_wsecure = __section_begin("SRAM2_READ_UNSECURE_WRITE_SECURE");
+char *sram3_rw_unsecure = __section_begin("SRAM3_READ_WRITE_UNSECURE");
+char *sysram_secure = __section_begin("SYSRAM_SECURE");
+char *sysram_unsecure = __section_begin("SYSRAM_UNSECURE");
+#else
+char *sram1_rw_secure = &SRAM1_READ_WRITE_SECURE;
+char *sram2_rw_unsecure_wsecure = &SRAM2_READ_UNSECURE_WRITE_SECURE;
+char *sram3_rw_unsecure = &SRAM3_READ_WRITE_UNSECURE;
+char *sysram_secure = &SYSRAM_SECURE;
+char *sysram_unsecure = &SYSRAM_UNSECURE;
+#endif
   /* USER CODE BEGIN 1 */
   /* USER CODE END 1 */
 
@@ -72,7 +93,7 @@ int main(void)
 
   /* Reset of all peripherals, Initialize the Systick */
   HAL_Init();
-
+  
   /* USER CODE BEGIN Init */
 
   /* Configure the system clock */
@@ -129,24 +150,24 @@ int main(void)
   BSP_LED_Init(LED_GREEN);
 
   /* DMA from SYSRAM unsecure to SYSRAM secure */
-  testTransfer(&SYSRAM_UNSECURE, false, &SYSRAM_SECURE, true);
+  testTransfer(sysram_unsecure, false, sysram_secure, true);
   /* DMA from SYSRAM secure to SYSRAM unsecure */
-  testTransfer(&SYSRAM_SECURE, true, &SYSRAM_UNSECURE, false);
+  testTransfer(sysram_secure, true, sysram_unsecure, false);
 
   /* DMA from SYSRAM unsecure to SRAM1 read and write secure */
-  testTransfer(&SYSRAM_UNSECURE, false, &SRAM1_READ_WRITE_SECURE, true);
+  testTransfer(sysram_unsecure, false, sram1_rw_secure, true);
   /* DMA from SRAM1 read and write secure to SYSRAM unsecure */
-  testTransfer(&SRAM1_READ_WRITE_SECURE, true, &SYSRAM_UNSECURE, false);
+  testTransfer(sram1_rw_secure, true, sysram_unsecure, false);
 
   /* DMA from SYSRAM unsecure to SRAM2 read unsecure and write secure */
-  testTransfer(&SYSRAM_UNSECURE, false, &SRAM2_READ_UNSECURE_WRITE_SECURE, true);
+  testTransfer(sysram_unsecure, false, sram2_rw_unsecure_wsecure, true);
   /* DMA from SRAM2 read unsecure and write secure to SYSRAM unsecure */
-  testTransfer(&SRAM2_READ_UNSECURE_WRITE_SECURE, false, &SYSRAM_UNSECURE, false);
+  testTransfer(sram2_rw_unsecure_wsecure, false, sysram_unsecure, false);
 
   /* DMA from SYSRAM unsecure to SRAM3 read and write unsecure */
-  testTransfer(&SYSRAM_UNSECURE, false, &SRAM3_READ_WRITE_UNSECURE, false);
+  testTransfer(sysram_unsecure, false, sram3_rw_unsecure, false);
   /* DMA from SRAM3 read and write unsecure to SYSRAM unsecure */
-  testTransfer(&SRAM3_READ_WRITE_UNSECURE, false, &SYSRAM_UNSECURE, false);
+  testTransfer(sram3_rw_unsecure, false, sysram_unsecure, false);
 
   /* Turn on LED_GREEN if test passes then enter infinite loop */
   BSP_LED_On(LED_GREEN);

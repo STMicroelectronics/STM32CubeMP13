@@ -34,6 +34,9 @@
 
 @note The application need to ensure that the SysTick time base is always set to 1 millisecond
       to have correct HAL operation.
+      This app can be build without GPT Table also by deleting GPT_TABLE_PRESENT in preprocessor build
+      setting. This will be useful in case of application is put into the SD card using HxD
+      software.
 
 @par Directory contents 
 

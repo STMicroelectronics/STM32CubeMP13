@@ -75,6 +75,17 @@ extern RTC_HandleTypeDef RtcHandle;
   * @param  None
   * @retval None
   */
+#if defined(CORTEX_IN_SECURE_STATE)
+void TAMP_SIRQHandler(void)
+{
+  /* Catch immediately the timestamp event */
+  if (HAL_OK != HAL_RTCEx_PollForTimeStampEvent(&RtcHandle, HAL_MAX_DELAY))
+  {
+    Error_Handler();
+  }
+  HAL_RTCEx_TamperIRQHandler(&RtcHandle);
+}
+#else /* CORTEX_IN_SECURE_STATE */
 void TAMP_IRQHandler(void)
 {
   /* Catch immediately the timestamp event */
@@ -84,5 +95,6 @@ void TAMP_IRQHandler(void)
   }
   HAL_RTCEx_TamperIRQHandler(&RtcHandle);
 }
+#endif /* CORTEX_IN_SECURE_STATE */
 
 /* USER CODE END 1 */

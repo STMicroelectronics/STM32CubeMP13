@@ -112,5 +112,4 @@ int32_t mcp23x17_read_reg(mcp23x17_ctx_t *ctx, uint16_t reg, uint8_t *data, uint
 
 /**
   * @}
-  */       
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+  */

@@ -39,7 +39,7 @@
 		<link>
 			<name>Doc/readme.txt</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/readme.txt</locationURI>
+			<location>C:/Git/mp13_master/Firmware/Projects/STM32MP135C-DK/Applications/Low_power_LPLV_Stop2/readme.txt</location>
 		</link>
 		<link>
 			<name>Application/User/main.c</name>

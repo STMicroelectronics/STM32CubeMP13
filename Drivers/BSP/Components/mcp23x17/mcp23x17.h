@@ -246,4 +246,3 @@ extern MCP23x17_IO_Mode_t MCP23x17_IO_Driver;
 /**
   * @}
   */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

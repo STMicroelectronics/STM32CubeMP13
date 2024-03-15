@@ -75,9 +75,16 @@ extern RTC_HandleTypeDef RtcHandle;
   * @param  None
   * @retval None
   */
+#if defined(CORTEX_IN_SECURE_STATE)
+void TAMP_SIRQHandler(void)
+{
+  HAL_RTCEx_TamperIRQHandler(&RtcHandle);
+}
+#else /* CORTEX_IN_SECURE_STATE */
 void TAMP_IRQHandler(void)
 {
   HAL_RTCEx_TamperIRQHandler(&RtcHandle);
 }
+#endif /* CORTEX_IN_SECURE_STATE */
 
 /* USER CODE END 1 */

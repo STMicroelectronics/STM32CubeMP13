@@ -2657,7 +2657,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint64_t PeriphClk)
       {
         case RCC_SPI1CLKSOURCE_PLL4:
           HAL_RCC_GetPLL4ClockFreq(&pll4_clocks);
-          frequency = pll4_clocks.PLL4_Q_Frequency;
+          frequency = pll4_clocks.PLL4_P_Frequency;
           break;
 
         case RCC_SPI1CLKSOURCE_PLL3_Q:

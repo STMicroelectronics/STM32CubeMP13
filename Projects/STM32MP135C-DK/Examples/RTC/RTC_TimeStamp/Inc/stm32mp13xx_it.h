@@ -47,7 +47,11 @@
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
+#if defined(CORTEX_IN_SECURE_STATE)
+void TAMP_SIRQHandler(void);
+#else /* CORTEX_IN_SECURE_STATE */
 void TAMP_IRQHandler(void);
+#endif /* CORTEX_IN_SECURE_STATE */
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

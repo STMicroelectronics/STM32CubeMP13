@@ -16,4 +16,5 @@
 | STM32 USB Host Library          | STMicroelectronics                 | SLA0044                                          |
 | Applications projects           | STMicroelectronics                 | SLA0044                                          |
 | Example Projects                | STMicroelectronics                 | BSD 3-Clause                                     |
+| External Loader                 | STMicroelectronics                 | SLA0044                                          |
 | Template Projects               | STMicroelectronics                 | BSD 3-Clause                                     |

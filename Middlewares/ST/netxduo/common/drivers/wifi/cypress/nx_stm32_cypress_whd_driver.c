@@ -97,6 +97,7 @@ static VOID *_nx_driver_cypress_whd_event_handler(whd_interface_t ifp,
 static void HexDump(const void *pData, size_t Size);
 #endif /* REMOVE_DEBUG_FUNC */
 
+extern UINT cypress_whd_alloc_init(VOID);
 
 VOID nx_driver_cypress_whd_entry(NX_IP_DRIVER *driver_req_ptr)
 {

@@ -2438,10 +2438,10 @@ static HAL_StatusTypeDef HAL_NAND_ECC_Read_Sector(NAND_HandleTypeDef *hnand, uin
                                                   void *Buff, uint32_t BuffOffset)
 {
   HAL_StatusTypeDef status;
-  uint32_t eccWhenWriting[4];
-  uint32_t eccWhenReading[4];
-  uint32_t BCHDSRx[5];
-  uint16_t errorPositions[8];
+  uint32_t eccWhenWriting[4] = {0x00U};
+  uint32_t eccWhenReading[4] = {0x00U};
+  uint32_t BCHDSRx[5]        = {0x00U};
+  uint16_t errorPositions[8] = {0x00U};
   int32_t errorCount = 0;
 
   /* Change read position (column) to sector data */

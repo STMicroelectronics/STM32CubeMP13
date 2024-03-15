@@ -31,7 +31,9 @@
   * @{
   */
 
-#if defined (TIM1) || defined (TIM2) || defined (TIM3) || defined (TIM4) || defined (TIM5) || defined (TIM6) || defined (TIM7) || defined (TIM8) || defined(TIM12) || defined (TIM13) || defined (TIM14) || defined (TIM15) || defined (TIM16) || defined (TIM17)
+#if defined (TIM1) || defined (TIM2) || defined (TIM3) || defined (TIM4) || defined (TIM5) || defined (TIM6) || \
+    defined (TIM7) || defined (TIM8) || defined(TIM12) || defined (TIM13) || defined (TIM14) || defined (TIM15) || \
+  defined (TIM16) || defined (TIM17)
 
 /** @addtogroup TIM_LL
   * @{
@@ -232,98 +234,98 @@ ErrorStatus LL_TIM_DeInit(const TIM_TypeDef *TIMx)
     LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_TIM1);
     LL_APB2_GRP1_ReleaseReset(LL_APB2_GRP1_PERIPH_TIM1);
   }
-#endif
+#endif /* TIM1 */
 #if defined(TIM2)
   else if (TIMx == TIM2)
   {
     LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM2);
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM2);
   }
-#endif
+#endif /* TIM2 */
 #if defined(TIM3)
   else if (TIMx == TIM3)
   {
     LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM3);
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM3);
   }
-#endif
+#endif /* TIM3 */
 #if defined(TIM4)
   else if (TIMx == TIM4)
   {
     LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM4);
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM4);
   }
-#endif
+#endif /* TIM4 */
 #if defined(TIM5)
   else if (TIMx == TIM5)
   {
     LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM5);
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM5);
   }
-#endif
+#endif /* TIM5 */
 #if defined(TIM6)
   else if (TIMx == TIM6)
   {
     LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM6);
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM6);
   }
-#endif
+#endif /* TIM6 */
 #if defined (TIM7)
   else if (TIMx == TIM7)
   {
     LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM7);
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM7);
   }
-#endif
+#endif /* TIM7 */
 #if defined(TIM8)
   else if (TIMx == TIM8)
   {
     LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_TIM8);
     LL_APB2_GRP1_ReleaseReset(LL_APB2_GRP1_PERIPH_TIM8);
   }
-#endif
+#endif /* TIM8 */
 #if defined(TIM12)
   else if (TIMx == TIM12)
   {
     LL_APB6_GRP1_ForceReset(LL_APB6_GRP1_PERIPH_TIM12);
     LL_APB6_GRP1_ReleaseReset(LL_APB6_GRP1_PERIPH_TIM12);
   }
-#endif
+#endif /* TIM12 */
 #if defined(TIM13)
   else if (TIMx == TIM13)
   {
     LL_APB6_GRP1_ForceReset(LL_APB6_GRP1_PERIPH_TIM13);
     LL_APB6_GRP1_ReleaseReset(LL_APB6_GRP1_PERIPH_TIM13);
   }
-#endif
+#endif /* TIM13 */
 #if defined(TIM14)
   else if (TIMx == TIM14)
   {
     LL_APB6_GRP1_ForceReset(LL_APB6_GRP1_PERIPH_TIM14);
     LL_APB6_GRP1_ReleaseReset(LL_APB6_GRP1_PERIPH_TIM14);
   }
-#endif
+#endif /* TIM14 */
 #if defined(TIM15)
   else if (TIMx == TIM15)
   {
     LL_APB6_GRP1_ForceReset(LL_APB6_GRP1_PERIPH_TIM15);
     LL_APB6_GRP1_ReleaseReset(LL_APB6_GRP1_PERIPH_TIM15);
   }
-#endif
+#endif /* TIM15 */
 #if defined(TIM16)
   else if (TIMx == TIM16)
   {
     LL_APB6_GRP1_ForceReset(LL_APB6_GRP1_PERIPH_TIM16);
     LL_APB6_GRP1_ReleaseReset(LL_APB6_GRP1_PERIPH_TIM16);
   }
-#endif
+#endif /* TIM16 */
 #if defined(TIM17)
   else if (TIMx == TIM17)
   {
     LL_APB6_GRP1_ForceReset(LL_APB6_GRP1_PERIPH_TIM17);
     LL_APB6_GRP1_ReleaseReset(LL_APB6_GRP1_PERIPH_TIM17);
   }
-#endif
+#endif /* TIM17 */
   else
   {
     result = ERROR;
@@ -456,9 +458,12 @@ ErrorStatus LL_TIM_OC_Init(TIM_TypeDef *TIMx, uint32_t Channel, const LL_TIM_OC_
     case LL_TIM_CHANNEL_CH4:
       result = OC4Config(TIMx, TIM_OC_InitStruct);
       break;
+#if !(defined(GENERATOR_TIM_FEATURE_COMBINED_3_PHASE_PWM_MODE_NOT_AVAILABLE)) \
+   &&(defined(GENERATOR_TIM_FEATURE_COMBINED_3_PHASE_PWM_MODE_ALL_DEVICES)||defined(TIM_CCER_CC5E))
     case LL_TIM_CHANNEL_CH5:
       result = OC5Config(TIMx, TIM_OC_InitStruct);
       break;
+#endif /* TIM_CCER_CC5E */
     case LL_TIM_CHANNEL_CH6:
       result = OC6Config(TIMx, TIM_OC_InitStruct);
       break;
@@ -1386,7 +1391,8 @@ static ErrorStatus IC4Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM
   * @}
   */
 
-#endif /* TIM1 || TIM2 || TIM3 || TIM4 || TIM5 || TIM6 || TIM7 || TIM8 || TIM12 || TIM13 || TIM14 || TIM15 || TIM16 || TIM17 */
+#endif /* TIM1 || TIM2 || TIM3 || TIM4 || TIM5 || TIM6 || TIM7 || TIM8 || TIM12 || TIM13 || TIM14 ||
+          TIM15 || TIM16 || TIM17 */
 
 /**
   * @}

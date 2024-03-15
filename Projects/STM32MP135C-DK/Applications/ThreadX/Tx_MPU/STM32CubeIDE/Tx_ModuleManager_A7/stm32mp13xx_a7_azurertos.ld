@@ -46,6 +46,13 @@ __MEM_START__ = ORIGIN(RAM);
 __MEM_END__ = ORIGIN(RAM) + LENGTH(RAM);
 __MEM_SIZE__  = LENGTH(RAM);
 
+PHDRS
+{
+	text PT_LOAD FLAGS(5);  /* READ and EXECUTE */
+	data PT_LOAD FLAGS(6);  /* READ and WRITE */
+	bss PT_LOAD FLAGS(6);   /* READ and WRITE */
+}
+
 SECTIONS
 {
   . = __MEM_START__;
@@ -70,7 +77,7 @@ SECTIONS
     __TEXT_END_UNALIGNED__ = .;
     . = NEXT(4096);
     __TEXT_END__ = .;
-  }
+  } :text
   
   /*********************************************************************************
    * Read only data

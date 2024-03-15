@@ -47,7 +47,11 @@
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
+#if defined(CORTEX_IN_SECURE_STATE)
+void RTC_WKUP_ALARM_S_IRQHandler(void);
+#else /* CORTEX_IN_SECURE_STATE */
 void RTC_WKUP_ALARM_IRQHandler(void);
+#endif /* CORTEX_IN_SECURE_STATE */
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

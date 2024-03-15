@@ -24,7 +24,7 @@
 #include "stm32_assert.h"
 #else
 #define assert_param(expr) ((void)0U)
-#endif /* defined(GENERATOR_STM32MP13XX) */
+#endif /* USE_FULL_ASSERT */
 
 /** @addtogroup STM32MP13xx_LL_Driver
   * @{
@@ -779,7 +779,7 @@ ErrorStatus LL_RTC_EnterInitMode(RTC_TypeDef *RTCx)
   *          - SUCCESS: RTC exited from in Init mode
   *          - ERROR: Not applicable
   */
-ErrorStatus LL_RTC_ExitInitMode(RTC_TypeDef *RTCx)
+ErrorStatus LL_RTC_ExitInitMode(RTC_TypeDef * RTCx)
 {
   /* Check the parameter */
   assert_param(IS_RTC_ALL_INSTANCE(RTCx));
@@ -806,7 +806,7 @@ ErrorStatus LL_RTC_ExitInitMode(RTC_TypeDef *RTCx)
   *          - SUCCESS: RTC registers are synchronised
   *          - ERROR: RTC registers are not synchronised
   */
-ErrorStatus LL_RTC_WaitForSynchro(RTC_TypeDef *RTCx)
+ErrorStatus LL_RTC_WaitForSynchro(RTC_TypeDef * RTCx)
 {
   ErrorStatus status = SUCCESS;
   uint32_t tmp;

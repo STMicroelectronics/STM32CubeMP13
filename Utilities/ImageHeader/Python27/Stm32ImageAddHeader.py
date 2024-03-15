@@ -30,7 +30,10 @@ def _getsize(fileobject):
 def _stm32image_checksum(image):
     checksum = 0
     for dat in image:
-        checksum += ord(dat)
+        if isinstance(dat, int):
+            checksum += dat
+        else:
+            checksum += ord(dat)
     return checksum & 0xffffffff
 
 

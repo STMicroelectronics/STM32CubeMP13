@@ -146,6 +146,7 @@ extern "C" {
 #define GPIO_AF7_USART6        ((uint8_t)0x07)  /* USART6 Alternate Function mapping     */
 #define GPIO_AF7_UART7         ((uint8_t)0x07)  /* UART7 Alternate Function mapping     */
 #define GPIO_AF7_UART4         ((uint8_t)0x07)  /* UART4 Alternate Function mapping     */
+#define GPIO_AF7_LCD           ((uint8_t)0x07)  /* LCD Alternate Function mapping      */
 
 /**
   * @brief   AF 8 selection

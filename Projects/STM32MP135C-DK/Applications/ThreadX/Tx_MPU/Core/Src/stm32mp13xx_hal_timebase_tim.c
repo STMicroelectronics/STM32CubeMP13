@@ -59,7 +59,7 @@ HAL_StatusTypeDef HAL_InitTick (uint32_t TickPriority)
   uint32_t              uwTimclock;
 
   uint32_t              uwPrescalerValue = 0U;
-  uint32_t              pFLatency;
+  uint32_t              pFLatency = 0U;
 
   /* Get clock configuration */
   HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);

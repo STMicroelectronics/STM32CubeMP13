@@ -1,0 +1,236 @@
+/*
+******************************************************************************
+**
+**  File        : LinkerScript.ld
+**
+**  Abstract    : Linker script for STM32MP13xx series
+**
+**                Set heap size, stack size and stack location according
+**                to application requirements.
+**
+**                Set memory bank area and size if external memory is used.
+**
+**  Target      : STMicroelectronics STM32
+**
+**  Distribution: The file is distributed �as is,� without any warranty
+**                of any kind.
+**
+*****************************************************************************
+  * @attention
+  *
+  * <h2><center>&copy; COPYRIGHT(c) 2019 STMicroelectronics</center></h2>
+  *
+  * Redistribution and use in source and binary forms, with or without modification,
+  * are permitted provided that the following conditions are met:
+  *   1. Redistributions of source code must retain the above copyright notice,
+  *      this list of conditions and the following disclaimer.
+  *   2. Redistributions in binary form must reproduce the above copyright notice,
+  *      this list of conditions and the following disclaimer in the documentation
+  *      and/or other materials provided with the distribution.
+  *   3. Neither the name of STMicroelectronics nor the names of its contributors
+  *      may be used to endorse or promote products derived from this software
+  *      without specific prior written permission.
+  *
+  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  *
+*****************************************************************************
+*/
+
+
+/* Entry Point */
+ENTRY(Reset_Handler)
+
+_Min_Heap_Size = 0x200;     /* required amount of heap  */
+_Min_Stack_Size = 0x400;    /* required amount of stack */
+
+TTB_L1_SIZE = 16384;        /* MMU Level 1 Translation table size */
+TTB_L2_SIZE = 1024;         /* MMU Level 2 Translation table size */
+
+MEMORY {
+    SYSRAM_BASE (rwx)   : ORIGIN = 0x2FFE0000, LENGTH = 128K
+    SRAM1_BASE (rwx)    : ORIGIN = 0x30000000, LENGTH = 16K
+    SRAM2_BASE (rwx)    : ORIGIN = 0x30004000, LENGTH = 8K
+    SRAM3_BASE (rwx)    : ORIGIN = 0x30006000, LENGTH = 8K
+    DDR_BASE (rwx)      : ORIGIN = 0xC0000000, LENGTH = 512M
+}
+
+/* Select Memory in which code has to be placed and offset of code from start of this memory */ 
+REGION_ALIAS("RAM", MCUSRAM);
+START_OFFSET = 0x00;
+
+/* Code Memory */
+__MEM_START__ = ORIGIN(RAM) + START_OFFSET;
+__MEM_SIZE__  = LENGTH(RAM) - START_OFFSET;
+__FIQ_STACK_SIZE = 0x400;
+__IRQ_STACK_SIZE = 0x400;
+__ABT_STACK_SIZE = 0x400;
+__SVC_STACK_SIZE = 0x400;
+__UND_STACK_SIZE = 0x400;
+__SYS_STACK_SIZE = 0x8000;
+
+
+/* put the stacks at the end of the memory */
+FIQ_STACK = __MEM_START__ + __MEM_SIZE__;
+IRQ_STACK = FIQ_STACK - __FIQ_STACK_SIZE;
+ABT_STACK = IRQ_STACK - __IRQ_STACK_SIZE;
+SVC_STACK = ABT_STACK - __ABT_STACK_SIZE;
+UND_STACK = SVC_STACK - __SVC_STACK_SIZE;
+SYS_STACK = UND_STACK - __UND_STACK_SIZE;
+
+SECTIONS
+{
+    . = __MEM_START__;
+    .RESET . : {
+        __TEXT_START__ = .;
+        *(.text.Reset_Handler)
+        * (RESET)
+        *(.text*)
+        
+        /* .init is used by libc_nano */
+        KEEP (*(.init))
+        KEEP (*(.fini))
+
+        __TEXT_END_UNALIGNED__ = .;
+        
+        /*
+         * Memory page(s) mapped to this section will be marked as
+         * read-only, executable.  No non-executable data from the next section must
+         * creep in.  Ensure the rest of the current memory page is unused.
+         */
+        __TEXT_END__ = .;
+        
+        . = NEXT(4096);
+
+        __RO_START__ = .;
+        *(.rodata*)
+
+        __RO_END_UNALIGNED__ = .;
+        /*
+         * Memory page(s) mapped to this section will be marked as
+         * read-only, non-executable.  No RW data from the next section must
+         * creep in.  Ensure the rest of the current memory page is unused.
+         */
+        . = NEXT(4096);
+        __RO_END__ = .;
+    } >RAM
+
+
+    .ARM.extab   : {
+    . = ALIGN(4);
+    *(.ARM.extab* .gnu.linkonce.armextab.*)
+    . = ALIGN(4);
+    } >RAM
+
+    .ARM : {
+    . = ALIGN(4);
+    __exidx_start = .;
+    *(.ARM.exidx*)
+    __exidx_end = .;
+    . = ALIGN(4);
+    } >RAM
+
+    /* .init_array is used by libc_nano */
+
+    .preinit_array     :
+    {
+    . = ALIGN(4);
+    PROVIDE_HIDDEN (__preinit_array_start = .);
+    KEEP (*(.preinit_array*))
+    PROVIDE_HIDDEN (__preinit_array_end = .);
+    . = ALIGN(4);
+    } >RAM
+
+    .init_array :
+    {
+    . = ALIGN(4);
+    PROVIDE_HIDDEN (__init_array_start = .);
+    KEEP (*(SORT(.init_array.*)))
+    KEEP (*(.init_array*))
+    PROVIDE_HIDDEN (__init_array_end = .);
+    . = ALIGN(4);
+    } >RAM
+
+    .fini_array :
+    {
+    . = ALIGN(4);
+    PROVIDE_HIDDEN (__fini_array_start = .);
+    KEEP (*(SORT(.fini_array.*)))
+    KEEP (*(.fini_array*))
+    PROVIDE_HIDDEN (__fini_array_end = .);
+    . = ALIGN(4);
+    } >RAM
+
+
+    .data . : {
+        RW_DATA = .;
+        *(.data*)
+        __DATA_END__ = .;
+    } >RAM
+
+    /*
+     * The .bss section gets initialised to 0 at runtime.
+     * Its base address must be 16-byte aligned.
+     */
+    .bss : ALIGN(32) {
+        ZI_DATA = .;
+        *(SORT_BY_ALIGNMENT(.bss*))
+        *(COMMON)
+        . = ALIGN(32);
+        __BSS_END__ = .;
+    } >RAM
+
+    __BSS_SIZE__ = SIZEOF(.bss);
+
+/* 1 TTB Level 1 table */
+/* 4 TTB Level 2 tables */
+    ._TTB : ALIGN(16384) {
+       TTB = .;
+       . = . + TTB_L1_SIZE;
+       . = . + TTB_L2_SIZE * 4;
+    } > RAM
+
+
+    /* User_heap_stack section, used to check that there is enough RAM left */
+    ._user_heap_stack :
+    {
+        . = ALIGN(8);
+        PROVIDE ( end = . );
+        PROVIDE ( _end = . );
+        . = . + _Min_Heap_Size;
+        . = . + _Min_Stack_Size;
+        . = ALIGN(8);
+    } >RAM
+    
+    .stack     :
+    {
+
+    _stack_bottom = ABSOLUTE(.) ;
+
+    /* Allocate room for stack. This must be big enough for the IRQ, FIQ, and 
+       SYS stack if nested interrupts are enabled.*/
+    .   =  ALIGN(8) ;
+    .   += 32768 ;
+    _sp =  . - 16 ;
+    _stack_top = ABSOLUTE(.) ;
+    } >RAM
+	
+	 _end = .;
+
+
+  /* Remove information from the compiler libraries */
+  /DISCARD/ :
+  {
+    libc.a ( * )
+    libm.a ( * )
+    libgcc.a ( * )
+  }
+}

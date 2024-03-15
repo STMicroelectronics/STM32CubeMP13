@@ -70,15 +70,10 @@ Storage, SD, SDMMC, Read Write, Block, Sector, DMA, Linked List
 
   - This example has been tested with STM32MP135F-DK board and can be
     easily tailored to any other supported device and development board.
-    
+
   STM32MP135F-DK Set-up :	
   - Connect the uSD Card to the Micro SD connector (CN29).
-
-  - You can display test message on the HyperTerminal,
-      * You need to connect the STM32MP135F-DK board through 'USB micro A-Male to A-Male'
-        cable to the ST-LINK V3.0 connector to the PC serial port.
  
-
 @par How to use it ? 
 
 In order to make the program work, you must do the following :

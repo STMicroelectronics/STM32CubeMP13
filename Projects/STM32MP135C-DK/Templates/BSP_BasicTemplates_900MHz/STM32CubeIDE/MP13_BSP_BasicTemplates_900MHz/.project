@@ -23,9 +23,9 @@
 		<nature>org.eclipse.cdt.core.cnature</nature>
 		<nature>com.st.stm32cube.ide.mpu.projectnatures.core.MPUEmbeddedMCUProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUCubeIdeServicesRevAProjectNature</nature>
-	    <nature>com.st.stm32cube.ide.mcu.MCUManagedMakefileProjectNature</nature>
-	    <nature>com.st.stm32cube.ide.mcu.MCUEndUserDisabledTrustZoneProjectNature</nature>
-	    <nature>com.st.stm32cube.ide.mcu.MCUSingleCpuProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUManagedMakefileProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUEndUserDisabledTrustZoneProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUSingleCpuProjectNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUSW4STM32ConvertedProjectNature</nature>
@@ -112,6 +112,11 @@
 			<locationURI>PARENT-6-PROJECT_LOC/Drivers/STM32MP13xx_HAL_Driver/Src/stm32mp13xx_hal_uart.c</locationURI>
 		</link>
 		<link>
+			<name>Drivers/STM32MP13xx_HAL_Driver/stm32mp13xx_hal_uart_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-6-PROJECT_LOC/Drivers/STM32MP13xx_HAL_Driver/Src/stm32mp13xx_hal_uart_ex.c</locationURI>
+		</link>
+		<link>
 			<name>Example/STM32CubeIDE/startup_stm32mp135c_ca7.c</name>
 			<type>1</type>
 			<locationURI>PARENT-6-PROJECT_LOC/Drivers/CMSIS/Device/ST/STM32MP13xx/Source/Templates/gcc/startup_stm32mp135c_ca7.c</locationURI>
@@ -130,11 +135,6 @@
 			<name>Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco_bus.c</name>
 			<type>1</type>
 			<locationURI>PARENT-6-PROJECT_LOC/Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco_bus.c</locationURI>
-		</link>
-		<link>
-			<name>Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco_stpmic1.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco_stpmic1.c</locationURI>
 		</link>
 		<link>
 			<name>Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco_stpmic1.c</name>

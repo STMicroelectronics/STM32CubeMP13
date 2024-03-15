@@ -58,6 +58,9 @@ extern TX_SEMAPHORE sd_rx_semaphore;
 /* Default sector size, used by the driver */
 #define FX_STM32_SD_DEFAULT_SECTOR_SIZE                  512
 
+/* File system start offset is 0MB as single block is 512 bytes */
+#define FILE_SYSTEM_START_OFFSET_BLOCK_NUM                    0
+
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
 

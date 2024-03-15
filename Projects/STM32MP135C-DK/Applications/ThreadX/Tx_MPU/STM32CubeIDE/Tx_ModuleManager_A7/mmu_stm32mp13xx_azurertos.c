@@ -1,4 +1,3 @@
-/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file         mmu_for_threadx.c
@@ -14,8 +13,18 @@
   * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
-  */
-/* USER CODE END Header */
+  ******************************************************************************
+  *                                                                        *
+  *       Copyright (c) Microsoft Corporation. All rights reserved.        *
+  *                                                                        *
+  *       This software is licensed under the Microsoft Software License   *
+  *       Terms for Microsoft Azure RTOS. Full text of the license can be  *
+  *       found in the LICENSE file at https://aka.ms/AzureRTOS_EULA       *
+  *       and in the root directory of this software.                      *
+  *                                                                        *
+  *****************************************************************************
+*/
+
 #include "txm_module.h"
 
 #ifdef TXM_MODULE_MEMORY_PROTECTION_ENABLED

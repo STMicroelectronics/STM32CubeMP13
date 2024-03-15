@@ -75,9 +75,17 @@ extern RTC_HandleTypeDef RtcHandle;
   * @param  None
   * @retval None
   */
+
+#if defined(CORTEX_IN_SECURE_STATE)
+void RTC_WKUP_ALARM_S_IRQHandler(void)
+{
+  HAL_RTC_AlarmIRQHandler(&RtcHandle);
+}
+#else /* CORTEX_IN_SECURE_STATE */
 void RTC_WKUP_ALARM_IRQHandler(void)
 {
   HAL_RTC_AlarmIRQHandler(&RtcHandle);
 }
+#endif /* CORTEX_IN_SECURE_STATE */
 
 /* USER CODE END 1 */

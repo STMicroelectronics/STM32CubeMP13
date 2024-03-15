@@ -43,6 +43,12 @@ DDR_InitTypeDef hddr;
 /* Private variables ---------------------------------------------------------*/
 
 /******** SD Receive Buffer definition *******/
+typedef struct
+{
+  uint32_t  id;
+  char     name[40];
+  uint32_t  offset;
+} OPENBL_Flashlayout_Storage_TypeDef;
 
 void (*p_AppEntryPoint)(void); /* Entry point of the application*/
 __IO uint8_t RxCplt; /* Variable used to indicate that load in memory is over*/
@@ -52,10 +58,16 @@ SD_HandleTypeDef SDHandle;
 /* Possible to select a specific address in DDR, but the cube example has to be linked with the same address */
 #define DDR_MEM_ADD DRAM_MEM_BASE
 
+#define GPT_APPLICATION_PHASE_ID	5
+#define MAX_ENTRIES_IN_GPT_TABLE	10
+#define NB_BLOCK_GPT 1    /* Number of block for the GPT */
+#define OFFSET_HEADER_GPT 0 /* Offset of the GPT */
 #define NB_BLOCK_HEADER 1 /* Number of block for the cube example header */
 #define OFFSET_HEADER 640 /* Offset of the cube example header */
 #define OFFSET_CUBE_EXAMPLE OFFSET_HEADER + NB_BLOCK_HEADER /* Offset of the cube example */
 uint8_t aRxBuffer[BLOCKSIZE * NB_BLOCK_HEADER];
+uint8_t aGPTBuffer[BLOCKSIZE * NB_BLOCK_GPT];
+OPENBL_Flashlayout_Storage_TypeDef (*FlashlayoutStorageStruct)[MAX_ENTRIES_IN_GPT_TABLE] = (OPENBL_Flashlayout_Storage_TypeDef (*)[MAX_ENTRIES_IN_GPT_TABLE])&aGPTBuffer;
 
 #define IMAGE_LENGTH_POSITION 76 /* First hexadecimal number position (aRxBuffer position) of cube example image length */
 #define NB_HEXA_NB_FOR_IMAGE_LENGTH 4 /* Number of hexadecimal number representing the cube example image length */
@@ -89,6 +101,8 @@ int main(void)
   /* USER CODE BEGIN 1 */
 
   /*# Variables to read image length from cubeExampleHeader #*/
+  uint32_t index = 0;
+  uint32_t exampleOffset = 0x00;
   uint32_t sizeCubeExample = 0;
   uint32_t actualHexadecimalNbPosition;
   uint32_t bitShift;
@@ -190,12 +204,34 @@ int main(void)
 
   while(HAL_SD_GetCardState(&SDHandle) != HAL_SD_CARD_TRANSFER) {}
 
+#ifdef GPT_TABLE_PRESENT
+  /*##- Read GPT Table ####################*/
+  if(HAL_SD_ReadBlocks(&SDHandle, aGPTBuffer, OFFSET_HEADER_GPT, NB_BLOCK_GPT, 3000) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  for (index = 0; index < MAX_ENTRIES_IN_GPT_TABLE; index++)
+  {
+	  if (GPT_APPLICATION_PHASE_ID == (*FlashlayoutStorageStruct)[index].id)
+	  {
+		  exampleOffset = (*FlashlayoutStorageStruct)[index].offset;
+		  break;
+	  }
+  }
+  if (MAX_ENTRIES_IN_GPT_TABLE == index)
+  {
+	  Error_Handler();
+  }
+#else /* GPT_TABLE_PRESENT */
+  exampleOffset = OFFSET_HEADER;
+#endif /* GPT_TABLE_PRESENT */
 
   /*##- Read CubeExampleHeader ####################*/
 
   /* Read Header from the SD */
   RxCplt=0;
-  if(HAL_SD_ReadBlocks_DMA(&SDHandle, aRxBuffer, OFFSET_HEADER, NB_BLOCK_HEADER) != HAL_OK)
+  if(HAL_SD_ReadBlocks_DMA(&SDHandle, aRxBuffer, exampleOffset, NB_BLOCK_HEADER) != HAL_OK)
   {
     Error_Handler();
   }
@@ -226,7 +262,7 @@ int main(void)
 
   /* Read application from the SD */
   RxCplt = 0;
-  if(HAL_SD_ReadBlocks_DMA(&SDHandle, (uint8_t *)DDR_MEM_ADD, OFFSET_CUBE_EXAMPLE, nbCubeExampleBlock+1) != HAL_OK)
+  if(HAL_SD_ReadBlocks_DMA(&SDHandle, (uint8_t *)DDR_MEM_ADD, (exampleOffset + NB_BLOCK_HEADER), nbCubeExampleBlock+1) != HAL_OK)
   {
     Error_Handler();
   }

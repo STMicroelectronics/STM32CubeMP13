@@ -381,12 +381,19 @@ int Serial_Scanf(char *ptr, int len)
   * @retval None
   */
 
+int __write(int file, char *buf, int size)
+{
+  (void)file;
+  (void)size;
+  HAL_UART_Transmit(&huart4, (uint8_t *)buf, 1, 0xFFFF);
+  return 1;
+}
+
 PUTCHAR_PROTOTYPE
 {
   /* Place your implementation of fputc here */
   /* e.g. write a character to the UART4 and Loop until the end of transmission */
-  HAL_UART_Transmit(&huart4, (uint8_t *)&ch, 1, 0xFFFF);
-
+  __write(1, (char *)&ch, 1);
   return ch;
 }
 

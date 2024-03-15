@@ -914,6 +914,11 @@ HAL_StatusTypeDef FMC_NAND_ECC_GetBCHResult(FMC_NAND_TypeDef *Device, uint32_t *
     }
   }
 
+  if (__FMC_NAND_IS_ECC_BCH_DECODER_READY(Device) == SET)
+  {
+	  Device->BCHICR |= FMC_BCHISR_DERF;
+  }
+
   /* Get the BCHPBRx registers value */
   BCHDSRx[0] = Device->BCHDSR0;
   BCHDSRx[1] = Device->BCHDSR1;

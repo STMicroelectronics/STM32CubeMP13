@@ -37,8 +37,8 @@ feature that need high level firmware bricks (ex. Audio). Integration
 Applications that use several Middleware stacks are provided as well.</li>
 <li>A Template project is provided to allow user to quickly
 build any firmware application on a given board.</li>
-<li>External loader project is provided to allow user to load
-user applications from external memories e.g. SD Card and SNOR on a given board.</li>
+<li><b>External loader</b> project is provided to allow user to load
+user applications from external memories e.g. SD Card, SNOR and eMMC on a given board.</li>
 </ul>
 <p>The examples are located under
 STM32Cube_FW_MP13_VX.Y.Z\Projects\, and all of them have the same
@@ -70,16 +70,40 @@ it has the same hardware functions (LED, LCD display,
 pushbuttons...etc.). The BSP is based on a modular architecture that
 allows it to be ported easily to any hardware by just implementing the
 low level routines.</p>
-<p style="font-weight: bold;"> Execution information :</p><ul><li><span style="text-decoration: underline;">Engineering boot mode</span>:</li><ul><li>All the examples could be run on SYSRAM memory, except LTDC_Display_2Layers
-(the binary size of this example is larger than SYSRAM Size) =&gt; For
-this example, DDR_Init should be run before.</li><li>For the same reason, all the AzureRTOS applications should be run after DDR_Init example.</li></ul><li><span style="text-decoration: underline;">SDCard boot mode</span> (Possible on <span style="font-weight: bold;">STM32MP135F_DK </span>board):</li><ul><li>The
-applications or examples (CubeExample) could be executed from SDCard.
-For the instance, the FSBLA_Sdmmc and the CubeExample should be copied
-manually in the SD Card.&nbsp;</li><ul><li>At the boot, the bootrom will copy the FSBLA_SDMMC in SYSRAM and execute it,</li><li>FSBLA_Sdmmc:</li><ul><li>will initialize the clocks, the SDMMC and the DDR,</li></ul><ul><li>will read from SDMMC1 the CubeExample image length and load CubeExample into DDR.</li><li>will jump into DDR to execute this CubeExample</li></ul></ul></ul><li><span style="text-decoration: underline;">NOR boot mode </span>(not
+<p style="font-weight: bold;"> Execution information :</p>
+<ul><li><span style="text-decoration: underline;">Engineering boot mode</span>:</li>
+<ul><li>All the examples could be run on SYSRAM memory, except LTDC_Display_2Layers, DCMIPP and TouchScreen examples
+(the binary size of these examples are larger than SYSRAM Size) =&gt; For these examples, DDR_Init should be run before.
+</li><li>For the same reason, all the AzureRTOS applications should be run after DDR_Init example.</li></ul>
+
+<li><span style="text-decoration: underline;">SDCard boot mode</span> (Possible on <span style="font-weight: bold;">STM32MP135F_DK </span>board):</li>
+<ul><li>The applications or examples (CubeExample) could be executed from SDCard. For the instance, the FSBLA_Sdmmc and the CubeExample should be 
+copied using cube programmer (External_Loader is included in form of binaries for this purpose) or manually in the SD Card.&nbsp;</li>
+<ul><li>At the boot, the bootrom will copy the FSBLA_SDMMC in SYSRAM and execute it,</li><li>FSBLA_Sdmmc:</li>
+<ul><li>will initialize the clocks, the SDMMC and the DDR,</li></ul>
+<ul><li>will read from SDMMC1 the CubeExample image length and load CubeExample into DDR.</li>
+<li>will jump into DDR to execute this CubeExample</li></ul></ul></ul>
+
+<li><span style="text-decoration: underline;">NOR boot mode </span>(not
 possible on STM32MP135F_DK board because no XSPI_NOR available, but
-feature has been validated with internal ST Board customized - <span style="font-weight: bold;">STM32MP13XX_CUSTOM_HW</span>)</li><ul><li>The
-applications or examples (CubeExample) could be executed from NOR.
-For the instance, the FSBLA_SNOR and the CubeExample could be copied with the&nbsp;debug tool "XSPI_NOR_Programmer".&nbsp;</li><ul><li>At the boot, the bootrom will copy the FSBLA_SNOR in SYSRAM and execute it,</li><li>FSBLA_SNOR:</li><ul><li>will initialize the clocks, the XSPI-NOR and the DDR,</li></ul><ul><li>will read from XSPI-NOR the CubeExample image length and load CubeExample into DDR.</li><li>will jump into DDR to execute this CubeExample</li></ul></ul></ul></ul>
+feature has been validated with internal ST Board customized - <span style="font-weight: bold;">STM32MP13XX_CUSTOM_HW</span>)</li>
+<ul><li>The applications or examples (CubeExample) could be executed from NOR. For the instance, the FSBLA_SNOR and the CubeExample could be copied using CubeProgrammer (External_Loader is included in form of binaries for this purpose) 
+or with the provided debug tool&nbsp;debug tool "XSPI_NOR_Programmer".&nbsp;</li><ul>
+<li>At the boot, the bootrom will copy the FSBLA_SNOR in SYSRAM and execute it,</li><li>FSBLA_SNOR:</li><ul>
+<li>will initialize the clocks, the XSPI-NOR and the DDR,</li></ul>
+<ul><li>will read from XSPI-NOR the CubeExample image length and load CubeExample into DDR.</li>
+<li>will jump into DDR to execute this CubeExample</li></ul></ul></ul>
+
+<li><span style="text-decoration: underline;">eMMC boot mode </span>(not
+possible on STM32MP135F_DK board because no eMMC available, but
+feature has been validated with internal ST Board customized - <span style="font-weight: bold;">STM32MP13XX_CUSTOM_HW</span>)</li>
+<ul><li>The applications or examples (CubeExample) could be executed from eMMC(SDMMC2). For the instance, the FSBLA_eMMC and the 
+CubeExample should be copied using cube programmer(External_Loader is included in form of binaries for this purpose) in the eMMC.</li><ul>
+<li>At the boot, the bootrom will copy the FSBLA_eMMC in SYSRAM and execute it,</li><li>FSBLA_eMMC:</li><ul>
+<li>will initialize the clocks, the SDMMC2(eMMC) and the DDR,</li></ul>
+<ul><li>will read from SDMMC2(eMMC) the CubeExample image length and load CubeExample into DDR.</li>
+<li>will jump into DDR to execute this CubeExample</li></ul></ul></ul></ul>
+
 <div>The table below contains the list of examples provided
 within STM32Cube_FW_MP13 Firmware package.</div>
 <p id="STM32MP13xxImportantLink"> </p>
@@ -111,7 +135,9 @@ template that can be used to build any firmware application.
 </td>
 <td><font color="green" size="5">X</font></td><td></td>
 </tr>
-<tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
+
+<tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); 
+color: rgb(255, 255, 255);" align="center">
 <td colspan="3"><b>Total number of
 bsp_basictemplates_900mhz: 1</b></td>
 <td>1</td><td></td>
@@ -132,13 +158,17 @@ template that can be used to build any firmware application.
 </td>
 <td><font color="green" size="5">X</font></td><td style="background-color: rgb(240, 240, 255);"><font color="green" size="5">X</font></td>
 </tr>
-<tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
+
+<tr style="background-repeat: no-repeat; background-position: right center; 
+background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
 <td colspan="3"><b>Total number of
 bsp_basictemplates: 2</b></td>
 <td>1</td><td>1</td>
 </tr>
+
 <tr align="center">
-<td style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" rowspan="44">
+<td style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); 
+color: rgb(255, 255, 255);" rowspan="45">
 <p id="Examples">Examples</p>
 </td>
 <td rowspan="3" align="left">
@@ -172,6 +202,22 @@ into an array, indefinitely (circular mode).
 </td>
 <td><font color="green" size="5">X</font></td><td></td>
 </tr>
+
+<tr align="center">
+<td rowspan="1" align="left">
+<p id="BSP">BSP</p>
+</td>
+<td align="left">
+<p id="BSP_TS_A7">BSP_TS_A7</p>
+</td>
+<td align="left">How to configure the LCD BSP driver on disco board.
+The DDR memory need to be initialized with DDR_Init project.
+At the beginning of the main program the HAL_Init() function is called to reset all the peripherals, initialize the systick.
+The SystemClock_Config() function is used to configure the system clock for STM32MP13xx Devices : LCD is initialized in LCD_Config api.
+</td>
+<td style="text-align: center; background-color: rgb(255, 255, 153);"> <font color="green" size="5">X</font></td><td></td>
+</tr>
+
 <tr align="center">
 <td rowspan="1" align="left">
 <p id="CRC">CRC</p>
@@ -188,8 +234,9 @@ polynomial.
 </td>
 <td><font color="green" size="5">X</font></td><td></td>
 </tr>
+
 <tr align="center">
-<td rowspan="4" align="left">
+<td rowspan="5" align="left">
 <p id="CRYP/SAES">CRYP/SAES</p>
 </td>
 <td align="left">
@@ -201,6 +248,15 @@ using hardware secret key DHUK then use it to encrypt in polling mode.
 </td>
 <td><font color="green" size="5">X</font></td><td></td>
 </tr>
+
+<tr>
+<td id="CRYP_SAES_SharedKey">CRYP_SAES_SharedKey</td>
+<td align="left">The Secure AES instance is configured in shared mode and hardware secret key DHUK is selected.
+The goal here to share application key with CRYP peripheral without being exposed in clear-text.
+</td>
+<td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td><td></td>
+</tr>
+
 <tr>
 <td>CRYP_SAES_MDMA_ECB_CBC</td>
 <td>How to use the SecureAES co-processor (SAES) peripheral
@@ -580,16 +636,31 @@ between two boards.
 </td>
 <td align="left">This example describes an USART-SPI communication 
 (transmit/receive) with DMA between two<br>boards where the USART 
-is configured as a slave.</td><td style="background-color: rgb(240, 240, 255); text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
-<td colspan="3"><b>Total number of examples: 44</b></td>
-<td>43</td><td>1</td>
+is configured as a slave.</td>
+<td style="background-color: rgb(240, 240, 255); text-align: center;">
+<font color="green" size="5">X</font></td><td></td></tr>
+
+<tr style="background-repeat: no-repeat; background-position: right center; 
+background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
+<td colspan="4"><b>Total number of examples: 46</b></td>
+<td>45</td><td>1</td>
 </tr>
 
 <tr>
-<td style="background-color: rgb(57, 169, 220); text-align: center; color: white;" colspan="1" rowspan="28">
+<td style="background-color: rgb(57, 169, 220); text-align: center; color: white;" colspan="1" rowspan="29">
 <p style="background-color: rgb(57, 169, 220);" id="Applications">Applications</p>
 </td>
-<td colspan="1" rowspan="6">FileX</td>
+<td colspan="1" rowspan="7">FileX</td>
+
+<td>Fx_emmc_File_Edit</td>
+<td align="left">This
+application provides an example of Azure RTOS FileX stack usage on
+STM32MP13XX_CUSTOM_HW board, it shows how to develop a basic eMMC file operations application.
+The application is designed to handle eMMC card insertion/removal events, 
+and depending on that state, it starts and stops file operations from and into the eMMC card. </td>
+<td></td><td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td>
+</tr>
+
 <td>Fx_MultiAccess</td>
 <td align="left">This
 application provides an example of Azure RTOS FileX stack usage on
@@ -638,12 +709,25 @@ code for properly managing it.</td>
 <td>This application provides an example of Azure RTOS FileX stack
 usage on STM32MP135F-DK board, it shows how to develop a basic SD card
 file operations application. The application is designed to handle SD
-card insertion/removal events, and depending on that state, it startsand stops file operations from and into the SD card. </td>
+card insertion/removal events, and depending on that state, it starts and stops file operations from and into the SD card. </td>
 <td style="text-align: center;"><font color="green" size="5">X</font></td><td style="background-color: rgb(240, 240, 255); text-align: center;"><font color="green" size="5">X</font></td>
 </tr>
-<tr><td colspan="1" rowspan="2">FSBLA</td><td>FSBLA_Sdmmc</td><td>&nbsp;This application describes how to load and execute a cubeExample binary from SDCARD into DDR on STM32MP135F-DK (DDR3). </td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr><td>FSBLA_SNOR</td><td>This
-application describes how to load a cubeExample binary from XSPI-NOR
-into DDR, and execute it on STM32MP13XX_CUSTOM_HW Board.</td><td></td><td style="text-align: center; background-color: rgb(240, 240, 255);"><font color="green" size="5">X</font></td></tr>
+
+<tr><td colspan="1" rowspan="3">FSBLA</td>
+<td>FSBLA_Sdmmc1</td>
+<td>&nbsp;This application describes how to load and execute a cubeExample binary from SDCARD into DDR on STM32MP135F-DK (DDR3). </td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr>
+
+<tr><td>FSBLA_eMMC</td>
+<td>This application describes how to load a cubeExample binary from eMMC into DDR, and execute it on STM32MP13XX_CUSTOM_HW Board.</td>
+<td></td>
+<td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td></tr>
+
+<tr><td>FSBLA_SNOR</td>
+<td>This application describes how to load a cubeExample binary from XSPI-NOR
+into DDR, and execute it on STM32MP13XX_CUSTOM_HW Board.</td>
+<td></td>
+<td style="text-align: center; background-color: rgb(240, 240, 255);"><font color="green" size="5">X</font></td></tr>
 
 <tr>
 <td>Debug PROGRAMMER</td>
@@ -760,46 +844,59 @@ It shows how to develop a composite "USB HID CDC_ACM Host" that is able to enume
 <td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr><td>Ux_Host_MSC</td><td>This
 application provides an example of Azure RTOS USBX stack usage. It
 shows how to develop USB Host Mass Storage "MSC" able to enumerate and
-communicates with a removable usb flash disk.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
-<td colspan="3"><b>Total number of
-applications: 27</b></td>
-<td>22</td><td>5</td>
+communicates with a removable usb flash disk.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr>
+
+<tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); 
+color: rgb(255, 255, 255);" align="center">
+<td colspan="4"><b>Total number of applications: 29</b></td>
+<td>22</td><td>7</td>
 </tr>
 
 <tr>
 <td style="background-color: rgb(57, 169, 220); text-align: center; color: white;" colspan="1" rowspan="3">
 <p style="background-color: rgb(57, 169, 220);" id="External_Loader">External_Loader</p>
 </td>
-<td colspan="1" rowspan="2">-</td>
+<td colspan="1" rowspan="3">-</td>
 <td>SD_Ext_Loader</td>
 <td align="left">This application provides an example of loading a prebuild and signed user application on
 STM32MP135F-DK board from SD Card. User has to build its production application, sign it and replace its name in tsv file and finally
-use this tsv to load app using cube programmer tool. cube programmer will connect to board via uart, then it will first copy fsbl-openbl 
+use this tsv to load app using cube programmer tool. cube programmer will connect to board via uart/usb, then it will first copy fsbl-openbl 
 to sysram, fsbl-openbl in turn call fsbl-extfl which will initialize sd card and ddr and copy FSBLA_Sdmmc1_A7_Signed.bin and user app to 
 SD Card and execute from ddr. next time when device boot in sd boot mode, it will load user application automatically</td>
-<td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td><td></td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td>
 </tr>
+
+<tr>
+<td>EMMC_Ext_Loader</td>
+<td>This application provides an example of loading a prebuild and signed user application on
+STM32MP13XX_CUSTOM_HW board from eMMC. User has to build its production application, sign it and replace its name in tsv file and finally
+use this tsv to load app using cube programmer tool. cube programmer will connect to board via uart/usb, then it will first copy fsbl-openbl 
+to sysram, fsbl-openbl in turn call fsbl-extfl which will initialize eMMC and ddr and copy FSBLA_Sdmmc2_A7_Signed.bin and user app to 
+eMMC and execute from ddr. next time when device boot in eMMC boot mode, it will load user application automatically.</td><td>
+</td><td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td>
+</tr>
+
 <tr>
 <td>SNOR_Ext_Loader</td>
 <td>This application provides an example of loading a prebuild and signed user application on
 STM32MP13XX_CUSTOM_HW board from XSPI NOR. User has to build its production application, sign it and replace its name in tsv file and finally
-use this tsv to load app using cube programmer tool. cube programmer will connect to board via uart, then it will first copy fsbl-openbl 
+use this tsv to load app using cube programmer tool. cube programmer will connect to board via uart/usb, then it will first copy fsbl-openbl 
 to sysram, fsbl-openbl in turn call fsbl-extfl which will initialize XSPI NOR and ddr and copy FSBLA_SNOR_A7_Signed.bin and user app to 
 XSPI NOR and execute from ddr. next time when device boot in NOR boot mode, it will load user application automatically.</td><td>
-</td><td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td>
+</td><td style="text-align: center;"><font color="green" size="5">X</font></td>
 </tr>
 
 
 <tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
-<td colspan="3"><b>Total number of
-External Loader applications: 2</b></td>
-<td>1</td><td>1</td>
+<td colspan="4"><b>Total number of
+External Loader applications: 3</b></td>
+<td>1</td><td>2</td>
 </tr>
 
 
 <tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
-<td colspan="4"><b>Total number of projects: 76</b></td>
-<td>68</td><td>8</td>
+<td colspan="4"><b>Total number of projects: 81</b></td>
+<td>70</td><td>11</td>
 </tr>
 </tbody>
 </table>

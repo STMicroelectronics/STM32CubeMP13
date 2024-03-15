@@ -74,4 +74,3 @@ int32_t mcp23x17_write_reg(mcp23x17_ctx_t *ctx, uint16_t reg, uint8_t* data, uin
 /**
   * @}
   */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

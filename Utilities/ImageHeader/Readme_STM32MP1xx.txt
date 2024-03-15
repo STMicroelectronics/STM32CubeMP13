@@ -32,7 +32,8 @@ exe.win-amd64-2.7
 -- unicodedata.pyd
 Python27
 -- Stm32ImageAddHeader.py   -> Python script to generate STM32 Image Header on Linux OS
-
+Python3
+-- Stm32ImageAddHeader.py   -> Python script to generate STM32 Image Header on Linux OS
 
 **** How to use ImageHeader:
 

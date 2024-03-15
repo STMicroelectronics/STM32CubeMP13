@@ -48,7 +48,7 @@ MOSI Pin: PH3 (CN8, pin D19)
 
 HAL architecture allows user to easily change code to move to DMA or Polling
 mode. To see others communication modes please check following examples:
-SPI\SPI_FullDuplex_ComDMA_Master and SPI\SPI_FullDuplex_ComDMA_Slave
+SPI\SPI_FullDuplex_ComIT_Master and SPI\SPI_FullDuplex_ComIT_Slave
 
 At the beginning of the main program the HAL_Init() function is called to reset
 all the peripherals, initialize the systick.

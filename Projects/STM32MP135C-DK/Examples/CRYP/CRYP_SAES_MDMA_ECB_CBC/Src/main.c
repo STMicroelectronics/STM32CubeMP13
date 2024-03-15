@@ -199,6 +199,7 @@ int main(void)
     Error_Handler();
   }
 
+  __HAL_CRYP_CLEAR_FLAG(&hcryp, CRYP_CLEAR_CCF);
   if (HAL_CRYP_Decrypt_MDMA(&hcryp, CiphertextAESCBC256, PLAINTEXT_SIZE, DecryptedText) != HAL_OK)
   {
     /* Processing Error */

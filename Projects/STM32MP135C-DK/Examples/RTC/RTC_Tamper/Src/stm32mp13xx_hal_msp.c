@@ -125,9 +125,21 @@ void HAL_RTC_MspInit(RTC_HandleTypeDef *hrtc)
   /* Enable RTC Clock */
   __HAL_RCC_RTC_ENABLE();
 
+#if defined (CORTEX_IN_SECURE_STATE)
+  RTC_SecureStateTypeDef  secureState = {0};
+
+  secureState.tampSecureFull = TAMP_SECURE_FULL_YES;
+  (void)HAL_RTCEx_SecureModeSet(hrtc, &secureState);
+#endif /* CORTEX_IN_SECURE_STATE */
+
   /*##-4- Configure the interrupt for RTC Tamper ##################################*/
+#if defined (CORTEX_IN_SECURE_STATE)
+  IRQ_SetPriority(TAMP_S_IRQn, 0x4);
+  IRQ_Enable(TAMP_S_IRQn);
+#else /* CORTEX_IN_SECURE_STATE */
   IRQ_SetPriority(TAMP_IRQn, 0x4);
   IRQ_Enable(TAMP_IRQn);
+#endif /* CORTEX_IN_SECURE_STATE */
 }
 
 /* USER CODE BEGIN 1 */

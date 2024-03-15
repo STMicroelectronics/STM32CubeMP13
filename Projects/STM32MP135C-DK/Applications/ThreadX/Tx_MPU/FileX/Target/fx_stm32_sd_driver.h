@@ -52,6 +52,9 @@ extern "C" {
  */
 #define FX_STM32_SD_CACHE_MAINTENANCE                         0
 
+/* File system start offset is 0MB as single block is 512 bytes */
+#define FILE_SYSTEM_START_OFFSET_BLOCK_NUM                    0
+
 
 /* USER CODE BEGIN EC */
 

@@ -448,7 +448,7 @@ void HAL_RTCEx_TimeStampIRQHandler(RTC_HandleTypeDef *hrtc)
     hrtc->TimeStampEventCallback(hrtc);
 #else
     HAL_RTCEx_TimeStampEventCallback(hrtc);
-#endif /* defined(GENERATOR_STM32MP13XX) */
+#endif /* (USE_HAL_RTC_REGISTER_CALLBACKS == 1) */
     /* Clearing flags after the Callback because the content of
     RTC_TSTR and RTC_TSDR are cleared when TSF bit is reset.*/
     WRITE_REG(RTC->SCR, RTC_SCR_CITSF | RTC_SCR_CTSF);
@@ -771,7 +771,7 @@ void HAL_RTCEx_WakeUpTimerIRQHandler(RTC_HandleTypeDef *hrtc)
     hrtc->WakeUpTimerEventCallback(hrtc);
 #else
     HAL_RTCEx_WakeUpTimerEventCallback(hrtc);
-#endif /* defined(GENERATOR_STM32MP13XX) */
+#endif /* (USE_HAL_RTC_REGISTER_CALLBACKS == 1) */
   }
 
   /* Change RTC state */
@@ -2994,20 +2994,23 @@ HAL_StatusTypeDef HAL_RTCEx_SecureModeSet(RTC_HandleTypeDef *hrtc, RTC_SecureSta
 {
   UNUSED(hrtc);
   assert_param(IS_RTC_SECURE_FULL(secureState->rtcSecureFull));
-  assert_param(IS_RTC_NONSECURE_FEATURES(secureState->rtcNonSecureFeatures));
+  assert_param(IS_RTC_SECURE_FEATURES(secureState->rtcSecureFeatures));
   assert_param(IS_TAMP_SECURE_FULL(secureState->tampSecureFull));
+  assert_param(IS_TAMP_BHK_LOCK(secureState->bootHwKeyLock));
   assert_param(IS_RTC_BKP(secureState->backupRegisterStartZone2));
   assert_param(IS_RTC_BKP(secureState->backupRegisterStartZone3));
+  assert_param(IS_TAMP_MONOTONIC_CNT_SECURE(secureState->MonotonicCounterSecure));
 
   /* RTC, rtcNonSecureFeatures is only relevant if secureState->rtcSecureFull == RTC_SECURE_FULL_NO */
-  WRITE_REG(RTC->SMCR, secureState->rtcSecureFull | secureState->rtcNonSecureFeatures);
+  WRITE_REG(RTC->SECCFGR, secureState->rtcSecureFull | secureState->rtcSecureFeatures);
 
   /* Tamper + Backup register
      Warning : Backup register start zone are Shared with privilege configuration */
-  WRITE_REG(TAMP->SMCR,
-            secureState->tampSecureFull |
-            (TAMP_SMCR_BKPRWDPROT & (secureState->backupRegisterStartZone2 << TAMP_SMCR_BKPRWDPROT_Pos)) |
-            (TAMP_SMCR_BKPWDPROT & (secureState->backupRegisterStartZone3 << TAMP_SMCR_BKPWDPROT_Pos)));
+
+  WRITE_REG(TAMP->SECCFGR,
+            secureState->tampSecureFull | secureState->bootHwKeyLock | secureState->MonotonicCounterSecure |
+            (TAMP_SECCFGR_BKPRWSEC & (secureState->backupRegisterStartZone2 << TAMP_SECCFGR_BKPRWSEC_Pos)) |
+            (TAMP_SECCFGR_BKPWSEC & (secureState->backupRegisterStartZone3 << TAMP_SECCFGR_BKPWSEC_Pos)));
 
   return HAL_OK;
 }

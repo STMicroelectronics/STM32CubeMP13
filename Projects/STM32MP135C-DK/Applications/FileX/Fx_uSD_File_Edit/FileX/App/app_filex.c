@@ -199,9 +199,31 @@ void fx_thread_entry(ULONG thread_input)
       }
 
     }
+#ifdef ENABLE_FORMAT
+    /* Format the SD MMC as FAT */
+    status =  fx_media_format(&sdio_disk,                   // RamDisk pointer
+                              fx_stm32_sd_driver,           // Driver entry
+                              (VOID *)0x00,                 // Device info pointer
+                              (UCHAR *) media_memory,       // Media buffer pointer
+                              sizeof(media_memory),         // Media buffer size
+                              "STM32_SDIO_DISK",            // Volume Name
+                              1,                            // Number of FATs
+                              32,                           // Directory Entries
+                              0,                            // Hidden sectors
+                              3900000,                      // Total sectors
+                              512,                          // Sector size
+                              1,                            // Sectors per cluster
+                              1,                            // Heads
+                              1);                           // Sectors per track
 
+    /* Check the format status */
+    if (status != FX_SUCCESS)
+    {
+      Error_Handler();
+    }
+#endif
     /* Open the SD disk driver.  */
-  status =  fx_media_open(&sdio_disk, "STM32_SDIO_DISK", fx_stm32_sd_driver, 0,(VOID *) media_memory, sizeof(media_memory));
+    status =  fx_media_open(&sdio_disk, "STM32_SDIO_DISK", fx_stm32_sd_driver, 0,(VOID *) media_memory, sizeof(media_memory));
 
     /* Check the media open status.  */
     if (status != FX_SUCCESS)

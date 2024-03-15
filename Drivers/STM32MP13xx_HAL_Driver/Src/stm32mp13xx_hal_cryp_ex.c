@@ -893,17 +893,41 @@ static HAL_StatusTypeDef CRYPEx_KeyEncrypt(CRYP_HandleTypeDef *hcryp, uint32_t T
   {
     incount = 8;
   }
+
+  if (hcryp->Init.KeyMode == CRYP_KEYMODE_SHARED)
+  {
+    /* For MP13, key endianness in CRYP1 is BIG ENDIAN whereas KEY BUS endianness is LITTLE ENDIAN
+    so a swap must be applied at word level in CRYP1. */
+    hcryp->CrypInCount = incount - 1;
+  }
+
   while (hcryp->CrypInCount < incount)
   {
     /* Write four times to input the key to encrypt */
-    ((SAES_TypeDef *)(hcryp->Instance))->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
-    hcryp->CrypInCount++;
-    ((SAES_TypeDef *)(hcryp->Instance))->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
-    hcryp->CrypInCount++;
-    ((SAES_TypeDef *)(hcryp->Instance))->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
-    hcryp->CrypInCount++;
-    ((SAES_TypeDef *)(hcryp->Instance))->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
-    hcryp->CrypInCount++;
+    /* For MP13, key endianness in CRYP1 is BIG ENDIAN whereas KEY BUS endianness is LITTLE ENDIAN
+       so a swap must be applied at word level in CRYP1. */
+    if (hcryp->Init.KeyMode == CRYP_KEYMODE_SHARED)
+    {
+      ((SAES_TypeDef *)(hcryp->Instance))->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+      hcryp->CrypInCount--;
+      ((SAES_TypeDef *)(hcryp->Instance))->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+      hcryp->CrypInCount--;
+      ((SAES_TypeDef *)(hcryp->Instance))->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+      hcryp->CrypInCount--;
+      ((SAES_TypeDef *)(hcryp->Instance))->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+      hcryp->CrypInCount--;
+    }
+    else
+    {
+      ((SAES_TypeDef *)(hcryp->Instance))->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+      hcryp->CrypInCount++;
+      ((SAES_TypeDef *)(hcryp->Instance))->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+      hcryp->CrypInCount++;
+      ((SAES_TypeDef *)(hcryp->Instance))->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+      hcryp->CrypInCount++;
+      ((SAES_TypeDef *)(hcryp->Instance))->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+      hcryp->CrypInCount++;
+    }
 
     /* Wait for CCF flag to be raised */
     tickstart = HAL_GetTick();

@@ -156,6 +156,7 @@ int main(void)
   stamperstructure.PrechargeDuration            = RTC_TAMPERPRECHARGEDURATION_1RTCCLK;
   stamperstructure.TamperPullUp                 = RTC_TAMPER_PULLUP_ENABLE;
   stamperstructure.TimeStampOnTamperDetection   = RTC_TIMESTAMPONTAMPERDETECTION_DISABLE;
+  stamperstructure.NoErase                      = RTC_TAMPER_ERASE_BACKUP_ENABLE;
 
   if (HAL_RTCEx_SetTamper_IT(&RtcHandle, &stamperstructure) != HAL_OK)
   {
@@ -359,7 +360,7 @@ void Error_Handler(void)
   /* User can add his own implementation to report the HAL error return state */
   /* Turn LED_RED on */
   BSP_LED_On(LED_RED);
-  while(1)
+    while(1)
   {
   }
   /* USER CODE END Error_Handler_Debug */

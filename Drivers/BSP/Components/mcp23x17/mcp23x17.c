@@ -888,4 +888,3 @@ static int32_t MCP23x17_WriteRegWrap(void *handle, uint16_t Reg, uint8_t* pData,
 /**
   * @}
   */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

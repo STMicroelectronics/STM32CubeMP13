@@ -138,7 +138,7 @@ VOID  fx_stm32_mmc_driver(FX_MEDIA *media_ptr)
     {
       media_ptr->fx_media_driver_status = FX_IO_ERROR;
 
-      if (mmc_read_data(media_ptr, media_ptr->fx_media_driver_logical_sector + media_ptr->fx_media_hidden_sectors,
+      if (mmc_read_data(media_ptr, FILE_SYSTEM_START_OFFSET_BLOCK_NUM + media_ptr->fx_media_driver_logical_sector + media_ptr->fx_media_hidden_sectors,
                        media_ptr->fx_media_driver_sectors, unaligned_buffer) == FX_SUCCESS)
       {
         media_ptr->fx_media_driver_status = FX_SUCCESS;
@@ -151,7 +151,7 @@ VOID  fx_stm32_mmc_driver(FX_MEDIA *media_ptr)
     {
       media_ptr->fx_media_driver_status = FX_IO_ERROR;
 
-      if (mmc_write_data(media_ptr, media_ptr->fx_media_driver_logical_sector + media_ptr->fx_media_hidden_sectors,
+      if (mmc_write_data(media_ptr, FILE_SYSTEM_START_OFFSET_BLOCK_NUM + media_ptr->fx_media_driver_logical_sector + media_ptr->fx_media_hidden_sectors,
                         media_ptr->fx_media_driver_sectors, unaligned_buffer) == FX_SUCCESS)
       {
         media_ptr->fx_media_driver_status = FX_SUCCESS;
@@ -180,7 +180,7 @@ VOID  fx_stm32_mmc_driver(FX_MEDIA *media_ptr)
   case FX_DRIVER_BOOT_READ:
     {
       /* the boot sector is the sector zero */
-      status = mmc_read_data(media_ptr, 0, media_ptr->fx_media_driver_sectors, unaligned_buffer);
+      status = mmc_read_data(media_ptr, FILE_SYSTEM_START_OFFSET_BLOCK_NUM, media_ptr->fx_media_driver_sectors, unaligned_buffer);
 
       if (status != FX_SUCCESS)
       {
@@ -232,7 +232,7 @@ VOID  fx_stm32_mmc_driver(FX_MEDIA *media_ptr)
 
   case FX_DRIVER_BOOT_WRITE:
     {
-      status = mmc_write_data(media_ptr, 0, 1, unaligned_buffer);
+      status = mmc_write_data(media_ptr, FILE_SYSTEM_START_OFFSET_BLOCK_NUM, 1, unaligned_buffer);
 
       media_ptr->fx_media_driver_status = status;
 

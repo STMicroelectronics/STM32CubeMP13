@@ -32,6 +32,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>syscalls.c</name>
+			<type>1</type>
+			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/STM32CubeIDE/syscalls.c</locationURI>
+		</link>
+		<link>
 			<name>Doc/readme.txt</name>
 			<type>1</type>
 			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/readme.txt</locationURI>
@@ -52,11 +57,6 @@
 			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/Src/stm32mp13xx_it.c</locationURI>
 		</link>
 		<link>
-			<name>Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco.c</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-6-PROJECT_LOC%7D/Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco.c</locationURI>
-		</link>
-		<link>
 			<name>Drivers/CMSIS/irq_ctrl_gic.c</name>
 			<type>1</type>
 			<locationURI>$%7BPARENT-6-PROJECT_LOC%7D/Drivers/CMSIS/Core_A/Source/irq_ctrl_gic.c</locationURI>
@@ -75,16 +75,6 @@
 			<name>Drivers/STM32MP13xx_HAL_Driver/stm32mp13xx_hal.c</name>
 			<type>1</type>
 			<locationURI>$%7BPARENT-6-PROJECT_LOC%7D/Drivers/STM32MP13xx_HAL_Driver/Src/stm32mp13xx_hal.c</locationURI>
-		</link>
-		<link>
-			<name>Drivers/STM32MP13xx_HAL_Driver/stm32mp13xx_hal_rtc.c</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-6-PROJECT_LOC%7D/Drivers/STM32MP13xx_HAL_Driver/Src/stm32mp13xx_hal_rtc.c</locationURI>
-		</link>
-		<link>
-			<name>Drivers/STM32MP13xx_HAL_Driver/stm32mp13xx_hal_rtc_ex.c</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-6-PROJECT_LOC%7D/Drivers/STM32MP13xx_HAL_Driver/Src/stm32mp13xx_hal_rtc_ex.c</locationURI>
 		</link>
 		<link>
 			<name>Drivers/STM32MP13xx_HAL_Driver/stm32mp13xx_hal_dma.c</name>
@@ -132,9 +122,24 @@
 			<locationURI>$%7BPARENT-6-PROJECT_LOC%7D/Drivers/STM32MP13xx_HAL_Driver/Src/stm32mp13xx_hal_rcc_ex.c</locationURI>
 		</link>
 		<link>
+			<name>Drivers/STM32MP13xx_HAL_Driver/stm32mp13xx_hal_rtc.c</name>
+			<type>1</type>
+			<locationURI>$%7BPARENT-6-PROJECT_LOC%7D/Drivers/STM32MP13xx_HAL_Driver/Src/stm32mp13xx_hal_rtc.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32MP13xx_HAL_Driver/stm32mp13xx_hal_rtc_ex.c</name>
+			<type>1</type>
+			<locationURI>$%7BPARENT-6-PROJECT_LOC%7D/Drivers/STM32MP13xx_HAL_Driver/Src/stm32mp13xx_hal_rtc_ex.c</locationURI>
+		</link>
+		<link>
 			<name>Drivers/STM32MP13xx_HAL_Driver/stm32mp13xx_hal_uart.c</name>
 			<type>1</type>
 			<locationURI>$%7BPARENT-6-PROJECT_LOC%7D/Drivers/STM32MP13xx_HAL_Driver/Src/stm32mp13xx_hal_uart.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32MP13xx_HAL_Driver/stm32mp13xx_hal_uart_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-6-PROJECT_LOC/Drivers/STM32MP13xx_HAL_Driver/Src/stm32mp13xx_hal_uart_ex.c</locationURI>
 		</link>
 		<link>
 			<name>Example/STM32CubeIDE/startup_stm32mp135c_ca7.c</name>
@@ -142,19 +147,19 @@
 			<locationURI>$%7BPARENT-6-PROJECT_LOC%7D/Drivers/CMSIS/Device/ST/STM32MP13xx/Source/Templates/gcc/startup_stm32mp135c_ca7.c</locationURI>
 		</link>
 		<link>
-			<name>syscalls.c</name>
+			<name>Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco.c</name>
 			<type>1</type>
-			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/STM32CubeIDE/syscalls.c</locationURI>
-		</link>
-		<link>
-			<name>Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco_io.c</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-6-PROJECT_LOC%7D/Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco_io.c</locationURI>
+			<locationURI>$%7BPARENT-6-PROJECT_LOC%7D/Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco.c</locationURI>
 		</link>
 		<link>
 			<name>Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco_bus.c</name>
 			<type>1</type>
 			<locationURI>$%7BPARENT-6-PROJECT_LOC%7D/Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco_bus.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco_io.c</name>
+			<type>1</type>
+			<locationURI>$%7BPARENT-6-PROJECT_LOC%7D/Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco_io.c</locationURI>
 		</link>
 		<link>
 			<name>Drivers/BSP/STM32MP13xx_DISCO/stm32mp13xx_disco_stpmic1.c</name>

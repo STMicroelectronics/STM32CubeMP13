@@ -86,39 +86,67 @@ typedef struct
 /** @defgroup TIMEx_Remap TIM Extended Remapping
   * @{
   */
-#define TIM_TIM1_ETR_GPIO        0x00000000U                                                 /* !< TIM1_ETR is connected to GPIO */
-#define TIM_TIM1_ETR_ADC1_AWD1   (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                     /* !< TIM1_ETR is connected to ADC1 AWD1 */
-#define TIM_TIM1_ETR_ADC1_AWD2   (TIM1_AF1_ETRSEL_2)                                         /* !< TIM1_ETR is connected to ADC1 AWD2 */
-#define TIM_TIM1_ETR_ADC1_AWD3   (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                     /* !< TIM1_ETR is connected to ADC1 AWD3 */
-#define TIM_TIM1_ETR_ADC2_AWD1   (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1)                     /* !< TIM1_ETR is connected to ADC3 AWD1 */
-#define TIM_TIM1_ETR_ADC2_AWD2   (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /* !< TIM1_ETR is connected to ADC3 AWD2 */
-#define TIM_TIM1_ETR_ADC2_AWD3   TIM1_AF1_ETRSEL_3                                           /* !< TIM1_ETR is connected to ADC3 AWD3 */
+#define TIM_TIM1_ETR_GPIO        0x00000000U                                                 /* !< TIM1_ETR is 
+                                                                                              connected to GPIO */
+#define TIM_TIM1_ETR_ADC1_AWD1   (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                     /* !< TIM1_ETR is
+                                                                                              connected to ADC1 AWD1 */
+#define TIM_TIM1_ETR_ADC1_AWD2   (TIM1_AF1_ETRSEL_2)                                         /* !< TIM1_ETR is
+                                                                                              connected to ADC1 AWD2 */
+#define TIM_TIM1_ETR_ADC1_AWD3   (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                     /* !< TIM1_ETR is
+                                                                                              connected to ADC1 AWD3 */
+#define TIM_TIM1_ETR_ADC2_AWD1   (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1)                     /* !< TIM1_ETR is
+                                                                                              connected to ADC3 AWD1 */
+#define TIM_TIM1_ETR_ADC2_AWD2   (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /* !< TIM1_ETR is
+                                                                                              connected to ADC3 AWD2 */
+#define TIM_TIM1_ETR_ADC2_AWD3   TIM1_AF1_ETRSEL_3                                           /* !< TIM1_ETR is
+                                                                                              connected to ADC3 AWD3 */
 
-#define TIM_TIM8_ETR_GPIO        0x00000000U                                                 /* !< TIM8_ETR is connected to GPIO */
-#define TIM_TIM8_ETR_ADC1_AWD1   (TIM8_AF1_ETRSEL_1 | TIM8_AF1_ETRSEL_0)                     /* !< TIM8_ETR is connected to ADC1 AWD1 */
-#define TIM_TIM8_ETR_ADC1_AWD2   (TIM8_AF1_ETRSEL_2)                                         /* !< TIM8_ETR is connected to ADC1 AWD2 */
-#define TIM_TIM8_ETR_ADC1_AWD3   (TIM8_AF1_ETRSEL_2 | TIM8_AF1_ETRSEL_0)                     /* !< TIM8_ETR is connected to ADC1 AWD3 */
-#define TIM_TIM8_ETR_ADC2_AWD1   (TIM8_AF1_ETRSEL_2 | TIM8_AF1_ETRSEL_1)                     /* !< TIM8_ETR is connected to ADC3 AWD1 */
-#define TIM_TIM8_ETR_ADC2_AWD2   (TIM8_AF1_ETRSEL_2 | TIM8_AF1_ETRSEL_1 | TIM8_AF1_ETRSEL_0) /* !< TIM8_ETR is connected to ADC3 AWD2 */
-#define TIM_TIM8_ETR_ADC2_AWD3   TIM8_AF1_ETRSEL_3                                           /* !< TIM8_ETR is connected to ADC3 AWD3 */
+#define TIM_TIM8_ETR_GPIO        0x00000000U                                                 /* !< TIM8_ETR is
+                                                                                              connected to GPIO */
+#define TIM_TIM8_ETR_ADC1_AWD1   (TIM8_AF1_ETRSEL_1 | TIM8_AF1_ETRSEL_0)                     /* !< TIM8_ETR is
+                                                                                              connected to ADC1 AWD1 */
+#define TIM_TIM8_ETR_ADC1_AWD2   (TIM8_AF1_ETRSEL_2)                                         /* !< TIM8_ETR is
+                                                                                              connected to ADC1 AWD2 */
+#define TIM_TIM8_ETR_ADC1_AWD3   (TIM8_AF1_ETRSEL_2 | TIM8_AF1_ETRSEL_0)                     /* !< TIM8_ETR is
+                                                                                              connected to ADC1 AWD3 */
+#define TIM_TIM8_ETR_ADC2_AWD1   (TIM8_AF1_ETRSEL_2 | TIM8_AF1_ETRSEL_1)                     /* !< TIM8_ETR is
+                                                                                              connected to ADC3 AWD1 */
+#define TIM_TIM8_ETR_ADC2_AWD2   (TIM8_AF1_ETRSEL_2 | TIM8_AF1_ETRSEL_1 | TIM8_AF1_ETRSEL_0) /* !< TIM8_ETR is
+                                                                                              connected to ADC3 AWD2 */
+#define TIM_TIM8_ETR_ADC2_AWD3   TIM8_AF1_ETRSEL_3                                           /* !< TIM8_ETR is
+                                                                                              connected to ADC3 AWD3 */
 
-#define TIM_TIM2_ETR_GPIO        0x00000000U                                                 /* !< TIM2_ETR is connected to GPIO */
-#define TIM_TIM2_ETR_RCC_LSE     (TIM2_AF1_ETRSEL_1 | TIM2_AF1_ETRSEL_0)                     /* !< TIM2_ETR is connected to RCC LSE */
-#define TIM_TIM2_ETR_SAI1_FSA    (TIM2_AF1_ETRSEL_2)                                         /* !< TIM2_ETR is connected to SAI1 FS_A */
-#define TIM_TIM2_ETR_SAI1_FSB    (TIM2_AF1_ETRSEL_2 | TIM2_AF1_ETRSEL_0)                     /* !< TIM2_ETR is connected to SAI1 FS_B */
-#define TIM_TIM2_ETR_ETH1_PPS    (TIM2_AF1_ETRSEL_2 | TIM2_AF1_ETRSEL_1)                     /* !< TIM2_ETR is connected to ETH1 PPS */
-#define TIM_TIM2_ETR_ETH2_PPS    (TIM2_AF1_ETRSEL_2 | TIM2_AF1_ETRSEL_1 | TIM2_AF1_ETRSEL_0) /* !< TIM2_ETR is connected to ETH2 PPS */
+#define TIM_TIM2_ETR_GPIO        0x00000000U                                                 /* !< TIM2_ETR is
+                                                                                              connected to GPIO */
+#define TIM_TIM2_ETR_RCC_LSE     (TIM2_AF1_ETRSEL_1 | TIM2_AF1_ETRSEL_0)                     /* !< TIM2_ETR is
+                                                                                              connected to RCC LSE */
+#define TIM_TIM2_ETR_SAI1_FSA    (TIM2_AF1_ETRSEL_2)                                         /* !< TIM2_ETR is
+                                                                                              connected to SAI1 FS_A */
+#define TIM_TIM2_ETR_SAI1_FSB    (TIM2_AF1_ETRSEL_2 | TIM2_AF1_ETRSEL_0)                     /* !< TIM2_ETR is
+                                                                                              connected to SAI1 FS_B */
+#define TIM_TIM2_ETR_ETH1_PPS    (TIM2_AF1_ETRSEL_2 | TIM2_AF1_ETRSEL_1)                     /* !< TIM2_ETR is
+                                                                                              connected to ETH1 PPS */
+#define TIM_TIM2_ETR_ETH2_PPS    (TIM2_AF1_ETRSEL_2 | TIM2_AF1_ETRSEL_1 | TIM2_AF1_ETRSEL_0) /* !< TIM2_ETR is
+                                                                                              connected to ETH2 PPS */
 
-#define TIM_TIM3_ETR_GPIO        0x00000000U                                                 /* !< TIM3_ETR is connected to GPIO */
-#define TIM_TIM3_ETR_ETH1_PPS    (TIM3_AF1_ETRSEL_2 | TIM3_AF1_ETRSEL_1)                     /* !< TIM3_ETR is connected to ETH1 PPS */
-#define TIM_TIM3_ETR_ETH2_PPS    (TIM3_AF1_ETRSEL_2 | TIM3_AF1_ETRSEL_1 | TIM3_AF1_ETRSEL_0) /* !< TIM3_ETR is connected to ETH2 PPS */
+#define TIM_TIM3_ETR_GPIO        0x00000000U                                                 /* !< TIM3_ETR is
+                                                                                              connected to GPIO */
+#define TIM_TIM3_ETR_ETH1_PPS    (TIM3_AF1_ETRSEL_2 | TIM3_AF1_ETRSEL_1)                     /* !< TIM3_ETR is
+                                                                                              connected to ETH1 PPS */
+#define TIM_TIM3_ETR_ETH2_PPS    (TIM3_AF1_ETRSEL_2 | TIM3_AF1_ETRSEL_1 | TIM3_AF1_ETRSEL_0) /* !< TIM3_ETR is
+                                                                                              connected to ETH2 PPS */
 
-#define TIM_TIM4_ETR_GPIO        0x00000000U                                                 /* !< TIM4_ETR is connected to GPIO */
+#define TIM_TIM4_ETR_GPIO        0x00000000U                                                 /* !< TIM4_ETR is
+                                                                                              connected to GPIO */
 
-#define TIM_TIM5_ETR_GPIO        0x00000000U                                                 /* !< TIM5_ETR is connected to GPIO */
-#define TIM_TIM5_ETR_SAI2_FSA    TIM5_AF1_ETRSEL_0                                           /* !< TIM5_ETR is connected to SAI2 FS_A */
-#define TIM_TIM5_ETR_SAI2_FSB    TIM5_AF1_ETRSEL_1                                           /* !< TIM5_ETR is connected to SAI2 FS_B */
-#define TIM_TIM5_ETR_OTG_SOF     (TIM5_AF1_ETRSEL_1 | TIM5_AF1_ETRSEL_0)                     /* !< TIM5_ETR is connected to OTG SOF */
+#define TIM_TIM5_ETR_GPIO        0x00000000U                                                 /* !< TIM5_ETR is
+                                                                                              connected to GPIO */
+#define TIM_TIM5_ETR_SAI2_FSA    TIM5_AF1_ETRSEL_0                                           /* !< TIM5_ETR is
+                                                                                              connected to SAI2 FS_A */
+#define TIM_TIM5_ETR_SAI2_FSB    TIM5_AF1_ETRSEL_1                                           /* !< TIM5_ETR is
+                                                                                              connected to SAI2 FS_B */
+#define TIM_TIM5_ETR_OTG_SOF     (TIM5_AF1_ETRSEL_1 | TIM5_AF1_ETRSEL_0)                     /* !< TIM5_ETR is
+                                                                                              connected to OTG SOF */
 /**
   * @}
   */

@@ -318,9 +318,9 @@ static void LCD_Config(void)
   LCD_LayerCfgTypeDef  layer_cfg;
 
   /* LTDC Initialization -------------------------------------------------------*/
-  BSP_LCD_DeInit();
+  BSP_LCD_DeInit(0);
 
-  BSP_LCD_Init();
+  BSP_LCD_Init(0);
 
   /* Layer1 Configuration ------------------------------------------------------*/
   /* Configure the Background Layer*/
@@ -349,7 +349,7 @@ static void LCD_Config(void)
   __HAL_LTDC_DISABLE_IT(&hLtdcHandler, LTDC_IT_FU);
 
   /* Enable Display On */
-  BSP_LCD_DisplayOn();
+  BSP_LCD_DisplayOn(0);
 }
 
 /**

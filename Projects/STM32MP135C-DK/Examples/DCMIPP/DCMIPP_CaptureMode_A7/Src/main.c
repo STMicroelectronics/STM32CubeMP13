@@ -101,8 +101,9 @@ int main(void)
 
 
   /* USER CODE BEGIN SysInit */
-  /* Configure LED_RED */
+  /* Configure LED_RED and LED_GREEN*/
   BSP_LED_Init(LED_RED);
+  BSP_LED_Init(LED_GREEN);
 
   /* USER CODE END SysInit */
 
@@ -126,7 +127,7 @@ int main(void)
   while (1)
   {
     HAL_Delay(100);
-    BSP_LED_Toggle(LED_RED);
+    BSP_LED_Toggle(LED_GREEN);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -304,9 +305,9 @@ static void LCD_Config(void)
   LCD_LayerCfgTypeDef  layer_cfg;
 
   /* LTDC Initialization -------------------------------------------------------*/
-  BSP_LCD_DeInit();
+  BSP_LCD_DeInit(0);
 
-  BSP_LCD_Init();
+  BSP_LCD_Init(0);
 
   /* Layer1 Configuration ------------------------------------------------------*/
   /* Configure the Background Layer*/
@@ -335,7 +336,7 @@ static void LCD_Config(void)
   __HAL_LTDC_DISABLE_IT(&hLtdcHandler, LTDC_IT_FU);
 
   /* Enable Display On */
-  BSP_LCD_DisplayOn();
+  BSP_LCD_DisplayOn(0);
 }
 
 /**

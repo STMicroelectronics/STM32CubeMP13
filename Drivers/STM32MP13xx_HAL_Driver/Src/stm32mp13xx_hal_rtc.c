@@ -458,8 +458,8 @@ HAL_StatusTypeDef HAL_RTC_DeInit(RTC_HandleTypeDef *hrtc)
       WRITE_REG(TAMP->ATCR1, TAMP_ATCR1_ATCKSEL);
       CLEAR_REG(TAMP->ATOR);
 #if defined (CORTEX_IN_SECURE_STATE)
+      CLEAR_BIT(TAMP->SECCFGR, TAMP_SECCFGR_TAMPSEC);
 
-      WRITE_REG(TAMP->SMCR, TAMP_SMCR_TAMPDPROT);
 #endif /* defined (CORTEX_IN_SECURE_STATE) */
     }
 
@@ -1500,7 +1500,7 @@ HAL_StatusTypeDef HAL_RTC_SetAlarm_IT(RTC_HandleTypeDef *hrtc, RTC_AlarmTypeDef 
 
 #ifdef  USE_FULL_ASSERT
   uint32_t Binary_none = ((READ_BIT(RTC->ICSR, RTC_ICSR_BIN) == RTC_BINARY_NONE) ? 1U : 0U);
-#endif /* defined(GENERATOR_STM32MP13XX) */
+#endif /* USE_FULL_ASSERT */
   uint32_t Binary_only = ((READ_BIT(RTC->ICSR, RTC_ICSR_BIN) == RTC_BINARY_ONLY) ? 1U : 0U);
 
   /* Process Locked */
