@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    startup_stm32mp135c_ca7.c
+  * @file    startup_stm32mp135c_ca7.s
   * @author  MCD Application Team
   * @brief   CMSIS Cortex-A7 Device Peripheral Access Layer A7 Startup source file
   *          for GCC toolchain
@@ -15,7 +15,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2020-2021 STMicroelectronics.
+  * Copyright (c) 2023-2024 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -215,7 +215,7 @@ IRQ_Vector_Table
          DCD             LPTIM5_IRQHandler  ;
          DCD             ETH1_LPI_IRQHandler  ;
          DCD             ETH2_LPI_IRQHandler  ;
-         DCD             RCC_WAKEUP__IRQHandler  ;
+         DCD             RCC_WAKEUP_IRQHandler  ;
          DCD             RESERVED_IRQHandler  ;
          DCD             DTS_IRQHandler  ;
          DCD             MPU_WAKEUP_PIN_IRQHandler  ;
@@ -365,11 +365,6 @@ NonSecurePhysicalTimer_IRQHandler
         SECTION .text:CODE:NOROOT:REORDER(1)
 Legacy_nIRQ_IRQHandler
         B Legacy_nIRQ_IRQHandler
-
-        PUBWEAK TSC_IRQHandler
-        SECTION .text:CODE:NOROOT:REORDER(1)
-TSC_IRQHandler
-        B TSC_IRQHandler
 
         PUBWEAK PVD_AVD_IRQHandler
         SECTION .text:CODE:NOROOT:REORDER(1)
@@ -976,10 +971,10 @@ ETH1_LPI_IRQHandler
 ETH2_LPI_IRQHandler
         B ETH2_LPI_IRQHandler	
 
-        PUBWEAK RCC_WAKEUP__IRQHandler
+        PUBWEAK RCC_WAKEUP_IRQHandler
         SECTION .text:CODE:NOROOT:REORDER(1)
-RCC_WAKEUP__IRQHandler
-        B RCC_WAKEUP__IRQHandler	
+RCC_WAKEUP_IRQHandler
+        B RCC_WAKEUP_IRQHandler
 
         PUBWEAK DTS_IRQHandler
         SECTION .text:CODE:NOROOT:REORDER(1)

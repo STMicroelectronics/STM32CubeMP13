@@ -33,6 +33,12 @@ DDR_InitTypeDef hddr;
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+typedef struct
+{
+  uint32_t  id;
+  char     name[40];
+  uint32_t  offset;
+} OPENBL_Flashlayout_Storage_TypeDef;
 
 /* DDR define */
 #define DDR_PATTERN 1234
@@ -52,6 +58,10 @@ DDR_InitTypeDef hddr;
  */
 #define FLASH_ADDRESS_SNOR_CUBE 0x30000
 
+#define GPT_APPLICATION_PHASE_ID	 5
+#define MAX_ENTRIES_IN_GPT_TABLE	 10
+#define GPT_TABLE_OFFSET			 0x30000U
+#define GPT_TABLE_SIZE				 512U
 /* ST_HEADER define */
 #define ST_HEADER_SIZE               512U  /* ST HEADER Size of CubeExample binary for the signed binary*/
 #define IMAGE_LENGTH_POSITION         76U  /* First hexadecimal number position (aRxBuffer position) of cube example image length */
@@ -83,6 +93,7 @@ uint32_t MAGIC_NB[4] = {0x53,0x54,0x4D,0x32};
 static void MX_GPIO_Init(void);
 void BoardCfg(void);
 HAL_StatusTypeDef Init_DDR(void);
+uint32_t GetApplicationOffsetFromGPTTable(uint32_t AddressCubeSNOR);
 uint32_t Get_CubeSize(uint32_t AddressCubeSNOR);
 HAL_StatusTypeDef Copy_CubeExampleToDDR(uint32_t AddressCubeSNOR, uint32_t nbSector);
 void SystemClock_Config(void);
@@ -103,6 +114,7 @@ int main(void)
 {
   uint32_t nbSector_CubeExample;
   uint32_t sizeCubExample = 0;
+  uint32_t applicationOffset = 0;
 
   /* USER CODE BEGIN 1 */
 
@@ -141,14 +153,16 @@ int main(void)
   /*##- Initialize XSPI in QuadSPI mode ####################*/
   Init_XSPI();
 
+  applicationOffset = GetApplicationOffsetFromGPTTable(GPT_TABLE_OFFSET);
+
   /*##- Get image length from HEADER section ####################*/
-  sizeCubExample = Get_CubeSize(FLASH_ADDRESS_SNOR_CUBE);
+  sizeCubExample = Get_CubeSize(applicationOffset);
 
   /*##- Convert image size to number of sector ####################*/
   nbSector_CubeExample = sizeCubExample / XSPI_NOR_SECTOR_SIZE;
 
   /*##- Copy CubeExample from XSPI-NOR into DDR ####################*/
-  if (Copy_CubeExampleToDDR(FLASH_ADDRESS_SNOR_CUBE, nbSector_CubeExample) != HAL_OK)
+  if (Copy_CubeExampleToDDR(applicationOffset, nbSector_CubeExample) != HAL_OK)
   {
     Error_Handler();
   }
@@ -381,6 +395,34 @@ HAL_StatusTypeDef Init_DDR(void)
   }
 
   return status;
+}
+
+uint32_t GetApplicationOffsetFromGPTTable(uint32_t AddressCubeSNOR)
+{
+  uint8_t buffer[GPT_TABLE_SIZE];
+  OPENBL_Flashlayout_Storage_TypeDef (*FlashlayoutStorageStruct)[MAX_ENTRIES_IN_GPT_TABLE] = (OPENBL_Flashlayout_Storage_TypeDef (*)[MAX_ENTRIES_IN_GPT_TABLE])&buffer;
+  uint32_t index = 0;
+  uint32_t exampleOffset = 0;
+
+  /*##- Read HEADER from CubeExample binary ####################*/
+  if (Read_XSPI(buffer, AddressCubeSNOR, GPT_TABLE_SIZE) != 0x1)
+  {
+    Error_Handler();
+  }
+  for (index = 0; index < MAX_ENTRIES_IN_GPT_TABLE; index++)
+  {
+	  if (GPT_APPLICATION_PHASE_ID == (*FlashlayoutStorageStruct)[index].id)
+	  {
+		  exampleOffset = (*FlashlayoutStorageStruct)[index].offset;
+		  break;
+	  }
+  }
+  if (MAX_ENTRIES_IN_GPT_TABLE == index)
+  {
+	  Error_Handler();
+  }
+
+  return exampleOffset;
 }
 
 /**

@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2015 STMicroelectronics.
+  * Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -895,7 +895,7 @@ static void USBD_SetFeature(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
   }
   else if (req->wValue == USB_FEATURE_TEST_MODE)
   {
-    pdev->dev_test_mode = req->wIndex >> 8;
+    pdev->dev_test_mode = (uint8_t)(req->wIndex >> 8);
     (void)USBD_CtlSendStatus(pdev);
   }
   else
@@ -1048,4 +1048,3 @@ static uint8_t USBD_GetLen(uint8_t *buf)
 /**
   * @}
   */
-

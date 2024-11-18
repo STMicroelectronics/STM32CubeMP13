@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2015 STMicroelectronics.
+  * Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -97,5 +97,3 @@ void USBD_GetString(uint8_t *desc, uint8_t *unicode, uint16_t *len);
 /**
   * @}
   */
-
-

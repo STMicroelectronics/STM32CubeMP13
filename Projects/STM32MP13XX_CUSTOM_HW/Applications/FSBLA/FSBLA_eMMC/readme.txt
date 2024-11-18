@@ -60,6 +60,8 @@
   - Flash this signed cubeExample binary into E-MMC at this specific E-MMC Offset in User Partition : 0 LBA (0x00000000).
     (Rq: It is possible to change this value by changing the value of the variable OFFSET_HEADER in the file main.c.)
   - Run the FSBLA_eMMC.
+  - This example can also be used as a part of External Loader application package for programming EMMC via
+   STM32CubeProgrammer. Refer Projects/STM32MP13XX_CUSTOM_HW/External_Loader/readme.txt for more details.
   
 If you want to BOOT from E-MMC : 
   - Open your preferred toolchain 

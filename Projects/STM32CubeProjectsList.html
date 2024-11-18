@@ -215,7 +215,7 @@ The DDR memory need to be initialized with DDR_Init project.
 At the beginning of the main program the HAL_Init() function is called to reset all the peripherals, initialize the systick.
 The SystemClock_Config() function is used to configure the system clock for STM32MP13xx Devices : LCD is initialized in LCD_Config api.
 </td>
-<td style="text-align: center; background-color: rgb(255, 255, 153);"> <font color="green" size="5">X</font></td><td></td>
+<td style="text-align: center;"> <font color="green" size="5">X</font></td><td></td>
 </tr>
 
 <tr align="center">
@@ -254,7 +254,7 @@ using hardware secret key DHUK then use it to encrypt in polling mode.
 <td align="left">The Secure AES instance is configured in shared mode and hardware secret key DHUK is selected.
 The goal here to share application key with CRYP peripheral without being exposed in clear-text.
 </td>
-<td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td><td></td>
+<td style="text-align: center; "><font color="green" size="5">X</font></td><td></td>
 </tr>
 
 <tr>
@@ -647,7 +647,7 @@ background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
 </tr>
 
 <tr>
-<td style="background-color: rgb(57, 169, 220); text-align: center; color: white;" colspan="1" rowspan="29">
+<td style="background-color: rgb(57, 169, 220); text-align: center; color: white;" colspan="1" rowspan="37">
 <p style="background-color: rgb(57, 169, 220);" id="Applications">Applications</p>
 </td>
 <td colspan="1" rowspan="7">FileX</td>
@@ -658,7 +658,7 @@ application provides an example of Azure RTOS FileX stack usage on
 STM32MP13XX_CUSTOM_HW board, it shows how to develop a basic eMMC file operations application.
 The application is designed to handle eMMC card insertion/removal events, 
 and depending on that state, it starts and stops file operations from and into the eMMC card. </td>
-<td></td><td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td>
+<td></td><td style="text-align: center;"><font color="green" size="5">X</font></td>
 </tr>
 
 <td>Fx_MultiAccess</td>
@@ -713,6 +713,21 @@ card insertion/removal events, and depending on that state, it starts and stops 
 <td style="text-align: center;"><font color="green" size="5">X</font></td><td style="background-color: rgb(240, 240, 255); text-align: center;"><font color="green" size="5">X</font></td>
 </tr>
 
+<tr><td colspan="1" rowspan="2">FreeRTOS</td>
+<td>FreeRTOS_Semaphore</td>
+<td>This application creates two threads that toggle LEDs through a shared semaphore.
+as following:
+&nbsp;The first thread which have the higher priority obtains the semaphore and 
+toggle the LED7 each 200 ms. After 5 seconds it releases the semaphore and 
+suspends itself. </td>
+<td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td><td></td></tr>
+
+<tr><td>FreeRTOS_TaskCreation</td>
+<td>This application creates two threads with the same priority, which execute in 
+a periodic cycle of 15 seconds. </td>
+<td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td><td></td></tr>
+
+
 <tr><td colspan="1" rowspan="3">FSBLA</td>
 <td>FSBLA_Sdmmc1</td>
 <td>&nbsp;This application describes how to load and execute a cubeExample binary from SDCARD into DDR on STM32MP135F-DK (DDR3). </td>
@@ -721,7 +736,7 @@ card insertion/removal events, and depending on that state, it starts and stops 
 <tr><td>FSBLA_eMMC</td>
 <td>This application describes how to load a cubeExample binary from eMMC into DDR, and execute it on STM32MP13XX_CUSTOM_HW Board.</td>
 <td></td>
-<td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td></tr>
+<td style="text-align: center;"><font color="green" size="5">X</font></td></tr>
 
 <tr><td>FSBLA_SNOR</td>
 <td>This application describes how to load a cubeExample binary from XSPI-NOR
@@ -750,6 +765,38 @@ into DDR, and execute it on STM32MP13XX_CUSTOM_HW Board.</td>
 <td style="text-align: center;"><font color="green" size="5">X</font></td><td></td>
 </tr>
 
+
+<tr>
+<td colspan="1" rowspan="5">LwIP</td>
+<td>LwIP_TCP_Echo_Client</td>
+<td>This application guides STM32Cube HAL API users to run TCP Echo Client application
+based on Raw API of LwIP TCP/IP stack</td>
+<td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td>
+<td></td>
+</tr>
+
+<tr>
+<td>LwIP_TCP_Echo_Server</td>
+<td>This application guides STM32Cube HAL API users to run TCP Echo Server application 
+based on Raw API of LwIP TCP/IP stack</td>
+<td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td>
+<td></td>
+</tr>
+
+<tr><td>LwIP_UDP_Echo_Client</td><td>This application guides STM32Cube HAL API users to run a UDP Echo Client application 
+based on Raw API of LwIP TCP/IP stack</td>
+<td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td><td></td></tr>
+
+<tr><td>LwIP_UDP_Echo_Server</td><td>This application guides STM32Cube HAL API users to run UDP Echo Server application 
+based on Raw API of LwIP TCP/IP stack</td>
+<td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td><td></td></tr>
+
+
+<tr><td>LwIP_UDPTCP_Echo_Server_Netconn_RTOS</td><td>This application guides STM32Cube HAL API users to run a UDP/TCP Echo Server application 
+based on Netconn API of LwIP TCP/IP stack.</td>
+<td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td><td></td></tr>
+
+
 <tr>
 <td colspan="1" rowspan="7">NetXDuo</td>
 <td>Nx_Iperf</td>
@@ -767,12 +814,24 @@ encrypted mode supporting TLS v1.2.</td>
 <td style="text-align: center;"><font color="green" size="5">X</font></td>
 <td></td>
 </tr>
-<tr><td>Nx_TCP_Echo_Client</td><td>This application provides an example of Azure RTOS NetX/NetXDuo stack usage.<br>It shows how to develop a NetX TCP client to communicate with a remote sever using the NetX TCP socket API.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr><td>Nx_TCP_Echo_Server</td><td>This application provides an example of Azure RTOS NetX/NetXDuo stack usage.<br>It shows how to develop a NetX TCP server to communicate with a remote client using the NetX TCP socket API.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr><td>Nx_UDP_Echo_Client</td><td>This application provides an example of Azure RTOS NetX/NetXDuo stack usage . <br>It shows how to develop a NetX udp client to communicate with a remote sever using the NetX UDP socket API.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr><td>Nx_UDP_Echo_Server</td><td>This application provides an example of Azure RTOS NetX/NetXDuo stack usage .<br>It shows how to develop a NetX UDP server to communicate with a remote client using the NetX UDP socket API.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr><td>Nx_WebServer</td><td>This
-application provides an example of Azure RTOS NetX Duo stack usage on
+<tr><td>Nx_TCP_Echo_Client</td><td>This application provides an example of Azure RTOS NetX/NetXDuo stack usage.
+<br>It shows how to develop a NetX TCP client to communicate with a remote sever using the NetX TCP socket API.</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr>
+<tr><td>Nx_TCP_Echo_Server</td><td>This application provides an example of Azure RTOS NetX/NetXDuo stack usage.
+<br>It shows how to develop a NetX TCP server to communicate with a remote client using the NetX TCP socket API.</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr>
+<tr><td>Nx_UDP_Echo_Client</td><td>This application provides an example of Azure RTOS NetX/NetXDuo stack usage . 
+<br>It shows how to develop a NetX udp client to communicate with a remote sever using the NetX UDP socket API.</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr>
+<tr><td>Nx_UDP_Echo_Server</td><td>This application provides an example of Azure RTOS NetX/NetXDuo stack usage .
+<br>It shows how to develop a NetX UDP server to communicate with a remote client using the NetX UDP socket API.</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr>
+<tr><td>Nx_WebServer</td><td>This application provides an example of Azure RTOS NetX Duo stack usage on
 STM32MP135F-DK board, it shows how to develop Web HTTP server based
 application.<br>The application is designed to load files and dyncamic
 web pages stored in SD card using a Web HTTP server, the code provides
-all required features to build a compliant Web HTTP Server.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr>
+all required features to build a compliant Web HTTP Server.</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr>
 
 <tr>
 <td colspan="1" rowspan="4">ThreadX</td>
@@ -810,7 +869,9 @@ use the event chaining feature.</td>
 <tr><td>Tx_Thread_Sync</td><td>This
 application provides an example of Azure RTOS ThreadX stack usage, it
 shows how to develop an application using the ThreadX synchronization
-APIs.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr><tr align="center">
+APIs.</td><td style="text-align: center;"><font color="green" size="5">X</font></td><td></td></tr>
+
+<tr align="center">
 <td rowspan="1" align="left">
 <p id="USB_Device">USB_Device</p>
 </td>
@@ -824,6 +885,21 @@ STM32MP13xx devices.
 </td>
 <td><font color="green" size="5">X</font></td><td></td>
 </tr>
+
+<tr align="center">
+<td rowspan="1" align="left">
+<p id="USB_Device">USB_Host</p>
+</td>
+<td align="left">
+<p id="CDC_Standalone">CDC_Standalone</p>
+</td>
+<td align="left">This is a typical application on how to use the STM32MP135xx USB OTG Host peripheral where the STM32 MPU
+behaves as a USB-to-UART bridge following the Virtual COM Port (VCP) implementation.
+- The STM32 exchanges data with a CDC device through USB interface in Host mode.
+</td>
+<td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td><td></td>
+</tr>
+
 <tr><td colspan="1" rowspan="4">USBX</td><td>Ux_Device_CDC_ACM</td><td>This
 application provides an example of Azure RTOS USBX stack usage on
 STM32MP135F-DK board, it shows how to develop USB Device communication
@@ -848,22 +924,22 @@ communicates with a removable usb flash disk.</td><td style="text-align: center;
 
 <tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); 
 color: rgb(255, 255, 255);" align="center">
-<td colspan="4"><b>Total number of applications: 29</b></td>
-<td>22</td><td>7</td>
+<td colspan="4"><b>Total number of applications: 37</b></td>
+<td>30</td><td>7</td>
 </tr>
 
 <tr>
-<td style="background-color: rgb(57, 169, 220); text-align: center; color: white;" colspan="1" rowspan="3">
+<td style="background-color: rgb(57, 169, 220); text-align: center; color: white;" colspan="1" rowspan="4">
 <p style="background-color: rgb(57, 169, 220);" id="External_Loader">External_Loader</p>
 </td>
-<td colspan="1" rowspan="3">-</td>
-<td>SD_Ext_Loader</td>
+<td colspan="1" rowspan="4">-</td>
+<td>External_Mem_Loader</td>
 <td align="left">This application provides an example of loading a prebuild and signed user application on
-STM32MP135F-DK board from SD Card. User has to build its production application, sign it and replace its name in tsv file and finally
-use this tsv to load app using cube programmer tool. cube programmer will connect to board via uart/usb, then it will first copy fsbl-openbl 
-to sysram, fsbl-openbl in turn call fsbl-extfl which will initialize sd card and ddr and copy FSBLA_Sdmmc1_A7_Signed.bin and user app to 
-SD Card and execute from ddr. next time when device boot in sd boot mode, it will load user application automatically</td>
-<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td>
+STM32MP13XX boards on external memory. User has to build its production application, sign it and replace its name in tsv file and finally
+use this tsv to load app using cube programmer tool.this is openbl application which is responsible to initialize programming with serial 
+boot interface - uart and usb.it is responsible to load fsbl-extfl - EMMC_Ext_Loader, SD_Ext_Loader, or SNOR_Ext_Loader.</td>
+<td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td>
+<td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td>
 </tr>
 
 <tr>
@@ -873,7 +949,17 @@ STM32MP13XX_CUSTOM_HW board from eMMC. User has to build its production applicat
 use this tsv to load app using cube programmer tool. cube programmer will connect to board via uart/usb, then it will first copy fsbl-openbl 
 to sysram, fsbl-openbl in turn call fsbl-extfl which will initialize eMMC and ddr and copy FSBLA_Sdmmc2_A7_Signed.bin and user app to 
 eMMC and execute from ddr. next time when device boot in eMMC boot mode, it will load user application automatically.</td><td>
-</td><td style="text-align: center; background-color: rgb(255, 255, 153);"><font color="green" size="5">X</font></td>
+</td><td style="text-align: center;"><font color="green" size="5">X</font></td>
+</tr>
+
+<tr>
+<td>SD_Ext_Loader</td>
+<td>This application provides an example of loading a prebuild and signed user application on
+STM32MP135F-DK board from SD Card. User has to build its production application, sign it and replace its name in tsv file and finally
+use this tsv to load app using cube programmer tool. cube programmer will connect to board via uart/usb, then it will first copy fsbl-openbl 
+to sysram, fsbl-openbl in turn call fsbl-extfl which will initialize sd card and ddr and copy FSBLA_Sdmmc1_A7_Signed.bin and user app to 
+SD Card and execute from ddr. next time when device boot in sd boot mode, it will load user application automatically</td>
+<td style="text-align: center;"><font color="green" size="5">X</font></td><td></td>
 </tr>
 
 <tr>
@@ -889,14 +975,14 @@ XSPI NOR and execute from ddr. next time when device boot in NOR boot mode, it w
 
 <tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
 <td colspan="4"><b>Total number of
-External Loader applications: 3</b></td>
-<td>1</td><td>2</td>
+External Loader applications: 5</b></td>
+<td>2</td><td>3</td>
 </tr>
 
 
 <tr style="background-repeat: no-repeat; background-position: right center; background-color: rgb(57, 169, 220); color: rgb(255, 255, 255);" align="center">
-<td colspan="4"><b>Total number of projects: 81</b></td>
-<td>70</td><td>11</td>
+<td colspan="4"><b>Total number of projects: 91</b></td>
+<td>79</td><td>12</td>
 </tr>
 </tbody>
 </table>

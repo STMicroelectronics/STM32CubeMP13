@@ -1891,15 +1891,18 @@ static UINT  _nx_driver_hardware_get_status(NX_IP_DRIVER *driver_req_ptr)
   return NX_SUCCESS;
 }
 
-void HAL_ETH_TxFreeCallback(uint32_t * buff)
+void HAL_ETH_TxFreeCallback(ETH_HandleTypeDef *heth, uint32_t * buff)
 {
   NX_PACKET * release_packet = (NX_PACKET *) buff;
 
-  /* Remove the Ethernet header and release the packet.  */
-  NX_DRIVER_ETHERNET_HEADER_REMOVE(release_packet);
+  if(heth->Instance == ETH)
+  {
+    /* Remove the Ethernet header and release the packet.  */
+    NX_DRIVER_ETHERNET_HEADER_REMOVE(release_packet);
 
-  /* Release the packet.  */
-  nx_packet_transmit_release(release_packet);
+    /* Release the packet.  */
+    nx_packet_transmit_release(release_packet);
+  }
 }
 
 static VOID  _nx_driver_hardware_packet_received(VOID)
@@ -1913,21 +1916,25 @@ static VOID  _nx_driver_hardware_packet_received(VOID)
   }
 }
 
-void HAL_ETH_RxAllocateCallback(uint8_t ** buff)
+void HAL_ETH_RxAllocateCallback(ETH_HandleTypeDef *heth, uint8_t ** buff)
 {
   NX_PACKET     *packet_ptr;
-  if (nx_packet_allocate(nx_driver_information.nx_driver_information_packet_pool_ptr, &packet_ptr,
-                         NX_RECEIVE_PACKET, NX_NO_WAIT) == NX_SUCCESS)
+
+  if (heth->Instance == ETH)
   {
-    /* Adjust the packet.  */
-    packet_ptr -> nx_packet_prepend_ptr += 2;
-    invalidate_cache_by_addr((uint32_t*)packet_ptr -> nx_packet_data_start, packet_ptr -> nx_packet_data_end - packet_ptr -> nx_packet_data_start);
-    *buff = packet_ptr -> nx_packet_prepend_ptr;
-  }
-  else
-  {
-    /* Rx Buffer Pool is exhausted. */
-    *buff = NULL;
+    if (nx_packet_allocate(nx_driver_information.nx_driver_information_packet_pool_ptr, &packet_ptr,
+                           NX_RECEIVE_PACKET, NX_NO_WAIT) == NX_SUCCESS)
+    {
+      /* Adjust the packet.  */
+      packet_ptr -> nx_packet_prepend_ptr += 2;
+      invalidate_cache_by_addr((uint32_t*)packet_ptr -> nx_packet_data_start, packet_ptr -> nx_packet_data_end - packet_ptr -> nx_packet_data_start);
+      *buff = packet_ptr -> nx_packet_prepend_ptr;
+    }
+    else
+    {
+      /* Rx Buffer Pool is exhausted. */
+      *buff = NULL;
+    }
   }
 }
 
@@ -1962,33 +1969,36 @@ void HAL_ETH_RxAllocateCallback(uint8_t ** buff)
 /*    HAL_ETH_ReadData              Read a received packet                */
 /*                                                                        */
 /**************************************************************************/
-void HAL_ETH_RxLinkCallback(void **first_packet_ptr, void **last_packet_ptr, uint8_t *buff, uint16_t Length)
+void HAL_ETH_RxLinkCallback(ETH_HandleTypeDef *heth, void **first_packet_ptr, void **last_packet_ptr, uint8_t *buff, uint16_t Length)
 {
   NX_PACKET **first_nx_packet_ptr = (NX_PACKET **)first_packet_ptr;
   NX_PACKET **last_nx_packet_ptr = (NX_PACKET **)last_packet_ptr;
   NX_PACKET  *received_packet_ptr;
 
-  /* Indicate the offset of the received data.  */
-  uint8_t *data_buffer_ptr = buff - 2U - header_size;
-
-  received_packet_ptr = (NX_PACKET *)data_buffer_ptr;
-  received_packet_ptr->nx_packet_append_ptr = received_packet_ptr->nx_packet_prepend_ptr + Length;
-  received_packet_ptr->nx_packet_length = Length;
-
-  /* Check whether this is the first packet. */
-  if (*first_nx_packet_ptr == NULL)
+  if (heth->Instance == ETH)
   {
-    /* Add the first buffer of the packet. */
-    *first_nx_packet_ptr = received_packet_ptr;
+    /* Indicate the offset of the received data.  */
+    uint8_t *data_buffer_ptr = buff - 2U - header_size;
+
+    received_packet_ptr = (NX_PACKET *)data_buffer_ptr;
+    received_packet_ptr->nx_packet_append_ptr = received_packet_ptr->nx_packet_prepend_ptr + Length;
+    received_packet_ptr->nx_packet_length = Length;
+
+    /* Check whether this is the first packet. */
+    if (*first_nx_packet_ptr == NULL)
+    {
+      /* Add the first buffer of the packet. */
+      *first_nx_packet_ptr = received_packet_ptr;
+    }
+    /* This is not the first packet. */
+    else
+    {
+      /* Add the rest of the buffer to the end of the packet. */
+      (*last_nx_packet_ptr)->nx_packet_next = received_packet_ptr;
+    }
+    /* Save the current packet in order to use it in the next iteration. */
+    *last_nx_packet_ptr  = received_packet_ptr;
   }
-  /* This is not the first packet. */
-  else
-  {
-    /* Add the rest of the buffer to the end of the packet. */
-    (*last_nx_packet_ptr)->nx_packet_next = received_packet_ptr;
-  }
-  /* Save the current packet in order to use it in the next iteration. */
-  *last_nx_packet_ptr  = received_packet_ptr;
 }
 
 #ifdef NX_ENABLE_INTERFACE_CAPABILITY

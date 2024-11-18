@@ -1,5 +1,0 @@
-#Opt	Id	Name	Type	IP	Offset	Binary
-P	0x1	fsbl-openbl	Binary	none	0x0	STM32PRGFW_UTIL_MP13xx_CP_Serial_Boot.stm32
-P	0x3	fsbl-extfl	Binary	none	0x0	MX25L51245G_STM32MP135C-CUSTOM_HW_A7.bin
-P	0x4	fsbl-app	Binary	nor0	0x0000000	FSBLA_SNOR_A7_Signed.bin
-P	0x5	fsbl-app	Binary	nor0	0x0032000	MP13_BSP_TemplatesA7_CUSTOM_HW_Signed.bin

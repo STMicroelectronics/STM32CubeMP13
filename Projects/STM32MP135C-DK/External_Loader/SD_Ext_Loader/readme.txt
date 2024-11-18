@@ -1,12 +1,13 @@
 /**
-  @page SD External Loader Firmware utility
-
+  @page SD_Ext_Loader Description of the SD_Ext_Loader example
+  
   @verbatim
-  ******************** (C) COPYRIGHT 2021 STMicroelectronics *******************
-  * @file    SD_Ext_Loader/readme.txt
-  * @author  MCD Application Team
-  * @brief   Description of 'SD External Loader Firmware utility'.
   ******************************************************************************
+  * @file    External_Loader/SD_Ext_Loader/readme.txt
+  * @author  MCD Application Team
+  * @brief   Description of the SD read and write example.
+  ******************************************************************************
+  * @attention
   *
   * Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.
@@ -18,93 +19,69 @@
   ******************************************************************************
   @endverbatim
 
-@par SD External Loader Firmware utility Description
+@par Example Description
+This example performs some write and read transfers to SD Card with SDMMC IP feature.
 
-SD External Loader Firmware utility is used to manage external SDCard
-  - This utility provides embedded SW applications to program and manage
-    external SDCard on DISCOVERY Board.
-  - This package includes only binaries and supports both UART & USB DFU protocol.
-  -	SD External Loader Firmware utility source code should be requested from STMicroelectronics and easily
-    adapted and improved based on your own needs.
-  - OTP Programming is not supported in this package.
+@note This example works with Normal SD Card.
 
-This package contain CP_Serial_Boot mode that you can use with **Windows® PC**.
-Please find below detail about CP_Serial_Boot mode described in this document.
+At the beginning of the main program the HAL_Init() function is called to reset
+all the peripherals, initialize the SD interface and the systick.
+The SystemClock_Config() function is used to configure the system clock for STM32MP13xx Devices.
 
-Setup
-  - DISCOVERY Board with UART serial interface.
-  - STM32CubeProgrammer PC tool installed (v2.14.0 minimum)
-    . (https://wiki.st.com/stm32mpu/wiki/STM32CubeProgrammer_release_note)                                                                                                                     |                                |                                                            |                                                                                                      |      X      |
+The transfer clock is set at (SDMMC_CLK / Clock_DIV * 2) and configured within the
+SD Handle init parameters.
+Next, prepare Buffer0 and start the writing transfer to SD Card.
+Then prepare Buffer1 and start reading transfer from SD Card.
 
-How to Use CP_Serial_Boot
+@note Care must be taken when using HAL_Delay(), this function provides accurate delay (in milliseconds)
+      based on variable incremented in SysTick ISR. This implies that if HAL_Delay() is called from
+      a peripheral ISR process, then the SysTick interrupt must have higher priority (numerically lower)
+      than the peripheral interrupt. Otherwise the caller ISR process will be blocked.
 
-   - In this section, you will use 
-     "Projects\STM32MP135C_DK\External_Loader\SD_Ext_Loader" directory 
-     containing SD External Loader binaries and a tsv file used by STM32CubeProgrammer.
+@note The application needs to ensure that the SysTick time base is always set to 1 millisecond
+      to have correct HAL operation.
 
-SD External Loader contents
-   - FlashLayout_OpenBL_ExtLoaderSDMMC_SerialBoot.tsv
-     . It contains details about binaries, their type etc and is used by STM32CubeProgrammer 
-	   for programming the binaries.
-	   
-   - FSBLA_Sdmmc1_A7_Signed.bin
-     . This is the First Stage BootLoader which will be programmed via STM32PRGFW_UTIL_MP13xx_CP_Serial_Boot.stm32
-	   in SDCard and will be used for loading test application from SDCard to DDR.
-	   
-   - MP13_BSP_TemplatesA7_DISCO_Signed.bin
-     . This is the test application, which will be programmed in SDCard and then loaded in DDR
-       for execution. This can be replaced with any test application used by customer and has to built
-       and properly signed with CubeProgrammer/signing tool ( or via Postbuild script).
-	   This user app must be generated with ddr linker(not sysram linker) for compatibility.
-	   DDR linker is kept at Drivers\CMSIS\Device\ST\STM32MP13xx\Source\Templates\gcc\linker\stm32mp13xx_a7_ddr.ld
-	   can be easily tailored for any customer needs.
-	   
-   
-   - SD_Ext_Loader.bin
-     . This is used for programming SDCard.
-	 
-   - STM32PRGFW_UTIL_MP13xx_CP_Serial_Boot.stm32
-     . This utilises SD_Ext_Loader.bin and FSBLA_Sdmmc1_A7_Signed.bin for  
-	   programming SDCard, loading and execution from DDR respectively.
+@par Keywords
 
-Hardware prerequisites
+Storage, SD, SDMMC, Read Write, Block, Sector, DMA, Linked List
 
-  - Set boot boot pins to b000 (BOOT0/1/2 to OFF) position to select 
-    [serial boot]
-	(https://wiki.st.com/stm32mpu/wiki/STM32_MPU_ROM_code_overview#Boot_device_selection)
-  - Connect micro-USB cable between PC and the board. PC should detect UART interface.
-    NOTE: could be STLink connector if Virtual COM port is connected on the board 
-	like ST DISCOVERY boards.
-    NOTE: USB cable should not be connected other than STLink USB port on the board, if you want 
-	to use UART !!! - ROM CODE will give preference to USB DFU if USB cable connected at other places 
-	than STLink USB port.
+@par Directory contents
 
-STM32CubeProgrammer GUI interface
+  - External_Loader/SD_Ext_Loader/Inc/stm32mp13xx_hal_conf.h    HAL configuration file
+  - External_Loader/SD_Ext_Loader/Inc/stm32mp13xx_it.h          Interrupt handlers header file
+  - External_Loader/SD_Ext_Loader/Inc/main.h                    Header for main.c module
+  - External_Loader/SD_Ext_Loader/Inc/stm32mp13xx_disco_conf.h  STM32MP135F-DK board configuration file
+  - External_Loader/SD_Ext_Loader/Src/stm32mp13xx_it.c          Interrupt handlers
+  - External_Loader/SD_Ext_Loader/Src/main.c                    Main program
+  - External_Loader/SD_Ext_Loader/Src/stm32mp13xx_hal_msp.c     HAL MSP module
 
-Please Read STM32CubeProgrammer user manual for further details if needed
+        
+@par Hardware and Software environment  
 
-  - Select UART port.
-  - Click on Connect button - STM32CubeProgrammer is now connected to ROM Code
-  - Select TSV 
-    . Firmware\Projects\STM32MP135C_DK\External_Loader\SD_Ext_Loader\FlashLayout_OpenBL_ExtLoaderSDMMC_SerialBoot.tsv
-  - Select Binary Path with Browse Button: Firmware\Projects\STM32MP135C_DK\External_Loader\SD_Ext_Loader
-  - Click on Download - STM32CubeProgrammer is now connected to SD External Loader firmware
-    and started downloading the binaries.
+  - This example runs on STM32MP135xx devices.
 
-STM32CubeProgrammer CLI interface
+  - This example has been tested with STM32MP135F-DK board and can be
+    easily tailored to any other supported device and development board.
+  - IAR project with optimization level are kept with Debug config, release conf is with default IAR settings.
+    Customer can easily tailor this to fit in internal RAM.
+	CubeIDE project is best optimized for size and speed and recommeded to use.
+    
+  STM32MP135F-DK Set-up :	
+  - Connect the uSD Card to the Micro SD connector (CN29).
 
-Please Read STM32CubeProgrammer user manual for further details if needed
+  - You can display test message on the HyperTerminal,
+      * You need to connect the STM32MP135F-DK board through 'USB micro A-Male to A-Male'
+        cable to the ST-LINK V3.0 connector to the PC serial port.
+ 
 
-  - Go to the STM32CubeProgrammer binary directory (i.e. STM32CubeProgrammer\bin)
-  - Open command prompt inside this bin directory
-  - Run below command to load the SD External Loader binaries in the embedded RAM:
-    $STM32_Programmer_CLI.exe -c port=COM <num> -w <Your Directory Path>\Projects\<STM32 device>\External_Loader\SD_Ext_Loader\FlashLayout_OpenBL_ExtLoaderSDMMC_SerialBoot.tsv
-  - Do not reset the board till the command has completed.
-  
-Test Application Output
-  - After all the binaries are loaded successfully, set boot pins to b101 (BOOT0 and BOOT2 to ON and BOOT1 to OFF) position to select 
-    [SD boot]https://wiki.st.com/stm32mpu/wiki/STM32_MPU_ROM_code_overview#Boot_device_selection) and reset.
-  - Blue LED toggles at 200ms rate, indicating that test application loading and execution is successful.
+@par How to use it ? 
 
-For any other question related to the product, the hardware performance or characteristics, the tools, the environment, you can submit it to the ST Community
-on the STM32 MPUs related [page](https://community.st.com/s/topic/0TO0X0000003u2AWAQ/stm32-mpus).
+In order to make the program work, you must do the following :
+ - Open your preferred toolchain 
+ - Rebuild all files and load your image into target memory
+ - Plug the SD Card in the STM32MP135F-DK
+ - Run the example.
+ - This example can also be used as a part of External Loader application package for programming SDCard via
+   STM32CubeProgrammer. Refer Projects/STM32MP135C-DK/External_Loader/readme.txt for more details.
+
+ */

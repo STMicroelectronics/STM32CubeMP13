@@ -47,9 +47,9 @@
 			<locationURI>PARENT-6-PROJECT_LOC/Drivers/CMSIS/Core_A/Source/irq_ctrl_gic.c</locationURI>
 		</link>
 		<link>
-			<name>Drivers/CMSIS/system_stm32mp13xx_A7_azurertos.c</name>
+			<name>Drivers/CMSIS/system_stm32mp13xx_A7_rtos.c</name>
 			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Drivers/CMSIS/Device/ST/STM32MP13xx/Source/Templates/system_stm32mp13xx_A7_azurertos.c</locationURI>
+			<locationURI>PARENT-6-PROJECT_LOC/Drivers/CMSIS/Device/ST/STM32MP13xx/Source/Templates/system_stm32mp13xx_A7_rtos.c</locationURI>
 		</link>
 		<link>
 			<name>Drivers/CMSIS/mmu_stm32mp13xx.c</name>
@@ -182,9 +182,9 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/tx_initialize_low_level.s</locationURI>
 		</link>
 		<link>
-			<name>Application/User/Startup/startup_stm32mp135c_ca7_azurertos.c</name>
+			<name>Application/User/Startup/startup_stm32mp135c_ca7_rtos.c</name>
 			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Drivers/CMSIS/Device/ST/STM32MP13xx/Source/Templates/gcc/startup_stm32mp135c_ca7_azurertos.c</locationURI>
+			<locationURI>PARENT-6-PROJECT_LOC/Drivers/CMSIS/Device/ST/STM32MP13xx/Source/Templates/gcc/startup_stm32mp135c_ca7_rtos.c</locationURI>
 		</link>
 		<link>
 			<name>Drivers/BSP/stm32mp13xx_valid.c</name>

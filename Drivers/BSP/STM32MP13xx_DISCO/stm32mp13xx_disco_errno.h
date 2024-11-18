@@ -39,6 +39,7 @@
 #define BSP_ERROR_MSP_FAILURE            -10
 #define BSP_ERROR_FEATURE_NOT_SUPPORTED  -11
 
+#define BSP_ERROR_PMIC                    20
 #ifdef __cplusplus
 }
 #endif

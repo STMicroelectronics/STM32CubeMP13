@@ -62,15 +62,17 @@ referred as SystemInit.</li>
 <h1><strong>Update History</strong></h1>
 <div class="collapse">
 <input type="checkbox" id="collapse-section0" checked aria-hidden="true">
-<label for="collapse-section0" checked aria-hidden="true"><strong>V1.1.0
-/ 23-Feb-2024</strong></label>
+<label for="collapse-section0" checked aria-hidden="true"><strong>V1.2.0
+/ 30-Oct-2024</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
-<p>This release is the <strong>Major Maintenance DV of Bit and registers
+<p>This release is the <strong>Maintenance DV of Bit and registers
 definition</strong> for STM32MP13xx</p>
 <h2 id="contents">Contents</h2>
 <ul>
-<li>Support added for IAR Embedded Workbench 9.50</li>
+<li>IAR startup files added for all part numbers</li>
+<li>Minor bug fixes for various part numbers for GCC and IAR</li>
+<li>ADC peripheral definitions for MP133 fixed</li>
 </ul>
 <h2 id="known-limitations">Known Limitations</h2>
 <ul>
@@ -81,25 +83,45 @@ definition</strong> for STM32MP13xx</p>
 </div>
 </div>
 <div class="collapse">
+<input type="checkbox" id="collapse-section9" aria-hidden="true">
+<label for="collapse-section9" checked aria-hidden="true"><strong>V1.1.0
+/ 23-Feb-2024</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<p>This release is the <strong>Major Maintenance DV of Bit and registers
+definition</strong> for STM32MP13xx</p>
+<h2 id="contents-1">Contents</h2>
+<ul>
+<li>Support added for IAR Embedded Workbench 9.50</li>
+</ul>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-1">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+<div class="collapse">
 <input type="checkbox" id="collapse-section8" aria-hidden="true">
 <label for="collapse-section8" checked aria-hidden="true"><strong>V1.0.0
 / 01-Nov-2023</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <p>This release is the <strong>Mass Market DV of Bit and registers
 definition</strong> for STM32MP13xx</p>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <ul>
 <li>Support added for the MMU and CACHE initialization</li>
 <li>System, Startup, ThreadX initialization and linker script files for
 AzureRTOS MW updated to support thumb mode</li>
 <li>Support added for part numbers</li>
 </ul>
-<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
 <ul>
 <li>IAR support is not implemented</li>
 </ul>
-<h2 id="dependencies-1">Dependencies</h2>
+<h2 id="dependencies-2">Dependencies</h2>
 <p>None</p>
 </div>
 </div>
@@ -108,10 +130,10 @@ AzureRTOS MW updated to support thumb mode</li>
 <label for="collapse-section7" aria-hidden="true"><strong>V0.7.0 /
 27-June-2023</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <p>This release is the <strong>5th ALPHA DV of Bit and registers
 definition</strong> for STM32MP13xx</p>
-<h2 id="contents-2">Contents</h2>
+<h2 id="contents-3">Contents</h2>
 <ul>
 <li>FMC NAND defines updated for the HAL NAND sequencer</li>
 <li>Fixes for the MMU initialization</li>
@@ -119,11 +141,11 @@ definition</strong> for STM32MP13xx</p>
 <li>System, startup, ThreadX initialization and linker script files for
 AzureRTOS MW updated to support thumb mode</li>
 </ul>
-<h2 id="known-limitations-2">Known Limitations</h2>
+<h2 id="known-limitations-3">Known Limitations</h2>
 <ul>
 <li>IAR Templates not yet available</li>
 </ul>
-<h2 id="dependencies-2">Dependencies</h2>
+<h2 id="dependencies-3">Dependencies</h2>
 <p>None</p>
 </div>
 </div>
@@ -132,10 +154,10 @@ AzureRTOS MW updated to support thumb mode</li>
 <label for="collapse-section6" aria-hidden="true"><strong>V0.6.0 /
 16-December-2022</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <p>This release is the <strong>4th ALPHA DV of Bit and registers
 definition</strong> for STM32MP13xx</p>
-<h2 id="contents-3">Contents</h2>
+<h2 id="contents-4">Contents</h2>
 <ul>
 <li>Update bit definition in header files:
 <ul>
@@ -148,11 +170,11 @@ definition</strong> for STM32MP13xx</p>
 <li>Timer should be started later in azurertos application init</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-3">Known Limitations</h2>
+<h2 id="known-limitations-4">Known Limitations</h2>
 <ul>
 <li>IAR Templates not yet available</li>
 </ul>
-<h2 id="dependencies-3">Dependencies</h2>
+<h2 id="dependencies-4">Dependencies</h2>
 <p>None</p>
 </div>
 </div>
@@ -161,10 +183,10 @@ definition</strong> for STM32MP13xx</p>
 <label for="collapse-section5" aria-hidden="true"><strong>V0.5.0 /
 29-June-2022</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <p>This release is the <strong>2nd ALPHA DV of Bit and registers
 definition</strong> for STM32MP13xx</p>
-<h2 id="contents-4">Contents</h2>
+<h2 id="contents-5">Contents</h2>
 <ul>
 <li>Update bit definition in header files:
 <ul>
@@ -176,11 +198,11 @@ definition</strong> for STM32MP13xx</p>
 <li>Implement startup and system files for AzureRTOS MW</li>
 <li>Fix some MISRAC2012 rules</li>
 </ul>
-<h2 id="known-limitations-4">Known Limitations</h2>
+<h2 id="known-limitations-5">Known Limitations</h2>
 <ul>
 <li>IAR Templates not yet available</li>
 </ul>
-<h2 id="dependencies-4">Dependencies</h2>
+<h2 id="dependencies-5">Dependencies</h2>
 <p>None</p>
 </div>
 </div>
@@ -189,10 +211,10 @@ definition</strong> for STM32MP13xx</p>
 <label for="collapse-section4" aria-hidden="true"><strong>V0.4.0 /
 04-March-2022</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <p>This release is the <strong>2nd ALPHA DV of Bit and registers
 definition</strong> for STM32MP13xx</p>
-<h2 id="contents-5">Contents</h2>
+<h2 id="contents-6">Contents</h2>
 <ul>
 <li>Update bit definition in header files:
 <ul>
@@ -201,9 +223,9 @@ definition</strong> for STM32MP13xx</p>
 <li>MMU : rename file and update the license</li>
 <li>Linker : Clean linker and add stm32mp13xx_a7_ddr.ld</li>
 </ul>
-<h2 id="known-limitations-5">Known Limitations</h2>
+<h2 id="known-limitations-6">Known Limitations</h2>
 <p>None</p>
-<h2 id="dependencies-5">Dependencies</h2>
+<h2 id="dependencies-6">Dependencies</h2>
 <p>None</p>
 </div>
 </div>
@@ -212,10 +234,10 @@ definition</strong> for STM32MP13xx</p>
 <label for="collapse-section3" aria-hidden="true"><strong>V0.3.0 /
 03-December-2021</strong></label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <p>This release is the <strong>ALPHA DV of Bit and registers
 definition</strong> for STM32MP13xx</p>
-<h2 id="contents-6">Contents</h2>
+<h2 id="contents-7">Contents</h2>
 <ul>
 <li>MMU : Clean mmu configuration file</li>
 <li>SAES : Update SAES CR and SR registers</li>
@@ -227,9 +249,9 @@ specifications)</li>
 <li>[MISRAC2012-Rule-10.6] Use ‘UL’ postfix for _Msk definitions and
 memory/peripheral base addresses</li>
 </ul>
-<h2 id="known-limitations-6">Known Limitations</h2>
+<h2 id="known-limitations-7">Known Limitations</h2>
 <p>None</p>
-<h2 id="dependencies-6">Dependencies</h2>
+<h2 id="dependencies-7">Dependencies</h2>
 <p>None</p>
 </div>
 </div>
@@ -238,10 +260,10 @@ memory/peripheral base addresses</li>
 <label for="collapse-section2" aria-hidden="true"><strong>V0.2.0 /
 09-June-2021</strong></label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <p>This release is the <strong>PRE-ALPHA DV of Bit and registers
 definition</strong> aligned with the STM32MP13 reference manual</p>
-<h2 id="contents-7">Contents</h2>
+<h2 id="contents-8">Contents</h2>
 <ul>
 <li>Update bit definition in header files:
 <ul>
@@ -251,9 +273,9 @@ definition</strong> aligned with the STM32MP13 reference manual</p>
 <li>Linker script : update size and offset for template file</li>
 <li>Update the licenses declaration</li>
 </ul>
-<h2 id="known-limitations-7">Known Limitations</h2>
+<h2 id="known-limitations-8">Known Limitations</h2>
 <p>None</p>
-<h2 id="dependencies-7">Dependencies</h2>
+<h2 id="dependencies-8">Dependencies</h2>
 <p>None</p>
 </div>
 </div>
@@ -262,10 +284,10 @@ definition</strong> aligned with the STM32MP13 reference manual</p>
 <label for="collapse-section1" aria-hidden="true"><strong>V0.1.0 /
 20-April-2021</strong></label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
+<h2 id="main-changes-9">Main Changes</h2>
 <p>This release is the <strong>Bring Up DV of Bit and registers
 definition</strong> aligned with the STM32MP13 reference manual</p>
-<h2 id="contents-8">Contents</h2>
+<h2 id="contents-9">Contents</h2>
 <ul>
 <li>Support of stm32mp13xx:
 <ul>
@@ -282,9 +304,9 @@ toolchain</li>
 TrustZone based application</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-8">Known Limitations</h2>
+<h2 id="known-limitations-9">Known Limitations</h2>
 <p>None</p>
-<h2 id="dependencies-8">Dependencies</h2>
+<h2 id="dependencies-9">Dependencies</h2>
 <p>None</p>
 </div>
 </div>

@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2015 STMicroelectronics.
+  * Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -766,7 +766,6 @@ USBD_StatusTypeDef USBD_LL_DataInStage(USBD_HandleTypeDef *pdev,
       }
     }
   }
-
   return USBD_OK;
 }
 
@@ -1123,20 +1122,21 @@ uint8_t USBD_CoreFindEP(USBD_HandleTypeDef *pdev, uint8_t index)
   * @param  pdev: device instance
   * @param  ep_dir: USBD_EP_IN or USBD_EP_OUT
   * @param  ep_type: USBD_EP_TYPE_CTRL, USBD_EP_TYPE_ISOC, USBD_EP_TYPE_BULK or USBD_EP_TYPE_INTR
+  * @param  ClassId: The Class ID
   * @retval Address of the selected endpoint or 0xFFU if no endpoint found.
   */
-uint8_t USBD_CoreGetEPAdd(USBD_HandleTypeDef *pdev, uint8_t ep_dir, uint8_t ep_type)
+uint8_t USBD_CoreGetEPAdd(USBD_HandleTypeDef *pdev, uint8_t ep_dir, uint8_t ep_type, uint8_t ClassId)
 {
   uint8_t idx;
 
   /* Find the EP address in the selected class table */
-  for (idx = 0; idx < pdev->tclasslist[pdev->classId].NumEps; idx++)
+  for (idx = 0; idx < pdev->tclasslist[ClassId].NumEps; idx++)
   {
-    if (((pdev->tclasslist[pdev->classId].Eps[idx].add & USBD_EP_IN) == ep_dir) && \
-        (pdev->tclasslist[pdev->classId].Eps[idx].type == ep_type) && \
-        (pdev->tclasslist[pdev->classId].Eps[idx].is_used != 0U))
+    if (((pdev->tclasslist[ClassId].Eps[idx].add & USBD_EP_IN) == ep_dir) && \
+        (pdev->tclasslist[ClassId].Eps[idx].type == ep_type) && \
+        (pdev->tclasslist[ClassId].Eps[idx].is_used != 0U))
     {
-      return (pdev->tclasslist[pdev->classId].Eps[idx].add);
+      return (pdev->tclasslist[ClassId].Eps[idx].add);
     }
   }
 
@@ -1217,4 +1217,3 @@ USBD_DescHeaderTypeDef *USBD_GetNextDesc(uint8_t *pbuf, uint16_t *ptr)
 /**
   * @}
   */
-

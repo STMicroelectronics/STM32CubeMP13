@@ -59,14 +59,16 @@
 
   In order to make the program work, you must do the following :
   - Open your preferred toolchain
-  - Sign a cubeExample binary thanks to the signing tool.
+  - Sign a cubeExample binary using the signing tool.
   - Flash this signed cubeExample binary into SD CARD at this specific SD Offset : 640 LBA (0x00050000).
     (Rq: It is possible to change this value by changing the value of the variable OFFSET_HEADER in the file main.c.)
   - Run the FSBLA_Sdmmc1.
+  - This example can also be used as a part of External Loader application package for programming SDCard via
+    STM32CubeProgrammer. Refer Projects/STM32MP135C-DK/External_Loader/readme.txt for more details.
   
 If you want to BOOT from micro SD : 
   - Open your preferred toolchain 
-  - Sign a cubeExample binary thanks to the signing tool.
+  - Sign a cubeExample binary using the signing tool, sh command is required in windows signing environment.
   - Flash this signed cubeExample binary into SD CARD at this specific SD Offset : 640 LBA (0x00050000).
     (Rq: It is possible to change this value by changing the value of the variable OFFSET_HEADER in the file main.c.)
   - Rebuild all files and flash signed FSBLA_Sdmmc1 binary into SD CARD at this specific SD Offset : 128 LBA(0x00010000).

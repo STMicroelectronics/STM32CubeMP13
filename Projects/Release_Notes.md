@@ -45,7 +45,112 @@ The exhaustive list of projects is provided in this table:
 
 ::: {.collapse}
 <input type="checkbox" id="collapse-section0" checked aria-hidden="true">
-<label for="collapse-section0" checked aria-hidden="true">__V1.1.0 / 23-Feb-2023__</label>
+<label for="collapse-section0" checked aria-hidden="true">__V1.2.0 / 30-Oct-2024__</label>
+<div>
+
+## Main Changes
+
+**Maintenance DV** of STM32CubeMP13 Projects (STM32Cube for STM32MP13 Series)
+
+## Contents
+
+### Projects
+<small>The components flagged by "[]{.icon-st-update}" have changed since the
+previous release. "[]{.icon-st-add}" are new.</small>
+
+ : Projects **STM32MP135C-DK**
+
+ Board                 Project category          Version                       Path
+ -------------------   ------------------------  ---------------------        ------------------------------------------
+   STM32MP135F-DK       Examples                 []{.icon-st-update}          Projects/STM32MP135C-DK/Examples   
+   STM32MP135F-DK       Applications             []{.icon-st-update}          Projects/STM32MP135C-DK/Applications
+   STM32MP135F-DK       External Loader          []{.icon-st-update}          Projects/STM32MP135C-DK/External_Loader   
+   STM32MP135F-DK       Templates                []{.icon-st-update}	      Projects/STM32MP135C-DK/Templates          
+
+ 
+ - LWIP examples are added in applications.
+ - LWIP example with 2 ETH interface demo in applications.
+ - Free RTOS examples are added in applications.
+ - Example added to demonstrate USB host lib capabilities in appllications. 
+ - Source code of External Loader is provided which contains Ext_Memloader supporting SD_Ext_Loader.
+
+  
+ : Projects **STM32MP13XX_CUSTOM_HW** 
+
+ Board                      Project category          Version                       Path
+ ------------------------   ------------------------  ---------------------       ------------------------------------------
+   STM32MP13XX_CUSTOM_HW     Examples                 []{.icon-st-update}  		   Projects/STM32MP13XX_CUSTOM_HW/Examples                                                                  
+   STM32MP13XX_CUSTOM_HW     Applications             []{.icon-st-update}          Projects/STM32MP13XX_CUSTOM_HW/Applications                                                                                         
+   STM32MP13XX_CUSTOM_HW     External Loader          []{.icon-st-update}          Projects/STM32MP13XX_CUSTOM_HW/External_Loader                                                             
+   STM32MP13XX_CUSTOM_HW     Templates                []{.icon-st-update}  		   Projects/STM32MP13XX_CUSTOM_HW/Templates                                                                           
+
+ - Source code of External Loader is provided which contains Ext_Memloader supporting EMMC_Ext_Loader and SNOR_Ext_Loader.
+
+ **Notes**
+
+- STM32MP13XX_CUSTOM_HW is an internal ST Board customized to test some feature not available on STM32MP135F-DK Board : ex FMC-NAND or QSPi NOR or eMMC
+- The exhaustive list of projects is provided in this table [STM32CubeProjectsList.html](STM32CubeProjectsList.html)
+- Execution information :
+  - Engineering boot mode:
+    - All the examples could be run on SYSRAM memory, except LTDC_Display_2Layers, DCMIPP, TouchScreen(the binary size of these examples are larger than SYSRAM Size) => For these examples, DDR_Init should be run before.
+    - For the same reason, all the AzureRTOS applications should be run after DDR_Init example.
+  - SDCard boot mode:
+    - The applications or examples (CubeExample) could be executed from SDCard. For the instance, the FSBLA_Sdmmc and the CubeExample should be copied using cube programmer 
+	  (External_Loader is included in form of binaries for this purpose) or manually in the SD Card. 
+      - At the boot, the bootrom will copy the FSBLA_SDMMC in SYSRAM and execute it,
+      - FSBLA_Sdmmc:
+        - will initialize the clocks, the SDMMC and the DDR,
+        - will read from SDMMC1 the CubeExample image length and load CubeExample into DDR.
+        - will jump into DDR to execute this CubeExample
+		
+  - NOR boot mode (not possible on STM32MP135F_DK board because no QSPI_NOR available, but feature has been validated with internal ST Board customized - STM32MP13XX_CUSTOM_HW)
+    - The applications or examples (CubeExample) could be executed from NOR. For the instance, the FSBLA_SNOR and the CubeExample could be copied using CubeProgrammer 
+	  (External_Loader is included in form of binaries for this purpose) or with the provided debug tool "QSPI_NOR_Programmer". 
+      - At the boot, the bootrom will copy the FSBLA_SNOR in SYSRAM and execute it,
+      - FSBLA_SNOR:
+        - will initialize the clocks, the QSPI-NOR and the DDR,
+        - will read from QSPI-NOR the CubeExample image length and load CubeExample into DDR.
+        - will jump into DDR to execute this CubeExample
+
+  - eMMC boot mode:
+    - The applications or examples (CubeExample) could be executed from eMMC(SDMMC2). For the instance, the FSBLA_eMMC and the CubeExample should be copied 
+	  using cube programmer(External_Loader is included in form of binaries for this purpose) in the eMMC. 
+      - At the boot, the bootrom will copy the FSBLA_eMMC in SYSRAM and execute it,
+      - FSBLA_eMMC:
+        - will initialize the clocks, the SDMMC2(eMMC) and the DDR,
+        - will read from eMMC the CubeExample image length and load CubeExample into DDR.
+        - will jump into DDR to execute this CubeExample
+
+## Development Toolchains and Compilers
+- STM32CubeIDE V1.15.0
+- IAR Embedded Workbench for ARM (EWARM): v9.50
+
+## Supported Devices and boards
+-   STM32MP131 / STM32MP133 and STM32MP135 devices
+-   STM32MP135F Discovery board
+
+## Dependencies
+
+- None
+
+## Known Limitations
+
+- The projects are not generated with STM32CubeMX tool.
+- Some IAR example compile with warnings but run Ok.
+- IAR does not have option to connect under reset for st-link probe yet in IAR 9.50. 
+
+## Backward Compatibility
+
+- Not applicable
+
+</div>
+:::
+
+
+
+::: {.collapse}
+<input type="checkbox" id="collapse-section7" aria-hidden="true">
+<label for="collapse-section7" checked aria-hidden="true">__V1.1.0 / 23-Feb-2024__</label>
 <div>
 
 ## Main Changes

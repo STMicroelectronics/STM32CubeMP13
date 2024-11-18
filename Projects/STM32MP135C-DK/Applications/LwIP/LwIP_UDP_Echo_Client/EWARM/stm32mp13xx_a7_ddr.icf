@@ -1,0 +1,158 @@
+/*###ICF### Section handled by ICF editor, don't touch! ****/
+/*-Editor annotation file-*/
+/* IcfEditorFile="$TOOLKIT_DIR$\config\ide\IcfEditor\cortex_v1_0.xml" */
+/*-Specials-*/
+define symbol __ICFEDIT_intvec_start__ = 0xC0000000;
+/*-Memory Regions-*/
+define symbol __ICFEDIT_region_SYSRAM_BASE_start__    = 0x2FFE0000;
+define symbol __ICFEDIT_region_SYSRAM_BASE_end__      = 0x2FFFFFFF;
+define symbol __ICFEDIT_region_SRAM1_BASE_start__     = 0x30000000;
+define symbol __ICFEDIT_region_SRAM1_BASE_end__        = 0x30003FFF;
+define symbol __ICFEDIT_region_SRAM2_BASE_start__      = 0x30004000;
+define symbol __ICFEDIT_region_SRAM2_BASE_end__        = 0x30005FFF;
+define symbol __ICFEDIT_region_SRAM3_BASE_start__      = 0x30006000;
+define symbol __ICFEDIT_region_SRAM3_BASE_end__        = 0x30007FFF;
+define symbol __ICFEDIT_region_DDR1_BASE_start__        = 0xC0000000;
+define symbol __ICFEDIT_region_DDR1_BASE_end__          = 0xDF37AFFF;
+define symbol __ICFEDIT_region_DDR2_BASE_start__        = 0xDF37B000;
+define symbol __ICFEDIT_region_DDR2_BASE_end__          = 0xDF3F7FFF;
+/* DDR3 start address should be 16K aligned as TTB block needs 16K alignment.*/
+define symbol __ICFEDIT_region_DDR3_BASE_start__        = 0xDF3F8000; 
+define symbol __ICFEDIT_region_DDR3_BASE_end__          = 0xDF3FFFFF;
+
+/*-Sizes-*/
+define symbol __ICFEDIT_size_cstack__   = 0x1000;
+define symbol __ICFEDIT_size_svcstack__ = 0x400;
+define symbol __ICFEDIT_size_irqstack__ = 0x400;
+define symbol __ICFEDIT_size_fiqstack__ = 0x400;
+define symbol __ICFEDIT_size_undstack__ = 0x400;
+define symbol __ICFEDIT_size_abtstack__ = 0x400;
+define symbol __ICFEDIT_size_heap__     = 0x400;
+define symbol __ICFEDIT_size_TTB_L1_SIZE__ = 16384;
+define symbol __ICFEDIT_size_TTB_L2_SIZE__ = 1024;
+define symbol __ICFEDIT_size_RESERVED_SIZE__ = 1024;
+define symbol START_OFFSET  = 0x00;
+/**** End of ICF editor section. ###ICF###*/
+
+define memory mem with size = 4G;
+define symbol use_SYSRAM = (__ICFEDIT_region_SYSRAM_BASE_start__ != 0x0 || __ICFEDIT_region_SYSRAM_BASE_end__ != 0x0);
+define symbol use_SRAM1 = (__ICFEDIT_region_SRAM1_BASE_start__ != 0x0 || __ICFEDIT_region_SRAM1_BASE_end__ != 0x0);
+define symbol use_SRAM2 = (__ICFEDIT_region_SRAM2_BASE_start__ != 0x0 || __ICFEDIT_region_SRAM2_BASE_end__ != 0x0);
+define symbol use_SRAM3 = (__ICFEDIT_region_SRAM3_BASE_start__ != 0x0 || __ICFEDIT_region_SRAM3_BASE_end__ != 0x0);
+define symbol use_DDR1 = (__ICFEDIT_region_DDR1_BASE_start__ != 0x0 || __ICFEDIT_region_DDR1_BASE_end__ != 0x0);
+define symbol use_DDR2 = (__ICFEDIT_region_DDR2_BASE_start__ != 0x0 || __ICFEDIT_region_DDR2_BASE_end__ != 0x0);
+define symbol use_DDR3 = (__ICFEDIT_region_DDR3_BASE_start__ != 0x0 || __ICFEDIT_region_DDR3_BASE_end__ != 0x0);
+
+
+if (use_SYSRAM)
+{
+  define region SYSRAM_region = mem:[from __ICFEDIT_region_SYSRAM_BASE_start__ to __ICFEDIT_region_SYSRAM_BASE_end__];
+}
+else
+{
+  define region SYSRAM_region = [];
+}
+
+if (use_SRAM1)
+{
+  define region SRAM1_region = mem:[from __ICFEDIT_region_SRAM1_BASE_start__ to __ICFEDIT_region_SRAM1_BASE_end__];
+}
+else
+{
+  define region SRAM1_region = [];
+}
+
+if (use_SRAM2)
+{
+  define region SRAM2_region = mem:[from __ICFEDIT_region_SRAM2_BASE_start__ to __ICFEDIT_region_SRAM2_BASE_end__];
+}
+else
+{
+  define region SRAM2_region = [];
+}
+
+if (use_SRAM3)
+{
+  define region SRAM3_region = mem:[from __ICFEDIT_region_SRAM3_BASE_start__ to __ICFEDIT_region_SRAM3_BASE_end__];
+}
+else
+{
+  define region SRAM3_region = [];
+}
+
+/* define region DDRregion = DDR1_region | DDR2_region | DDR2_region; */
+
+if (use_DDR1)
+{
+  define region DDR1_region = mem:[from __ICFEDIT_region_DDR1_BASE_start__ to __ICFEDIT_region_DDR1_BASE_end__];
+}
+else
+{
+  define region DDR1_region = [];
+}
+
+if (use_DDR2)
+{
+  define region DDR2_region = mem:[from __ICFEDIT_region_DDR2_BASE_start__ to __ICFEDIT_region_DDR2_BASE_end__];
+}
+else
+{
+  define region DDR2_region = [];
+}
+
+if (use_DDR3)
+{
+  define region DDR3_region = mem:[from __ICFEDIT_region_DDR3_BASE_start__ to __ICFEDIT_region_DDR3_BASE_end__];
+}
+else
+{
+  define region DDR3_region = [];
+}
+
+place at address mem:__ICFEDIT_intvec_start__ { readonly section .intvec };
+do not initialize  { section .noinit };
+initialize by copy { readwrite };
+
+/*
+* RO DATA 4k Alignment done as TTB pages are 4k Aligned. This avoids Prefetch Abort Error.
+*/ 
+if (!isempty(DDR1_region))
+{
+  define block RO_CODE { ro code };
+  define block RO_DATA with alignment = 4K { ro data };
+  place in DDR1_region  { first block RO_CODE, block RO_DATA };
+}
+
+if (!isempty(DDR2_region))
+{
+  place in DDR2_region  { readwrite };
+}
+
+/* 
+*  NOTE: DDR3 start address should be 16K aligned as TTB block needs 16K alignment.
+*  If start addess in not 16K aligned , TTB would start with next 16K aligned address and push other stacks of bounds.
+*/
+
+if (!isempty(DDR3_region))
+{
+  define block TTB    with alignment = 16384, size =  __ICFEDIT_size_TTB_L1_SIZE__ + 4*__ICFEDIT_size_TTB_L2_SIZE__  { };
+  define block HEAP   with alignment = 8, size = __ICFEDIT_size_heap__   { };
+  define block RESERVED with alignment = 8, size = __ICFEDIT_size_RESERVED_SIZE__  { };
+  define block CSTACK    with alignment = 8, size = __ICFEDIT_size_cstack__   { };
+  define block SVC_STACK with alignment = 8, size = __ICFEDIT_size_svcstack__ { };
+  define block IRQ_STACK with alignment = 8, size = __ICFEDIT_size_irqstack__ { };
+  define block FIQ_STACK with alignment = 8, size = __ICFEDIT_size_fiqstack__ { };
+  define block UND_STACK with alignment = 8, size = __ICFEDIT_size_undstack__ { };
+  define block ABT_STACK with alignment = 8, size = __ICFEDIT_size_abtstack__ { };
+  place in DDR3_region  { block TTB, block HEAP, block RESERVED,
+                          block CSTACK, block UND_STACK,
+                          block SVC_STACK, block ABT_STACK,
+                          block IRQ_STACK, block FIQ_STACK};
+}
+
+
+
+
+
+                        
+

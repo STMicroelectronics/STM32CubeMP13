@@ -28,7 +28,28 @@ From project settings points of view, user has only to add the necessary driverâ
 
 ::: {.collapse}
 <input type="checkbox" id="collapse-section0" checked aria-hidden="true">
-<label for="collapse-section0" aria-hidden="true">__V1.1.0 / 23-Feb-2024__</label>
+<label for="collapse-section0" aria-hidden="true">__V1.2.0 / 30-Oct-2024__</label>
+<div>			
+
+## Main Changes
+
+**Maintenance DV** of STMP32MP13xx_DISCO BSP
+
+## Contents
+
+- No update
+
+## Notes
+
+stm32mp13xx_disco_conf_template.h file must be copied in user application as >stm32mp13xx_disco_conf.h with optional configuration update
+
+</div>
+:::
+
+
+::: {.collapse}
+<input type="checkbox" id="collapse-section9" aria-hidden="true">
+<label for="collapse-section9" aria-hidden="true">__V1.1.0 / 23-Feb-2024__</label>
 <div>			
 
 ## Main Changes

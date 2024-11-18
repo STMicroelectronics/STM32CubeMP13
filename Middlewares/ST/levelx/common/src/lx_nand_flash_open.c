@@ -40,7 +40,7 @@
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _lx_nand_flash_open                                 PORTABLE C      */ 
-/*                                                           6.x          */
+/*                                                           6.3.0        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Xiuwen Cai, Microsoft Corporation                                   */
@@ -85,7 +85,12 @@
 /*                                                                        */ 
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
-/*  xx-xx-xxxx     Xiuwen Cai               Initial Version 6.x           */
+/*  03-08-2023     Xiuwen Cai               Initial Version 6.2.1         */
+/*  10-31-2023     Xiuwen Cai               Modified comment(s),          */
+/*                                            avoided clearing user       */
+/*                                            extension in flash control  */
+/*                                            block,                      */
+/*                                            resulting in version 6.3.0  */
 /*                                                                        */
 /**************************************************************************/
 UINT  _lx_nand_flash_open(LX_NAND_FLASH  *nand_flash, CHAR *name, UINT (*nand_driver_initialize)(LX_NAND_FLASH *),
@@ -107,9 +112,9 @@ LX_INTERRUPT_SAVE_AREA
 
     LX_PARAMETER_NOT_USED(name);
 
-    /* Clear the NAND flash control block.  */
-    LX_MEMSET(nand_flash, 0, sizeof(LX_NAND_FLASH));
-    
+    /* Clear the NAND flash control block. User extension is not cleared.  */
+    LX_MEMSET(nand_flash, 0, (ULONG)((UCHAR*)&(nand_flash -> lx_nand_flash_open_previous) - (UCHAR*)nand_flash) + sizeof(nand_flash -> lx_nand_flash_open_previous));
+
     /* Call the flash driver's initialization function.  */
     (nand_driver_initialize)(nand_flash);
 
@@ -194,7 +199,11 @@ LX_INTERRUPT_SAVE_AREA
         }
 
         /* Call driver read function to read page 0.  */
+#ifdef LX_NAND_ENABLE_CONTROL_BLOCK_FOR_DRIVER_INTERFACE
+        status = (nand_flash -> lx_nand_flash_driver_pages_read)(nand_flash, block, 0, page_buffer_ptr, spare_buffer_ptr, 1);
+#else
         status = (nand_flash -> lx_nand_flash_driver_pages_read)(block, 0, page_buffer_ptr, spare_buffer_ptr, 1);
+#endif
 
         /* Check for an error from flash driver.   */
         if (status)
@@ -269,7 +278,11 @@ LX_INTERRUPT_SAVE_AREA
         {
 
             /* Call driver read function to read page.  */
+#ifdef LX_NAND_ENABLE_CONTROL_BLOCK_FOR_DRIVER_INTERFACE
+            status = (nand_flash -> lx_nand_flash_driver_pages_read)(nand_flash, block, page, page_buffer_ptr, spare_buffer_ptr, 1);
+#else
             status = (nand_flash -> lx_nand_flash_driver_pages_read)(block, page, page_buffer_ptr, spare_buffer_ptr, 1);
+#endif
 
             /* Check for an error from flash driver.   */
             if (status)

@@ -66,6 +66,8 @@ uint8_t output1_Y[24]                                            = {0x57, 0x1F, 
 
 uint8_t buffer_x[24];
 uint8_t buffer_y[24];
+PKA_ECCDoubleBaseLadderInTypeDef in;
+PKA_ECCDoubleBaseLadderOutTypeDef out;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -121,8 +123,6 @@ int main(void)
   MX_PKA_Init();
   
   /* USER CODE BEGIN 2 */
-  PKA_ECCDoubleBaseLadderInTypeDef in;
-  PKA_ECCDoubleBaseLadderOutTypeDef out;
 
  /* Set input parameters */
   in.modulusSize = input1_modulusSize;

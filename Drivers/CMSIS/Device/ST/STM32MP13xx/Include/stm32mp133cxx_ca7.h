@@ -102,11 +102,11 @@
    DMA1_Stream5_IRQn                = 48,     /*!< DMA1 Stream 5 global Interrupt                                       */
    DMA1_Stream6_IRQn                = 49,     /*!< DMA1 Stream 6 global Interrupt                                       */
    ADC1_IRQn                        = 50,     /*!< ADC1 global Interrupts                                               */
-   ADC2_IRQn                        = 51,     /*!< ADC1 global Interrupts                                               */
+   ADC2_IRQn                        = 51,     /*!< ADC2 global Interrupts                                               */
    FDCAN1_IT0_IRQn                  = 52,     /*!< FDCAN1 Interrupt line 0                                              */
-   RESERVED_53                      = 53,     /*!< reserved                                                             */
+   FDCAN2_IT0_IRQn                  = 53,     /*!< FDCAN2 Interrupt line 0                                              */
    FDCAN1_IT1_IRQn                  = 54,     /*!< FDCAN1 Interrupt line 1                                              */
-   RESERVED_55                      = 55,     /*!< reserved                                                             */
+   FDCAN2_IT1_IRQn                  = 55,     /*!< FDCAN2 Interrupt line 1                                              */
    EXTI5_IRQn                       = 56,     /*!< External Line[9:5] Interrupts                                        */
    TIM1_BRK_IRQn                    = 57,     /*!< TIM1 Break interrupt                                                 */
    TIM1_UP_IRQn                     = 58,     /*!< TIM1 Update Interrupt                                                */
@@ -1361,6 +1361,7 @@ typedef struct
   __IO uint32_t SIDR;        /*!< SAES Size ID Register,                        Address offset: 0x3FC */
 } SAES_TypeDef;
 
+ 
  /**
   * @brief Public Key Accelerator (PKA)
   */
@@ -2609,6 +2610,8 @@ typedef struct
 #define DMA1_BASE             (AHB2_PERIPH_BASE + 0x0000UL)
 #define DMA2_BASE             (AHB2_PERIPH_BASE + 0x1000UL)
 #define DMAMUX1_BASE          (AHB2_PERIPH_BASE + 0x2000UL)
+#define ADC1_BASE             (AHB2_PERIPH_BASE + 0x3000UL)
+#define ADC1_COMMON_BASE      (AHB2_PERIPH_BASE + 0x3300UL)
 #define ADC2_BASE             (AHB2_PERIPH_BASE + 0x4000UL)
 #define ADC2_COMMON_BASE      (AHB2_PERIPH_BASE + 0x4300UL)
 #define DMA3_BASE             (AHB2_PERIPH_BASE + 0x5000UL)
@@ -2932,7 +2935,9 @@ typedef struct
 #define GPIOH               ((GPIO_TypeDef *) GPIOH_BASE)
 #define GPIOI               ((GPIO_TypeDef *) GPIOI_BASE)
 
+#define ADC1                ((ADC_TypeDef *) ADC1_BASE)
 #define ADC2                ((ADC_TypeDef *) ADC2_BASE)
+#define ADC1_COMMON        ((ADC_Common_TypeDef *) ADC1_COMMON_BASE)
 #define ADC2_COMMON        ((ADC_Common_TypeDef *) ADC2_COMMON_BASE)
 
 #define CRYP1               ((CRYP_TypeDef *) CRYP1_BASE)
@@ -11357,12 +11362,6 @@ typedef struct
 #define ETH_MACPHYCSR_LNKSTS_Pos            (19U)
 #define ETH_MACPHYCSR_LNKSTS_Msk            (0x1UL << ETH_MACPHYCSR_LNKSTS_Pos)                  /*!< 0x00080000 */
 #define ETH_MACPHYCSR_LNKSTS                ETH_MACPHYCSR_LNKSTS_Msk                            /*!< Link Status */
-#define ETH_MACPHYCSR_JABTO_Pos             (20U)
-#define ETH_MACPHYCSR_JABTO_Msk             (0x1UL << ETH_MACPHYCSR_JABTO_Pos)                   /*!< 0x00100000 */
-#define ETH_MACPHYCSR_JABTO                 ETH_MACPHYCSR_JABTO_Msk                             /*!< Jabber Timeout */
-#define ETH_MACPHYCSR_FALSCARDET_Pos        (21U)
-#define ETH_MACPHYCSR_FALSCARDET_Msk        (0x1UL << ETH_MACPHYCSR_FALSCARDET_Pos)              /*!< 0x00200000 */
-#define ETH_MACPHYCSR_FALSCARDET            ETH_MACPHYCSR_FALSCARDET_Msk                        /*!< False Carrier Detected */
 
 /***************  Bit definition for ETH_MACVR register  ***************/
 #define ETH_MACVR_SNPSVER_Pos               (0U)
@@ -20705,6 +20704,7 @@ typedef struct
 #define PKA_MODE_DOUBLE_BASE_LADDER       ((uint32_t)0x00000027U) /*!< ECC double base ladder  */
 #define PKA_MODE_POINT_CHECK              ((uint32_t)0x00000028U) /*!< Point on elliptic curve check */
 #define PKA_MODE_ECC_PROJECTIVE_AFF       ((uint32_t)0x0000002FU) /*!< ECC projective to affine */
+
 /******************************************************************************/
 /*                                                                            */
 /*                      Memory Cipher Engine (LTDC)                           */
@@ -34049,13 +34049,11 @@ typedef struct
 /** @addtogroup Exported_macros
   * @{
   */
-
 /******************************* ADC Instances ********************************/
 #define IS_ADC_ALL_INSTANCE(INSTANCE) (((INSTANCE) == ADC1) || \
                                        ((INSTANCE) == ADC2))
 
 #define IS_ADC_MULTIMODE_MASTER_INSTANCE(INSTANCE) ((INSTANCE) == ADC1)
-
 /******************************** DTS Instances ******************************/
 #define IS_DTS_ALL_INSTANCE(INSTANCE) ((INSTANCE) == DTS1)
 
@@ -34828,11 +34826,11 @@ typedef struct
 /******************************* SAES VERSION ********************************/
 #define SAES_VERSION(INSTANCE) ((INSTANCE)->VERR)
 
+/******************************* MCE VERSION ********************************/
+#define MCE_VERSION(INSTANCE) ((INSTANCE)->VERR)
 /******************************* PKA VERSION ********************************/
 #define PKA_VERSION(INSTANCE) ((INSTANCE)->VERR)
 
-/******************************* MCE VERSION ********************************/
-#define MCE_VERSION(INSTANCE) ((INSTANCE)->VERR)
 
 /******************************* DCMIPP VERSION ********************************/
 #define DCMIPP_VERSION(INSTANCE) ((INSTANCE)->VERR)

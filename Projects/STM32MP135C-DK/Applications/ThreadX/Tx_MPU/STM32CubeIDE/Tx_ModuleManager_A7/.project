@@ -52,14 +52,14 @@
 			<locationURI>PARENT-2-PROJECT_LOC/README.md</locationURI>
 		</link>
 		<link>
-			<name>Drivers/CMSIS/startup_stm32mp135c_ca7_azurertos.c</name>
+			<name>Drivers/CMSIS/startup_stm32mp135c_ca7_rtos.c</name>
 			<type>1</type>
-			<locationURI>PARENT-7-PROJECT_LOC/Drivers/CMSIS/Device/ST/STM32MP13xx/Source/Templates/gcc/startup_stm32mp135c_ca7_azurertos.c</locationURI>
+			<locationURI>PARENT-7-PROJECT_LOC/Drivers/CMSIS/Device/ST/STM32MP13xx/Source/Templates/gcc/startup_stm32mp135c_ca7_rtos.c</locationURI>
 		</link>
 		<link>
-			<name>Drivers/CMSIS/system_stm32mp13xx_A7_azurertos.c</name>
+			<name>Drivers/CMSIS/system_stm32mp13xx_A7_rtos.c</name>
 			<type>1</type>
-			<locationURI>PARENT-7-PROJECT_LOC/Drivers/CMSIS/Device/ST/STM32MP13xx/Source/Templates/system_stm32mp13xx_A7_azurertos.c</locationURI>
+			<locationURI>PARENT-7-PROJECT_LOC/Drivers/CMSIS/Device/ST/STM32MP13xx/Source/Templates/system_stm32mp13xx_A7_rtos.c</locationURI>
 		</link>
 		<link>
 			<name>Drivers/CMSIS/irq_ctrl_gic.c</name>

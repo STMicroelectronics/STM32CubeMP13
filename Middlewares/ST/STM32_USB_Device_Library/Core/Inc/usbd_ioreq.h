@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2015 STMicroelectronics.
+  * Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -110,4 +110,3 @@ uint32_t USBD_GetRxCount(USBD_HandleTypeDef *pdev, uint8_t ep_addr);
 /**
   * @}
   */
-

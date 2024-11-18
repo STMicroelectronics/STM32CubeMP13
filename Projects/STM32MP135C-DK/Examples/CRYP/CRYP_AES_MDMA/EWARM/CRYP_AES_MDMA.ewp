@@ -1719,7 +1719,7 @@
                 </option>
                 <option>
                     <name>AOutputFile</name>
-                    <state></state>
+                    <state>$FILE_BNAME$.o</state>
                 </option>
                 <option>
                     <name>ALimitErrorsCheck</name>
@@ -2205,7 +2205,7 @@
         <group>
             <name>EWARM</name>
             <file>
-                <name>$PROJ_DIR$\startup_stm32mp135c_ca7.s</name>
+                <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32MP13xx\Source\Templates\IAR\startup_stm32mp135c_ca7.s</name>
             </file>
         </group>
         <group>

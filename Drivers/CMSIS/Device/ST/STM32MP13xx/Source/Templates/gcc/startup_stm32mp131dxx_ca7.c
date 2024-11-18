@@ -190,6 +190,7 @@ void __attribute__ ((weak)) TIM15_IRQHandler(void) {}
 void __attribute__ ((weak)) TIM16_IRQHandler(void) {}
 void __attribute__ ((weak)) TIM17_IRQHandler(void) {}
 void __attribute__ ((weak)) TIM12_IRQHandler(void) {}
+void __attribute__ ((weak)) PKA_IRQHandler(void) {}
 void __attribute__ ((weak)) EXTI14_IRQHandler(void) {}
 void __attribute__ ((weak)) MDMA_IRQHandler(void) {}
 void __attribute__ ((weak)) SDMMC2_IRQHandler(void) {}
@@ -205,7 +206,7 @@ void __attribute__ ((weak)) LPTIM3_IRQHandler(void) {}
 void __attribute__ ((weak)) LPTIM4_IRQHandler(void) {}
 void __attribute__ ((weak)) LPTIM5_IRQHandler(void) {}
 void __attribute__ ((weak)) ETH1_LPI_IRQHandler(void) {}
-void __attribute__ ((weak)) RCC_WAKEUP__IRQHandler(void) {}
+void __attribute__ ((weak)) RCC_WAKEUP_IRQHandler(void) {}
 void __attribute__ ((weak)) DTS_IRQHandler(void) {}
 void __attribute__ ((weak)) MPU_WAKEUP_PIN_IRQHandler(void) {}
 void __attribute__ ((weak)) IWDG1_IRQHandler(void) {}
@@ -372,7 +373,7 @@ IRQHandler_t IRQ_Vector_Table[MAX_IRQ_n] = {
     TIM16_IRQHandler,
     TIM17_IRQHandler,
     TIM12_IRQHandler,
-    RESERVED_IRQHandler,
+    PKA_IRQHandler,
     EXTI14_IRQHandler,
     MDMA_IRQHandler,
     SDMMC2_IRQHandler,                  /* 140 */
@@ -389,7 +390,7 @@ IRQHandler_t IRQ_Vector_Table[MAX_IRQ_n] = {
     LPTIM5_IRQHandler,	
     ETH1_LPI_IRQHandler,
     RESERVED_IRQHandler,
-	  RCC_WAKEUP__IRQHandler,
+	  RCC_WAKEUP_IRQHandler,
     RESERVED_IRQHandler,	
     DTS_IRQHandler,	
     MPU_WAKEUP_PIN_IRQHandler,	

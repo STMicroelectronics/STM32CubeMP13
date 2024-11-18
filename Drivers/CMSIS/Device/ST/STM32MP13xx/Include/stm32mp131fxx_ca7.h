@@ -101,7 +101,7 @@
    DMA1_Stream4_IRQn                = 47,     /*!< DMA1 Stream 4 global Interrupt                                       */
    DMA1_Stream5_IRQn                = 48,     /*!< DMA1 Stream 5 global Interrupt                                       */
    DMA1_Stream6_IRQn                = 49,     /*!< DMA1 Stream 6 global Interrupt                                       */
-   RESERVED_50                      = 50,     /*!< reserved                                                             */
+   RESERVED_50                      = 50,     /*!< reserved                                                             */ 
    ADC2_IRQn                        = 51,     /*!< ADC2 global Interrupts                                               */
    RESERVED_52                      = 52,     /*!< reserved                                                             */
    RESERVED_53                      = 53,     /*!< reserved                                                             */
@@ -1260,6 +1260,7 @@ typedef struct
   __IO uint32_t SIDR;        /*!< SAES Size ID Register,                        Address offset: 0x3FC */
 } SAES_TypeDef;
 
+ 
  /**
   * @brief Public Key Accelerator (PKA)
   */
@@ -9804,12 +9805,6 @@ typedef struct
 #define ETH_MACPHYCSR_LNKSTS_Pos            (19U)
 #define ETH_MACPHYCSR_LNKSTS_Msk            (0x1UL << ETH_MACPHYCSR_LNKSTS_Pos)                  /*!< 0x00080000 */
 #define ETH_MACPHYCSR_LNKSTS                ETH_MACPHYCSR_LNKSTS_Msk                            /*!< Link Status */
-#define ETH_MACPHYCSR_JABTO_Pos             (20U)
-#define ETH_MACPHYCSR_JABTO_Msk             (0x1UL << ETH_MACPHYCSR_JABTO_Pos)                   /*!< 0x00100000 */
-#define ETH_MACPHYCSR_JABTO                 ETH_MACPHYCSR_JABTO_Msk                             /*!< Jabber Timeout */
-#define ETH_MACPHYCSR_FALSCARDET_Pos        (21U)
-#define ETH_MACPHYCSR_FALSCARDET_Msk        (0x1UL << ETH_MACPHYCSR_FALSCARDET_Pos)              /*!< 0x00200000 */
-#define ETH_MACPHYCSR_FALSCARDET            ETH_MACPHYCSR_FALSCARDET_Msk                        /*!< False Carrier Detected */
 
 /***************  Bit definition for ETH_MACVR register  ***************/
 #define ETH_MACVR_SNPSVER_Pos               (0U)
@@ -19152,6 +19147,7 @@ typedef struct
 #define PKA_MODE_DOUBLE_BASE_LADDER       ((uint32_t)0x00000027U) /*!< ECC double base ladder  */
 #define PKA_MODE_POINT_CHECK              ((uint32_t)0x00000028U) /*!< Point on elliptic curve check */
 #define PKA_MODE_ECC_PROJECTIVE_AFF       ((uint32_t)0x0000002FU) /*!< ECC projective to affine */
+
 /******************************************************************************/
 /*                                                                            */
 /*                      Memory Cipher Engine (LTDC)                           */
@@ -32496,12 +32492,10 @@ typedef struct
 /** @addtogroup Exported_macros
   * @{
   */
-
 /******************************* ADC Instances ********************************/
-#define IS_ADC_ALL_INSTANCE(INSTANCE) ((INSTANCE) == ADC2)
+#define IS_ADC_ALL_INSTANCE(INSTANCE) ((INSTANCE) == ADC2)                                    
 
 #define IS_ADC_MULTIMODE_MASTER_INSTANCE(INSTANCE) ((INSTANCE) == ADC2)
-
 /******************************** DTS Instances ******************************/
 #define IS_DTS_ALL_INSTANCE(INSTANCE) ((INSTANCE) == DTS1)
 
@@ -33269,11 +33263,11 @@ typedef struct
 /******************************* SAES VERSION ********************************/
 #define SAES_VERSION(INSTANCE) ((INSTANCE)->VERR)
 
+/******************************* MCE VERSION ********************************/
+#define MCE_VERSION(INSTANCE) ((INSTANCE)->VERR)
 /******************************* PKA VERSION ********************************/
 #define PKA_VERSION(INSTANCE) ((INSTANCE)->VERR)
 
-/******************************* MCE VERSION ********************************/
-#define MCE_VERSION(INSTANCE) ((INSTANCE)->VERR)
 
 /******************************* DCMIPP VERSION ********************************/
 #define DCMIPP_VERSION(INSTANCE) ((INSTANCE)->VERR)

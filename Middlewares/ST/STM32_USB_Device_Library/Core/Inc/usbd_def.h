@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2015 STMicroelectronics.
+  * Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -79,7 +79,7 @@ extern "C" {
 #endif /*USBD_SELF_POWERED */
 
 #ifndef USBD_MAX_POWER
-#define USBD_MAX_POWER                                  0x32U /* 100 mA */
+#define USBD_MAX_POWER                                  0x1U
 #endif /* USBD_MAX_POWER */
 
 #ifndef USBD_SUPPORT_USER_STRING_DESC
@@ -511,4 +511,3 @@ __STATIC_INLINE uint16_t SWAPBYTE(uint8_t *addr)
 /**
   * @}
   */
-

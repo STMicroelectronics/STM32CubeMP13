@@ -284,6 +284,7 @@ void MX_ETH_Init(void)
   heth.Init.TxDesc = DMATxDscrTab;
   heth.Init.RxDesc = DMARxDscrTab;
   heth.Init.RxBuffLen = 1536;
+  heth.Init.ClockSelection = HAL_ETH1_REF_CLK_RX_CLK_PIN;
 
   /* USER CODE BEGIN MACADDRESS */
 

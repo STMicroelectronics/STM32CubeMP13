@@ -1,5 +1,24 @@
-## <b>USART_SlaveMode_DMA Example Description</b>
+/**
+  @page USART_SlaveMode_DMA USART SlaveMode DMA example
 
+  @verbatim
+  ******************** (C) COPYRIGHT 2024 STMicroelectronics *******************
+  * @file    USART/USART_SlaveMode_DMA/readme.txt
+  * @author  MCD Application Team
+  * @brief   Description of the USART SlaveMode DMA example.
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2024 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  @endverbatim
+  
 This example describes an USART-SPI communication (transmit/receive) with DMA between two
 boards where the USART is configured as a slave.
 
@@ -73,11 +92,29 @@ Connectivity, UART/USART, SPI interface, full-duplex, Polling, Receiver, Transmi
     and development board.
 
   - STM32MP135F-DK set-up
-    - Connect Master board PH7 (EXP_GPIO11 header pin, SPI5_SCK  signal) to Slave Board PB0  (EXP_GPIO15 header pin, USART1_CK signal)
-    - Connect Master board PH3 (EXP_GPIO10 header pin, SPI5_MOSI signal) to Slave Board PD13 (EXP_GPIO6  header pin, USART1_RX signal)
-    - Connect Master board PA8 (EXP_GPIO09 header pin, SPI5_MISO signal) to Slave Board PC0  (EXP_GPIO14 header pin, USART1_TX signal)
-    - Connect Master board GND to Slave Board GND
+    - Connect Master board PH7 - (CN8, pin D23) (EXP_GPIO11 header pin, SPI5_SCK  signal) to Slave Board PB0  - (CN8, pin D10) (EXP_GPIO15 header pin, USART1_CK signal)
+    - Connect Master board PH3 - (CN8, pin D19) (EXP_GPIO10 header pin, SPI5_MOSI signal) to Slave Board PD13 - (CN8, pin D31) (EXP_GPIO6  header pin, USART1_RX signal)
+    - Connect Master board PA8 - (CN8, pin D21) (EXP_GPIO09 header pin, SPI5_MISO signal) to Slave Board PC0  - (CN8, pin D08) (EXP_GPIO14 header pin, USART1_TX signal)
+    - Connect Master board GND - (CN8, pin D25)  to  Slave Board GND - (CN8, pin D25).
 
+   _________________________                       _______________________________
+  |           ______________|                      |___________________           |
+  |          |SPI5          |                      |        USART1     |          |
+  |          |              |                      |                   |          |
+  |          |    CLK(PH.7) |______________________|CLK       (PB.0)   |          |
+  |          |              |                      |                   |          |
+  |          |   MISO(PA.8) |______________________|USART1_TX (PC.0)   |          |
+  |          |              |                      |                   |          |
+  |          |   MOSI(PH.3) |______________________|USART1_RX (PD.13)  |          |
+  |          |              |                      |                   |          |
+  |          |______________|                      |___________________|          |
+  |      __                 |                      |                              |
+  |     |__|                |                      |                              |
+  |    User push-button     |                      |                              |
+  |                      GND|______________________|GND                           |
+  |                         |                      |                              |
+  |_STM32MP13xx Master______|                      |_STM32MP13xx Slave____________|
+  
 ### <b>How to use it ?</b>
 
 In order to make the program work, you must do the following :

@@ -25,16 +25,17 @@ debug=1
 local_script_path=$(dirname $0)
 local_script_path=$(readlink -f ${local_script_path})
 
+# Determine the operating system and set the appropriate command and tool
 case "$(uname -s)" in
   Linux)
     #line for python
-    echo Postbuild with python script
+    echo "Postbuild with python script"
     imgtool="${local_script_path}/Python3/Stm32ImageAddHeader.py"
     cmd="python"
     ;;
   *)
     #line for window executable
-    echo Postbuild with windows executable
+    echo "Postbuild with windows executable"
     imgtool="${local_script_path}/exe.win-amd64-2.7/Stm32ImageAddHeader.exe"
     cmd=""
     ;;
@@ -61,8 +62,16 @@ fi
 
 ${objcopy_path} -O binary ${elf_file_basename}.elf ${elf_file_basename}_postbuild.bin
 
-
+# Construct the command
 command="${cmd} ${imgtool} ${elf_file_basename}_postbuild.bin ${elf_file_basename}.stm32 -hv 2.0 -bt 10 -ep ${formatted_ep_addr}"
+
+# Check if the command length exceeds 255 characters
+if [ ${#command} -gt 255 ]; then
+    echo "Command length exceeds 255 characters. Please shorten the input parameters."
+    exit 1
+fi
+
+# Execute the command
 ${command}
 ret=$?
 
@@ -70,6 +79,7 @@ if [ ${debug} -eq 0 ] ; then
   rm -f ${elf_file_basename}_postbuild.bin
 fi
 
+# Check the return status and print the appropriate message
 if [ ${ret} -eq 0 ] ; then
   echo "${elf_file_basename}.elf stm32 image header added. Output file: ${elf_file_basename}.stm32"
 else

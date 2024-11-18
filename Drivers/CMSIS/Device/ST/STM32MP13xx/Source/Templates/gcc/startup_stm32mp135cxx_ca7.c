@@ -220,7 +220,7 @@ void __attribute__ ((weak)) LPTIM4_IRQHandler(void) {}
 void __attribute__ ((weak)) LPTIM5_IRQHandler(void) {}
 void __attribute__ ((weak)) ETH1_LPI_IRQHandler(void) {}
 void __attribute__ ((weak)) ETH2_LPI_IRQHandler(void) {}
-void __attribute__ ((weak)) RCC_WAKEUP__IRQHandler(void) {}
+void __attribute__ ((weak)) RCC_WAKEUP_IRQHandler(void) {}
 void __attribute__ ((weak)) DTS_IRQHandler(void) {}
 void __attribute__ ((weak)) MPU_WAKEUP_PIN_IRQHandler(void) {}
 void __attribute__ ((weak)) IWDG1_IRQHandler(void) {}
@@ -407,7 +407,7 @@ IRQHandler_t IRQ_Vector_Table[MAX_IRQ_n] = {
     LPTIM5_IRQHandler,	
     ETH1_LPI_IRQHandler,
     ETH2_LPI_IRQHandler,
-	RCC_WAKEUP__IRQHandler,
+	  RCC_WAKEUP_IRQHandler,
     RESERVED_IRQHandler,	
     DTS_IRQHandler,	
     MPU_WAKEUP_PIN_IRQHandler,	
@@ -417,7 +417,7 @@ IRQHandler_t IRQ_Vector_Table[MAX_IRQ_n] = {
     RTC_WKUP_ALARM_S_IRQHandler,
     RTC_TS_S_IRQHandler,	
     LTDC_SEC_IRQHandler,
-	LTDC_SEC_ER_IRQHandler,
+	  LTDC_SEC_ER_IRQHandler,
     PMUIRQ0_IRQHandler,
     COMMRX0_IRQHandler,
     COMMTX0_IRQHandler,

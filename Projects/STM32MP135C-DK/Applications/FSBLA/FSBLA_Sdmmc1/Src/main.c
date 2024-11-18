@@ -274,7 +274,7 @@ int main(void)
   BSP_LED_Off(LED_BLUE);
 
   /* Reset_handler of the Application to jump */
-  p_AppEntryPoint = (void *)(DDR_MEM_ADD);
+  p_AppEntryPoint = (void (*)(void))(DDR_MEM_ADD);
   p_AppEntryPoint();
 
   /* USER CODE END 2 */

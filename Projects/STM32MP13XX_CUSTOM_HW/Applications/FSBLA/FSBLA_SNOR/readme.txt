@@ -61,6 +61,8 @@
   - Flash this signed cubeExample binary into XSPI-NOR at this specific Offset (0x30000).(XSPI_NOR_PROGRAMMER application can be used)
     (Rq: It is possible to change this value by changing the value of the variable FLASH_ADDRESS_SNOR_CUBE in the file main.c)
   - Run the FSBLA_SNOR.
+  - This example can also be used as a part of External Loader application package for programming SNOR flash via
+   STM32CubeProgrammer. Refer Projects/STM32MP13XX_CUSTOM_HW/External_Loader/readme.txt for more details.
   
 If you want to BOOT from NOR : 
   - Open your preferred toolchain 

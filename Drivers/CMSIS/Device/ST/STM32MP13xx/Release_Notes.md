@@ -36,9 +36,36 @@ They can be adapted to fit applications requirements:
 
 # __Update History__
 
+
 ::: {.collapse}
 <input type="checkbox" id="collapse-section0" checked aria-hidden="true">
-<label for="collapse-section0" checked aria-hidden="true">__V1.1.0 / 23-Feb-2024__</label>
+<label for="collapse-section0" checked aria-hidden="true">__V1.2.0 / 30-Oct-2024__</label>
+<div>
+
+## Main Changes
+
+This release is the **Maintenance DV of Bit and registers definition** for STM32MP13xx
+
+## Contents
+- IAR startup files added for all part numbers
+- Minor bug fixes for various part numbers for GCC and IAR
+- ADC peripheral definitions for MP133 fixed
+
+## Known Limitations
+
+- None
+
+## Dependencies
+
+None
+
+</div>
+:::
+
+
+::: {.collapse}
+<input type="checkbox" id="collapse-section9" aria-hidden="true">
+<label for="collapse-section9" checked aria-hidden="true">__V1.1.0 / 23-Feb-2024__</label>
 <div>
 
 ## Main Changes

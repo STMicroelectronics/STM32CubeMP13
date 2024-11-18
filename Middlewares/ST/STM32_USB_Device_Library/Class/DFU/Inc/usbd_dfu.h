@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2015 STMicroelectronics.
+  * Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -26,6 +26,7 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include  "usbd_ioreq.h"
+#include  "openbootloader_conf.h"
 
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{
@@ -41,7 +42,7 @@ extern "C" {
   * @{
   */
 #ifndef USBD_DFU_MAX_ITF_NUM
-#define USBD_DFU_MAX_ITF_NUM            1U
+#define USBD_DFU_MAX_ITF_NUM            2U
 #endif /* USBD_DFU_MAX_ITF_NUM */
 
 #ifndef USBD_DFU_XFER_SIZE
@@ -49,7 +50,7 @@ extern "C" {
 #endif /* USBD_DFU_XFER_SIZE */
 
 #ifndef USBD_DFU_APP_DEFAULT_ADD
-#define USBD_DFU_APP_DEFAULT_ADD       0x08008000U /* The first sector (32 KB) is reserved for DFU code */
+#define USBD_DFU_APP_DEFAULT_ADD       RAM_WRITE_ADDRESS
 #endif /* USBD_DFU_APP_DEFAULT_ADD */
 
 #ifndef USBD_DFU_BM_ATTRIBUTES
@@ -64,6 +65,13 @@ extern "C" {
 #define USB_DFU_DESC_SIZ               9U
 
 #define DFU_DESCRIPTOR_TYPE            0x21U
+
+#define FL_DESC_STR                    "@Flashlayout /0x00/1*1Ke"
+#define FSBL_EXT_DESC_STR              "@FSBL-EXT /0x03/1*70Ke"
+#define FSBL_APP_DESC_STR              "@FSBL-APP1 /0x04/1*64Me"
+#define OTP_DESC_STR                   "@OTP /0xF2/1*2920Be"
+//#define OTP_DESC_STR                   "@OTP /0xF2/1*776Be"
+#define FSBL_TESTAPP_DESC_STR          "@FSBL-APP2 /0x05/1*64Me"
 
 
 /**************************************************/
@@ -190,8 +198,8 @@ typedef struct
   uint16_t (* Init)(void);
   uint16_t (* DeInit)(void);
   uint16_t (* Erase)(uint32_t Add);
-  uint16_t (* Write)(uint8_t *src, uint8_t *dest, uint32_t Len);
-  uint8_t *(* Read)(uint8_t *src, uint8_t *dest, uint32_t Len);
+  uint16_t (* Write)(uint8_t *src, uint32_t Alt, uint32_t Len, uint32_t BlockNumber);
+  uint8_t *(* Read)(uint32_t Alt, uint8_t *dest, uint32_t Len, uint32_t BlockNumber);
   uint16_t (* GetStatus)(uint32_t Add, uint8_t cmd, uint8_t *buff);
 } USBD_DFU_MediaTypeDef;
 

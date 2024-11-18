@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2015 STMicroelectronics.
+  * Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -215,10 +215,10 @@ __ALIGN_BEGIN static uint8_t USBD_DFU_CfgDesc[USB_DFU_CONFIG_DESC_SIZ] __ALIGN_E
   /******************** DFU Functional Descriptor********************/
   0x09,                                                /* blength = 9 Bytes */
   DFU_DESCRIPTOR_TYPE,                                 /* DFU Functional Descriptor */
-  0x0B,                                                /* bmAttribute:
+  0x0F,                                                /* bmAttribute:
                                                           bitCanDnload             = 1      (bit 0)
                                                           bitCanUpload             = 1      (bit 1)
-                                                          bitManifestationTolerant = 0      (bit 2)
+                                                          bitManifestationTolerant = 1      (bit 2)
                                                           bitWillDetach            = 1      (bit 3)
                                                           Reserved                          (bit4-6)
                                                           bitAcceleratedST         = 0      (bit 7) */
@@ -227,7 +227,7 @@ __ALIGN_BEGIN static uint8_t USBD_DFU_CfgDesc[USB_DFU_CONFIG_DESC_SIZ] __ALIGN_E
   /* WARNING: In DMA mode the multiple MPS packets feature is still not supported
    ==> In this case, when using DMA USBD_DFU_XFER_SIZE should be set to 64 in usbd_conf.h */
   TRANSFER_SIZE_BYTES(USBD_DFU_XFER_SIZE),       /* TransferSize = 1024 Byte */
-  0x1A,                                /* bcdDFUVersion */
+  0x10,                                /* bcdDFUVersion */
   0x01
   /***********************************************************/
   /* 9*/
@@ -520,8 +520,6 @@ static uint8_t USBD_DFU_EP0_RxReady(USBD_HandleTypeDef *pdev)
   */
 static uint8_t  USBD_DFU_EP0_TxReady(USBD_HandleTypeDef *pdev)
 {
-  USBD_SetupReqTypedef req;
-  uint32_t addr;
   USBD_DFU_HandleTypeDef *hdfu = (USBD_DFU_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
   USBD_DFU_MediaTypeDef *DfuInterface = (USBD_DFU_MediaTypeDef *)pdev->pUserData[pdev->classId];
 
@@ -532,67 +530,10 @@ static uint8_t  USBD_DFU_EP0_TxReady(USBD_HandleTypeDef *pdev)
 
   if (hdfu->dev_state == DFU_STATE_DNLOAD_BUSY)
   {
-    /* Decode the Special Command */
-    if (hdfu->wblock_num == 0U)
+    /* Perform the write operation */
+    if (DfuInterface->Write(hdfu->buffer.d8, hdfu->alt_setting, hdfu->wlength, hdfu->wblock_num) != USBD_OK)
     {
-      if (hdfu->wlength == 1U)
-      {
-        if (hdfu->buffer.d8[0] == DFU_CMD_GETCOMMANDS)
-        {
-          /* Nothing to do */
-        }
-      }
-      else if (hdfu->wlength == 5U)
-      {
-        if (hdfu->buffer.d8[0] == DFU_CMD_SETADDRESSPOINTER)
-        {
-          hdfu->data_ptr = hdfu->buffer.d8[1];
-          hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[2] << 8;
-          hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[3] << 16;
-          hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[4] << 24;
-        }
-        else if (hdfu->buffer.d8[0] == DFU_CMD_ERASE)
-        {
-          hdfu->data_ptr = hdfu->buffer.d8[1];
-          hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[2] << 8;
-          hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[3] << 16;
-          hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[4] << 24;
-
-          if (DfuInterface->Erase(hdfu->data_ptr) != USBD_OK)
-          {
-            return (uint8_t)USBD_FAIL;
-          }
-        }
-        else
-        {
-          return (uint8_t)USBD_FAIL;
-        }
-      }
-      else
-      {
-        /* Reset the global length and block number */
-        hdfu->wlength = 0U;
-        hdfu->wblock_num = 0U;
-        /* Call the error management function (command will be NAKed) */
-        req.bmRequest = 0U;
-        req.wLength = 1U;
-        USBD_CtlError(pdev, &req);
-      }
-    }
-    /* Regular Download Command */
-    else
-    {
-      if (hdfu->wblock_num > 1U)
-      {
-        /* Decode the required address */
-        addr = ((hdfu->wblock_num - 2U) * USBD_DFU_XFER_SIZE) + hdfu->data_ptr;
-
-        /* Perform the write operation */
-        if (DfuInterface->Write(hdfu->buffer.d8, (uint8_t *)addr, hdfu->wlength) != USBD_OK)
-        {
-          return (uint8_t)USBD_FAIL;
-        }
-      }
+      return (uint8_t)USBD_FAIL;
     }
 
     /* Reset the global length and block number */
@@ -664,7 +605,26 @@ static uint8_t *USBD_DFU_GetUsrStringDesc(USBD_HandleTypeDef *pdev, uint8_t inde
   /* Check if the requested string interface is supported */
   if (index <= (USBD_IDX_INTERFACE_STR + USBD_DFU_MAX_ITF_NUM))
   {
-    USBD_GetString((uint8_t *)DfuInterface->pStrDesc, USBD_StrDesc, length);
+    if (index == (USBD_IDX_INTERFACE_STR + 1))
+    {
+      USBD_GetString((uint8_t *)FL_DESC_STR, USBD_StrDesc, length);
+    }
+    else if ((index == (USBD_IDX_INTERFACE_STR + 2)))
+    {
+      USBD_GetString((uint8_t *)FSBL_EXT_DESC_STR, USBD_StrDesc, length);
+    }
+    else if ((index == (USBD_IDX_INTERFACE_STR + 3)))
+    {
+      USBD_GetString((uint8_t *)FSBL_APP_DESC_STR, USBD_StrDesc, length);
+    }
+    else if ((index == (USBD_IDX_INTERFACE_STR + 4)))
+    {
+      USBD_GetString((uint8_t *)DfuInterface->pStrDesc, USBD_StrDesc, length);
+    }
+    else
+    {
+      USBD_GetString((uint8_t *)FSBL_TESTAPP_DESC_STR, USBD_StrDesc, length);
+    }
     return USBD_StrDesc;
   }
   else
@@ -762,7 +722,6 @@ static void DFU_Download(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
   {
     return;
   }
-
   /* Data setup request */
   if (req->wLength > 0U)
   {
@@ -819,7 +778,6 @@ static void DFU_Upload(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
   USBD_DFU_HandleTypeDef *hdfu = (USBD_DFU_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
   USBD_DFU_MediaTypeDef *DfuInterface = (USBD_DFU_MediaTypeDef *)pdev->pUserData[pdev->classId];
   uint8_t *phaddr;
-  uint32_t addr;
 
   if (hdfu == NULL)
   {
@@ -835,54 +793,18 @@ static void DFU_Upload(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
       hdfu->wblock_num = req->wValue;
       hdfu->wlength = MIN(req->wLength, USBD_DFU_XFER_SIZE);
 
-      /* DFU Get Command */
-      if (hdfu->wblock_num == 0U)
-      {
-        /* Update the state machine */
-        hdfu->dev_state = (hdfu->wlength > 3U) ? DFU_STATE_IDLE : DFU_STATE_UPLOAD_IDLE;
+      hdfu->dev_state = DFU_STATE_UPLOAD_IDLE;
 
-        hdfu->dev_status[1] = 0U;
-        hdfu->dev_status[2] = 0U;
-        hdfu->dev_status[3] = 0U;
-        hdfu->dev_status[4] = hdfu->dev_state;
+      hdfu->dev_status[1] = 0U;
+      hdfu->dev_status[2] = 0U;
+      hdfu->dev_status[3] = 0U;
+      hdfu->dev_status[4] = hdfu->dev_state;
 
-        /* Store the values of all supported commands */
-        hdfu->buffer.d8[0] = DFU_CMD_GETCOMMANDS;
-        hdfu->buffer.d8[1] = DFU_CMD_SETADDRESSPOINTER;
-        hdfu->buffer.d8[2] = DFU_CMD_ERASE;
+      /* Return the physical address where data are stored */
+      phaddr = DfuInterface->Read(hdfu->alt_setting, hdfu->buffer.d8, hdfu->wlength, hdfu->wblock_num);
 
-        /* Send the status data over EP0 */
-        (void)USBD_CtlSendData(pdev, (uint8_t *)(&(hdfu->buffer.d8[0])), 3U);
-      }
-      else if (hdfu->wblock_num > 1U)
-      {
-        hdfu->dev_state = DFU_STATE_UPLOAD_IDLE;
-
-        hdfu->dev_status[1] = 0U;
-        hdfu->dev_status[2] = 0U;
-        hdfu->dev_status[3] = 0U;
-        hdfu->dev_status[4] = hdfu->dev_state;
-
-        addr = ((hdfu->wblock_num - 2U) * USBD_DFU_XFER_SIZE) + hdfu->data_ptr;
-
-        /* Return the physical address where data are stored */
-        phaddr = DfuInterface->Read((uint8_t *)addr, hdfu->buffer.d8, hdfu->wlength);
-
-        /* Send the status data over EP0 */
-        (void)USBD_CtlSendData(pdev, phaddr, hdfu->wlength);
-      }
-      else  /* unsupported hdfu->wblock_num */
-      {
-        hdfu->dev_state = DFU_ERROR_STALLEDPKT;
-
-        hdfu->dev_status[1] = 0U;
-        hdfu->dev_status[2] = 0U;
-        hdfu->dev_status[3] = 0U;
-        hdfu->dev_status[4] = hdfu->dev_state;
-
-        /* Call the error management function (command will be NAKed */
-        USBD_CtlError(pdev, req);
-      }
+      /* Send the status data over EP0 */
+      (void)USBD_CtlSendData(pdev, phaddr, hdfu->wlength);
     }
     /* Unsupported state */
     else
@@ -934,15 +856,6 @@ static void DFU_GetStatus(USBD_HandleTypeDef *pdev)
         hdfu->dev_status[2] = 0U;
         hdfu->dev_status[3] = 0U;
         hdfu->dev_status[4] = hdfu->dev_state;
-
-        if ((hdfu->wblock_num == 0U) && (hdfu->buffer.d8[0] == DFU_CMD_ERASE))
-        {
-          DfuInterface->GetStatus(hdfu->data_ptr, DFU_MEDIA_ERASE, hdfu->dev_status);
-        }
-        else
-        {
-          DfuInterface->GetStatus(hdfu->data_ptr, DFU_MEDIA_PROGRAM, hdfu->dev_status);
-        }
       }
       else  /* (hdfu->wlength==0)*/
       {
@@ -952,6 +865,7 @@ static void DFU_GetStatus(USBD_HandleTypeDef *pdev)
         hdfu->dev_status[2] = 0U;
         hdfu->dev_status[3] = 0U;
         hdfu->dev_status[4] = hdfu->dev_state;
+
       }
       break;
 
@@ -986,6 +900,7 @@ static void DFU_GetStatus(USBD_HandleTypeDef *pdev)
 
   /* Send the status data over EP0 */
   (void)USBD_CtlSendData(pdev, (uint8_t *)(&(hdfu->dev_status[0])), 6U);
+
 }
 
 /**
@@ -1119,9 +1034,6 @@ static void DFU_Leave(USBD_HandleTypeDef *pdev)
     /* Disconnect the USB device */
     (void)USBD_Stop(pdev);
 
-    /* Generate system reset to allow jumping to the user code */
-    NVIC_SystemReset();
-
     /* The next instructions will not be reached (system reset) */
   }
 }
@@ -1171,4 +1083,3 @@ static void *USBD_DFU_GetDfuFuncDesc(uint8_t *pConfDesc)
 /**
   * @}
   */
-
